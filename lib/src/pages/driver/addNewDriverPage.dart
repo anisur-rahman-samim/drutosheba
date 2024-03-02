@@ -191,7 +191,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             sizeH40,
             primaryButton(
               buttonName: 'নতুন ড্রাইভার যোগ করুন',
-              onTap: () => Get.to(BottombarHome()),
+              onTap: () => Get.to(() => BottombarHome()),
             ),
             sizeH20,
           ],

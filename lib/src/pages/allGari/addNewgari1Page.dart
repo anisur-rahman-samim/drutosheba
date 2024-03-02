@@ -124,7 +124,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
               height: 45,
               buttonName: 'গাড়ির তথ্য সেভ করুন',
               fontSize: 14,
-              onTap: () => Get.to(BottombarHome()),
+              onTap: () => Get.to(() => BottombarHome()),
             ),
             sizeH30,
           ],

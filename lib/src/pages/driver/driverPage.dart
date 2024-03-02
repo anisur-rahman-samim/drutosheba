@@ -92,8 +92,8 @@ class DriverPage extends StatelessWidget {
       // ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryColor,
-        onPressed: () => Get.to(
-          AddNewDriverPage(),
+        onPressed: () => Get.to(() =>
+            AddNewDriverPage(),
         ),
         child: Icon(
           Icons.add,

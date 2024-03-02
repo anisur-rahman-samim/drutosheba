@@ -37,7 +37,7 @@ class GariListPage extends StatelessWidget {
                 return Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: CustomCardWidget(
-                    onTap: () => Get.to(GariDetailsPage()),
+                    onTap: () => Get.to(() => GariDetailsPage()),
                     radius: 10,
                     elevation: 0,
                     child: Padding(
@@ -91,7 +91,7 @@ class GariListPage extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () => Get.to(AddNewGariPage(
+                                    onTap: () => Get.to(() => AddNewGariPage(
                                       isEditPage: true,
                                     )),
                                     borderRadius: BorderRadius.circular(30),
@@ -171,7 +171,7 @@ class GariListPage extends StatelessWidget {
       //   ),
       // ),
       floatingActionButton: GestureDetector(
-        onTap: () => Get.to(AddNewGariPage()),
+        onTap: () => Get.to(() => AddNewGariPage()),
         child: Container(
           decoration: BoxDecoration(
             color: primaryColor,

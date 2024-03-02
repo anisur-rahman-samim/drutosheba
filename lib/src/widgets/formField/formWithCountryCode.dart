@@ -45,7 +45,7 @@ formWithCountryCode({
                 ),
                 sizeW10,
                 KText(
-                  text: '+880',
+                  text: '+88',
                   color: black,
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
@@ -58,7 +58,6 @@ formWithCountryCode({
                   ),
                   child: Container(
                     width: 1,
-
                     // height: 50,
                     color: grey.shade500,
                   ),

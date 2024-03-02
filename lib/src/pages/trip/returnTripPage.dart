@@ -21,7 +21,7 @@ class ReturnTripPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: CustomCardWidget(
-              onTap: () => Get.to(ReturnTripHistoryPage()),
+              onTap: () => Get.to(() => ReturnTripHistoryPage()),
               radius: 30,
               color: greyBackgroundColor,
               isPaddingHide: true,

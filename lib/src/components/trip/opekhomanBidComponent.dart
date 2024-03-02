@@ -127,7 +127,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                                     ),
                                     // sizeW5,
                                     Container(
-                                      width: Get.width / 2.2,
+                                      width: Get.width / 3.5,
                                       child: KText(
                                         text: 'Panthapath,ঢাকা,বাংলাদেশ',
                                         fontSize: 14,
@@ -149,7 +149,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                                     ),
                                     // sizeW5,
                                     Container(
-                                      width: Get.width / 2.2,
+                                      width: Get.width / 3.5,
                                       // color: primaryColor,
                                       child: KText(
                                         text:

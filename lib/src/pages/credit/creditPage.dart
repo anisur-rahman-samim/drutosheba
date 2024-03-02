@@ -160,57 +160,62 @@ class _CreditPageState extends State<CreditPage> {
                         sizeH5,
                         Divider(),
                         sizeH5,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            primaryButton(
-                              height: 20,
-                              width: 35,
-                              radius: 30,
-                              buttonName: '100',
-                              onTap: () {
-                                setState(() {
-                                  creditController.text = '100';
-                                });
-                              },
-                            ),
-                            sizeW5,
-                            primaryButton(
-                              radius: 30,
-                              height: 20,
-                              width: 35,
-                              buttonName: '200',
-                              onTap: () {
-                                setState(() {
-                                  creditController.text = '200';
-                                });
-                              },
-                            ),
-                            sizeW5,
-                            primaryButton(
-                              height: 20,
-                              radius: 30,
-                              width: 35,
-                              buttonName: '300',
-                              onTap: () {
-                                setState(() {
-                                  creditController.text = '300';
-                                });
-                              },
-                            ),
-                            sizeW5,
-                            primaryButton(
-                              radius: 30,
-                              height: 20,
-                              width: 35,
-                              buttonName: '500',
-                              onTap: () {
-                                setState(() {
-                                  creditController.text = '500';
-                                });
-                              },
-                            ),
-                          ],
+                        SizedBox(
+                          height: 40,
+                          child: ListView(
+                          //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            children: [
+                              primaryButton(
+                                height: 20,
+                                width: 35,
+                                radius: 30,
+                                buttonName: '100',
+                                onTap: () {
+                                  setState(() {
+                                    creditController.text = '100';
+                                  });
+                                },
+                              ),
+                              sizeW5,
+                              primaryButton(
+                                radius: 30,
+                                height: 20,
+                                width: 35,
+                                buttonName: '200',
+                                onTap: () {
+                                  setState(() {
+                                    creditController.text = '200';
+                                  });
+                                },
+                              ),
+                              sizeW5,
+                              primaryButton(
+                                height: 20,
+                                radius: 30,
+                                width: 35,
+                                buttonName: '300',
+                                onTap: () {
+                                  setState(() {
+                                    creditController.text = '300';
+                                  });
+                                },
+                              ),
+                              sizeW5,
+                              primaryButton(
+                                radius: 30,
+                                height: 20,
+                                width: 35,
+                                buttonName: '500',
+                                onTap: () {
+                                  setState(() {
+                                    creditController.text = '500';
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                         sizeH10,
                         Row(
@@ -229,7 +234,7 @@ class _CreditPageState extends State<CreditPage> {
                                 height: 45,
                                 width: 50,
                                 buttonName: 'পরবর্তী',
-                                onTap: () => Get.to(PaymentTypePage()),
+                                onTap: () => Get.to(() => PaymentTypePage()),
                               ),
                             ),
                           ],

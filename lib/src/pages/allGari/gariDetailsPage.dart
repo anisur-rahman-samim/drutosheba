@@ -80,7 +80,7 @@ class GariDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               InkWell(
-                                onTap: () => Get.to(AddNewGariPage(
+                                onTap: () => Get.to(() => AddNewGariPage(
                                   isEditPage: true,
                                 )),
                                 borderRadius: BorderRadius.circular(30),

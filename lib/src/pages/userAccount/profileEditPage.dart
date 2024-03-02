@@ -243,11 +243,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 Expanded(
                   child: genderSelectButton(buttonName: 'পুরুষ'),
                 ),
-                sizeW10,
+                sizeW5,
                 Expanded(
                   child: genderSelectButton(buttonName: 'মহিলা'),
                 ),
-                sizeW10,
+                sizeW5,
                 Expanded(
                   child: genderSelectButton(buttonName: 'অন্যান্য'),
                 ),
@@ -288,7 +288,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             sizeH20,
             primaryButton(
               buttonName: 'আপডেট করুন',
-              onTap: () => Get.to(BottombarHome()),
+              onTap: () => Get.to(() => BottombarHome()),
             ),
             sizeH20,
           ],

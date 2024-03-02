@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
-              onTap: () => Get.to(ProfileEditPage()),
+              onTap: () => Get.to(() => ProfileEditPage()),
               child: Container(
                 decoration: BoxDecoration(
                   color: blue.shade50,
@@ -205,7 +205,7 @@ class ProfilePage extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: GestureDetector(
-          onTap: () => Get.to(ChangePasswordPage()),
+          onTap: () => Get.to(() => ChangePasswordPage()),
           child: Container(
             height: 50,
             decoration: BoxDecoration(

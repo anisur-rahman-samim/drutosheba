@@ -18,7 +18,7 @@ class TripRequestComponent extends StatelessWidget {
         itemCount: 4,
         itemBuilder: ((context, index) {
           return GestureDetector(
-            onTap: () => Get.to(TripDetailsPage()),
+            onTap: () => Get.to(() => TripDetailsPage()),
             child: Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: CustomCardWidget(
@@ -87,7 +87,7 @@ class TripRequestComponent extends StatelessWidget {
                       ),
                       sizeH10,
                       SizedBox(
-                        height: 110,
+                        height: 115,
                         child: Row(
                           children: [
                             Column(

@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 // final primaryColor = Colors.pink;
 // final primaryColor = Colors.blueGrey;
-final primaryColor = HexColor('#b3020a');
+final primaryColor = Colors.black;//HexColor('#b3020a');
 final primaryColor50 = HexColor('#ffe6e5');
 final grey = Colors.grey;
 final blue = Colors.blue;

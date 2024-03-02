@@ -224,7 +224,7 @@ class TripDetailsPage extends StatelessWidget {
                       // sizeW10,
                       Spacer(),
                       KText(
-                        text: 'ট্রিপ DS873344444444EF',
+                        text: 'ট্রিপ DS8734444EF',
                         color: primaryColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -237,7 +237,7 @@ class TripDetailsPage extends StatelessWidget {
                   ),
                   sizeH10,
                   SizedBox(
-                    height: 110,
+                    height: 115,
                     child: Row(
                       children: [
                         Column(
@@ -382,7 +382,7 @@ class TripDetailsPage extends StatelessWidget {
           CustomCardWidget(
             radius: 0,
             elevation: 0,
-            height: 70,
+            height: 75,
             isPaddingHide: true,
             child: Padding(
               padding: paddingV10,

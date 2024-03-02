@@ -87,11 +87,11 @@ class LoginPage extends StatelessWidget {
                     sizeH20,
                     primaryButton(
                       buttonName: 'লগইন',
-                      onTap: () => Get.to(BottombarHome()),
+                      onTap: () => Get.to(() => BottombarHome()),
                     ),
                     sizeH20,
                     GestureDetector(
-                      onTap: () => Get.to(ForgetPasswordPage()),
+                      onTap: () => Get.to(() => ForgetPasswordPage()),
                       child: SizedBox(
                         height: 45,
                         width: Get.width,
@@ -110,7 +110,7 @@ class LoginPage extends StatelessWidget {
                     outlineButton(
                       buttonName: 'রেজিস্টার',
                       fontWeight: FontWeight.normal,
-                      onTap: () => Get.to(RegisterPage()),
+                      onTap: () => Get.to(() => RegisterPage()),
                     ),
                   ],
                 ),

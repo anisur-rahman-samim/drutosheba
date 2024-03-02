@@ -76,14 +76,14 @@ class RegisterPage extends StatelessWidget {
                     sizeH20,
                     primaryButton(
                       buttonName: 'পরবর্তী',
-                      onTap: () => Get.to(OtpPage()),
+                      onTap: () => Get.to(() => OtpPage()),
                     ),
                     SizedBox(
                       height: Get.height / 2.45,
                     ),
                     outlineButton(
                       buttonName: 'লগইন',
-                      onTap: () => Get.to(LoginPage()),
+                      onTap: () => Get.to(() => LoginPage()),
                     )
                   ],
                 ),
