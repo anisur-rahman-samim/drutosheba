@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/pages/welcome/views/welcome_views.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'configs/appTheme.dart';
@@ -9,7 +10,8 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       debugShowCheckedModeBanner: false,
-      home: BottombarHome(),
+      //home: BottombarHome(),
+      home: WelcomeView(),
     );
   }
 }

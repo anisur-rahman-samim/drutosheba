@@ -4,6 +4,7 @@ import 'package:druto_seba_driver/src/pages/credit/creditPage.dart';
 import 'package:druto_seba_driver/src/pages/drawerPage/dashboardPage.dart';
 import 'package:druto_seba_driver/src/pages/drawerPage/leaderBoardPage.dart';
 import 'package:druto_seba_driver/src/pages/driver/driverPage.dart';
+import 'package:druto_seba_driver/src/pages/penalty/views/penalty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -16,7 +17,7 @@ import '../drawerPage/helpPage.dart';
 import '../drawerPage/notificationsPage.dart';
 import '../drawerPage/offerPage.dart';
 import '../drawerPage/settingsPage.dart';
-import '../userAccount/profilePage.dart';
+import '../userAccount/views/profilePage.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -167,7 +168,9 @@ class MenuPage extends StatelessWidget {
                 ),
                 sizeH10,
                 _listTile(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => PenaltyView());
+                  },
                   leadingIcon: Ionicons.document_text_outline,
                   title: 'জরিমানা',
                 ),

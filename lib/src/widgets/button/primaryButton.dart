@@ -40,7 +40,7 @@ Widget primaryButton({
               KText(
                 text: buttonName,
                 color: textColor ?? white,
-                fontSize: fontSize ?? 16,
+                fontSize: fontSize ?? 15,
                 fontWeight: FontWeight.w600,
               ),
         ),

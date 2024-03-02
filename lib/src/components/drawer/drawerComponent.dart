@@ -5,7 +5,7 @@ import 'package:druto_seba_driver/src/pages/driver/driverPage.dart';
 import 'package:druto_seba_driver/src/pages/drawerPage/helpPage.dart';
 import 'package:druto_seba_driver/src/pages/drawerPage/settingsPage.dart';
 import 'package:druto_seba_driver/src/pages/drawerPage/tikaPage.dart';
-import 'package:druto_seba_driver/src/pages/userAccount/profilePage.dart';
+import 'package:druto_seba_driver/src/pages/userAccount/views/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';

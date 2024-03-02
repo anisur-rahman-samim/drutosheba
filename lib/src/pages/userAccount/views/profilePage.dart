@@ -1,10 +1,10 @@
 import 'package:druto_seba_driver/src/pages/auth/changePasswordPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../widgets/text/kText.dart';
-import '../auth/forgetPasswordPage.dart';
+import '../../../configs/appColors.dart';
+import '../../../configs/appUtils.dart';
+import '../../../widgets/text/kText.dart';
+import '../../auth/forgetPasswordPage.dart';
 import 'profileEditPage.dart';
 
 class ProfilePage extends StatelessWidget {

@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/pages/home/bottomBarHome.dart';
+import 'package:druto_seba_driver/src/pages/userAccount/controller/profile_edit_controller.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/requiredForm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../widgets/text/kText.dart';
+import '../../../configs/appColors.dart';
+import '../../../configs/appUtils.dart';
+import '../../../widgets/text/kText.dart';
 
 class ProfileEditPage extends StatefulWidget {
   @override
@@ -15,6 +19,9 @@ class ProfileEditPage extends StatefulWidget {
 }
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
+  final ProfileEditController profileEditController =
+      Get.put(ProfileEditController());
+
   String selectedValidation = 'এনআইডি';
   String gender = 'পুরুষ';
 
@@ -30,7 +37,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         ),
         backgroundColor: white,
       ),
-      body: Padding(
+      body: Obx(() => Padding(
         padding: paddingH20,
         child: ListView(
           children: [
@@ -46,18 +53,40 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
-                CircleAvatar(
-                  backgroundColor: blue,
-                  radius: 50,
-                  backgroundImage: AssetImage(
-                    'assets/img/profile.png',
+                profileEditController.imagePath.isEmpty
+                    ? Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/img/profile.png',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+                    : Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: FileImage(
+                        File(profileEditController.imagePath.value),
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Positioned(
                   right: 120,
                   bottom: -10,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      profileEditController.pickImage(ImageSource.gallery);
+                    },
                     icon: CircleAvatar(
                       radius: 13,
                       backgroundColor: grey.shade300,
@@ -97,7 +126,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       color: selectedValidation == 'এনআইডি' ? null : white,
                       borderColor: selectedValidation == 'এনআইডি' ? null : grey,
                       textColor:
-                          selectedValidation == 'এনআইডি' ? white : primaryColor,
+                      selectedValidation == 'এনআইডি' ? white : primaryColor,
                       onTap: () {
                         setState(() {
                           selectedValidation = 'এনআইডি';
@@ -110,7 +139,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       height: 40,
                       buttonName: 'পাসপোর্ট',
                       borderColor:
-                          selectedValidation == 'পাসপোর্ট' ? null : grey,
+                      selectedValidation == 'পাসপোর্ট' ? null : grey,
                       textColor: selectedValidation == 'পাসপোর্ট'
                           ? white
                           : primaryColor,
@@ -130,80 +159,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               labelText: '$selectedValidation নম্বর',
               requiredText: '',
             ),
-            // Row(
-            //   children: [
-            //     Radio(
-            //       value: 'এনআইডি',
-            //       groupValue: selectedValidation,
-            //       activeColor: primaryColor,
-            //       onChanged: (String? value) {
-            //         setState(() {
-            //           selectedValidation = value!;
-            //         });
-            //       },
-            //     ),
-            //     KText(
-            //       text: 'এনআইডি',
-            //       fontSize: 14,
-            //     ),
-            //     Radio(
-            //       value: 'পাসপোর্ট',
-            //       groupValue: selectedValidation,
-            //       activeColor: primaryColor,
-            //       onChanged: (String? value) {
-            //         setState(() {
-            //           selectedValidation = value!;
-            //         });
-            //       },
-            //     ),
-            //     KText(
-            //       text: 'পাসপোর্ট',
-            //       fontSize: 14,
-            //     ),
-            //   ],
-            // ),
-            // customFormField(
-            //   height: 45,
-            //   outlineColor: grey.shade200,
-            // ),
-            sizeH10,
-
-            // Row(
-            //   children: [
-            //     KText(
-            //       text: '$selectedValidation সামনের ছবি',
-            //       fontSize: 16,
-            //       fontWeight: FontWeight.w600,
-            //     ),
-            //     // KText(
-            //     //   text: ' *',
-            //     //   fontSize: 16,
-            //     //   color: primaryColor,
-            //     //   fontWeight: FontWeight.w600,
-            //     // ),
-            //   ],
-            // ),
-            // sizeH10,
-            // roundedRectBorderWidget(),
-            // sizeH10,
-            // Row(
-            //   children: [
-            //     KText(
-            //       text: '$selectedValidation পিছনের ছবি',
-            //       fontSize: 16,
-            //       fontWeight: FontWeight.w600,
-            //     ),
-            //     // KText(
-            //     //   text: ' *',
-            //     //   fontSize: 16,
-            //     //   color: primaryColor,
-            //     //   fontWeight: FontWeight.w600,
-            //     // ),
-            //   ],
-            // ),
-            // sizeH10,
-            // roundedRectBorderWidget(),
-
             sizeH10,
             requiredForm(
               title: 'ইমেইল',
@@ -253,38 +208,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 ),
               ],
             ),
-            // Row(
-            //   children: [
-            //     Radio(
-            //       value: 'পুরুষ',
-            //       groupValue: gender,
-            //       activeColor: primaryColor,
-            //       onChanged: (String? value) {
-            //         setState(() {
-            //           gender = value!;
-            //         });
-            //       },
-            //     ),
-            //     KText(
-            //       text: 'পুরুষ',
-            //       fontSize: 14,
-            //     ),
-            //     Radio(
-            //       value: 'মহিলা',
-            //       groupValue: gender,
-            //       activeColor: primaryColor,
-            //       onChanged: (String? value) {
-            //         setState(() {
-            //           gender = value!;
-            //         });
-            //       },
-            //     ),
-            //     KText(
-            //       text: 'মহিলা',
-            //       fontSize: 14,
-            //     ),
-            //   ],
-            // ),
             sizeH20,
             primaryButton(
               buttonName: 'আপডেট করুন',
@@ -293,7 +216,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             sizeH20,
           ],
         ),
-      ),
+      ))
     );
   }
 

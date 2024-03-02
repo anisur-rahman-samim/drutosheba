@@ -21,6 +21,11 @@ dependencies:
   pinput: ^2.2.10
   google_fonts: ^4.0.1
   dotted_border: ^2.0.0+3
+
+  #image_picker:
+  image_picker: ^1.0.7
+
+
  
 
 dev_dependencies:

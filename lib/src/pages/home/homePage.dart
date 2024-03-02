@@ -4,7 +4,7 @@ import 'package:druto_seba_driver/src/pages/credit/creditPage.dart';
 import 'package:druto_seba_driver/src/pages/drawerPage/notificationsPage.dart';
 import 'package:druto_seba_driver/src/pages/trip/returnTripPage.dart';
 import 'package:druto_seba_driver/src/pages/trip/tripRequestPage.dart';
-import 'package:druto_seba_driver/src/pages/userAccount/profilePage.dart';
+import 'package:druto_seba_driver/src/pages/userAccount/views/profilePage.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/header_title/header_title.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
