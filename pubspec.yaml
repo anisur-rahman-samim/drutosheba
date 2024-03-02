@@ -1,0 +1,42 @@
+name: druto_seba_driver
+description: A new Flutter project.
+ 
+publish_to: 'none'  
+ 
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.1 <3.0.0"
+ 
+dependencies:
+  flutter:
+    sdk: flutter
+ 
+  cupertino_icons: ^1.0.2
+  get:
+  hexcolor:
+  # google_fonts:
+  ionicons: ^0.2.2
+  # dotted_border: 
+  pinput: ^2.2.10
+  google_fonts: ^4.0.1
+  dotted_border: ^2.0.0+3
+ 
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.11.0
+ 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/img/logo.jpg"
+ 
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/img/
+    - assets/icon/
+ 
