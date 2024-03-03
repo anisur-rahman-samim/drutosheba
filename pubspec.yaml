@@ -25,6 +25,9 @@ dependencies:
   #image_picker:
   image_picker: ^1.0.7
 
+  bottom_picker: ^2.4.0
+  flutter_mapbox_autocomplete: any
+
 
  
 

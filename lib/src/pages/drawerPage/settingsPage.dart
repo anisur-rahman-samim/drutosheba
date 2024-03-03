@@ -11,6 +11,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   String vibration = 'চালু';
   String sound = 'চালু';
+  bool vibrationValue = true;
+  bool soundValue = true;
 
   @override
   Widget build(BuildContext context) {
@@ -26,100 +28,45 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: paddingH20V20,
         child: ListView(children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               KText(
                 text: 'ভাইব্রেশন',
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
-              KText(
-                text: '',
-                fontSize: 16,
-                color: primaryColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Radio(
-                value: 'চালু',
-                groupValue: vibration,
-                activeColor: primaryColor,
-                onChanged: (String? value) {
+              Switch(
+                value: vibrationValue,
+                onChanged: (value) {
                   setState(() {
-                    vibration = value!;
+                    vibrationValue = value;
                   });
+                  print(vibrationValue);
                 },
-              ),
-              KText(
-                text: 'চালু',
-                fontSize: 14,
-              ),
-              Radio(
-                value: 'বন্ধ',
-                groupValue: vibration,
-                activeColor: primaryColor,
-                onChanged: (String? value) {
-                  setState(() {
-                    vibration = value!;
-                  });
-                },
-              ),
-              KText(
-                text: 'বন্ধ',
-                fontSize: 14,
               ),
             ],
           ),
           sizeH20,
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               KText(
                 text: 'সাউন্ড',
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
-              KText(
-                text: '',
-                fontSize: 16,
-                color: primaryColor,
-                fontWeight: FontWeight.w600,
+              Switch(
+                value: soundValue,
+                onChanged: (value) {
+                  setState(() {
+                    soundValue = value;
+                  });
+                  print(soundValue);
+                },
               ),
             ],
           ),
-          Row(
-            children: [
-              Radio(
-                value: 'চালু',
-                groupValue: sound,
-                activeColor: primaryColor,
-                onChanged: (String? value) {
-                  setState(() {
-                    sound = value!;
-                  });
-                },
-              ),
-              KText(
-                text: 'চালু',
-                fontSize: 14,
-              ),
-              Radio(
-                value: 'বন্ধ',
-                groupValue: sound,
-                activeColor: primaryColor,
-                onChanged: (String? value) {
-                  setState(() {
-                    sound = value!;
-                  });
-                },
-              ),
-              KText(
-                text: 'বন্ধ',
-                fontSize: 14,
-              ),
-            ],
-          ),
+
         ]),
       ),
     );

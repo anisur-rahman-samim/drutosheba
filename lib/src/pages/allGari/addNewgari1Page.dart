@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/pages/allGari/controller/add_gari_controller.dart';
 import 'package:druto_seba_driver/src/pages/home/bottomBarHome.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddNewGari1Page extends StatefulWidget {
   @override
@@ -15,6 +19,8 @@ class AddNewGari1Page extends StatefulWidget {
 class _AddNewGari1PageState extends State<AddNewGari1Page> {
   String airCondition = 'এসি';
   String selectedNidOrLicense = 'এনআইডি';
+
+  final AddGariController addGariController = Get.put(AddGariController());
 
   var selectedCar = RxString('');
   @override
@@ -27,28 +33,63 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
       //     color: white,
       //   ),
       // ),
-      body: Padding(
+      body: Obx(() => Padding(
         padding: paddingH20,
         child: ListView(
           children: [
             sizeH20,
 
             _addImage(
+              onTap: (){
+                addGariController.pickImage(ImageSource.gallery);
+              },
               titleText: 'গাড়ির সামনের ছবি',
+              imageData: addGariController.imagePath.isEmpty?  Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ):  Container(
+                /*width: 100,
+          height: 100,*/
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(addGariController.imagePath.value),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
             selectedCar.value == 'Truck' ? sizeW10 : sizeH20,
             selectedCar.value == 'Truck'
                 ? sizeW10
                 : _addImage(
-                    titleText: 'গাড়ির ভিতরে ছবি',
-                  ),
+              titleText: 'গাড়ির ভিতরে ছবি',
+              imageData: Icon(
+              Icons.add_a_photo_outlined,
+              size: 30,
+              color: grey.shade400,
+            ),
+            ),
             sizeH20,
             _addImage(
               titleText: 'নম্বর প্লেট সহ গাড়ির পিছনের ছবি',
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             sizeH20,
             _addImage(
               titleText: 'রেজিস্ট্রেশন পেপার ছবি',
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             sizeH10,
             Divider(),
@@ -57,67 +98,64 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
               titleText: 'বাস, ট্রাক রুট পারমিটের কাগজ',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             sizeH20,
             _addImage(
               titleText: 'ফিটনেস পেপার ছবি',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             sizeH20,
             _addImage(
               titleText: 'ট্যাক্স টোকেন পেপার ছবি',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             sizeH20,
             _addImage(
               titleText: 'ইন্সুরেন্স পেপার ছবি',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             // sizeH10,
             // Divider(),
             sizeH20,
-            // Row(
-            //   children: [
-            //     Radio(
-            //       value: 'এনআইডি',
-            //       groupValue: selectedNidOrLicense,
-            //       activeColor: primaryColor,
-            //       onChanged: (String? value) {
-            //         setState(() {
-            //           selectedNidOrLicense = value!;
-            //         });
-            //       },
-            //     ),
-            //     KText(
-            //       text: 'এনআইডি',
-            //       fontSize: 14,
-            //     ),
-            //     Radio(
-            //       value: 'ড্রাইভিং লাইসেন্স',
-            //       groupValue: selectedNidOrLicense,
-            //       activeColor: primaryColor,
-            //       onChanged: (String? value) {
-            //         setState(() {
-            //           selectedNidOrLicense = value!;
-            //         });
-            //       },
-            //     ),
-            //     KText(
-            //       text: 'ড্রাইভিং লাইসেন্স',
-            //       fontSize: 14,
-            //     ),
-            //   ],
-            // ),
-            // sizeH20,
             _addImage(
               titleText: 'ড্রাইভিং লাইসেন্স সামনের ছবি',
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             sizeH20,
             _addImage(
               titleText: 'ড্রাইভিং লাইসেন্স পিছনের ছবি',
+              imageData: Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ),
             ),
             sizeH40,
             primaryButton(
@@ -129,7 +167,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
             sizeH30,
           ],
         ),
-      ),
+      ),)
     );
   }
 
@@ -138,6 +176,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
     void Function()? onTap,
     String? rigthSideText,
     double? textSize,
+   required Widget imageData,
   }) {
     return Column(
       children: [
@@ -157,12 +196,12 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
           ],
         ),
         sizeH10,
-        roundedRectBorderWidget(onTap: onTap),
+        roundedRectBorderWidget(onTap: onTap, imageData: imageData ),
       ],
     );
   }
 
-  Widget roundedRectBorderWidget({void Function()? onTap}) {
+  Widget roundedRectBorderWidget({void Function()? onTap, required Widget imageData}) {
     return GestureDetector(
       onTap: onTap,
       child: DottedBorder(
@@ -178,11 +217,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
           child: Container(
             height: 100,
             width: Get.width,
-            child: Icon(
-              Icons.add_a_photo_outlined,
-              size: 30,
-              color: grey.shade400,
-            ),
+            child: imageData
           ),
         ),
       ),

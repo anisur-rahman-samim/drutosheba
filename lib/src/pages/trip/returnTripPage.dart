@@ -1,13 +1,21 @@
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:bottom_picker/resources/arrays.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
+import 'package:druto_seba_driver/src/pages/trip/controller/return_trip_controller.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../configs/appUtils.dart';
+import '../../dummyData/rentalData.dart';
+import '../../widgets/bottomSheet/customBottomSheet.dart';
 import '../../widgets/card/customCardWidget.dart';
+import '../../widgets/formField/dropDownForm.dart';
 import 'returnTripHistoryPage.dart';
 
 class ReturnTripPage extends StatelessWidget {
+  final ReturnTripController returnTripController = Get.put(ReturnTripController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,19 +133,213 @@ class ReturnTripPage extends StatelessWidget {
             child: Column(
               children: [
                 _button(
-                  onTap: () {},
+                  onTap: () {
+                    BottomPicker.date(
+                      title: 'তারিখ সিলেক্ট করুন',
+                      dateOrder: DatePickerDateOrder.dmy,
+                      initialDateTime: DateTime(1996, 10, 22),
+                      maxDateTime: DateTime(1998),
+                      minDateTime: DateTime(1980),
+                      pickerTextStyle: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                      titleStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.blue,
+                      ),
+                      onChange: (index) {
+                        print(index.toString() + "jjjjj");
+                      },
+                      onSubmit: (index) {
+                        print(index.toString() + "mmmm");
+                      },
+                      bottomPickerTheme: BottomPickerTheme.plumPlate,
+                      buttonStyle: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.blue[200]!,
+                        ),
+                      ),
+                      buttonWidth: 200,
+                      buttonContent: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Select date',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.white,
+                              size: 15,
+                            )
+                          ],
+                        ),
+                      ),
+                    ).show(context);
+                  },
                   title: 'তারিখ সিলেক্ট করুন',
                   icon: Icons.calendar_month,
                 ),
                 Divider(),
                 _button(
-                  onTap: () {},
+                  onTap: () {
+
+                    BottomPicker.time(
+                      title: 'Set your next meeting time',
+                      titleStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.orange,
+                      ),
+                      onSubmit: (index) {
+                        print(index);
+                      },
+                      onClose: () {
+                        print('Picker closed');
+                      },
+                      bottomPickerTheme: BottomPickerTheme.orange,
+                      use24hFormat: true,
+                      initialTime: Time(
+                        minutes: 23,
+                      ),
+                      maxTime: Time(
+                        hours: 17,
+                      ),
+                    ).show(context);
+                  },
                   title: 'সময় সিলেক্ট করুন',
                   icon: Icons.access_time_outlined,
                 ),
                 Divider(),
                 _button(
-                  onTap: () {},
+                  onTap: () {
+                    dropDownForm(
+                      onTap: () => customBottomSheet(
+                        context: context,
+                        height: Get.height / 1.4,
+                        child: ListView(
+                          shrinkWrap: true,
+                          primary: false,
+                          children: [
+                            Center(
+                              child: KText(
+                                text: 'গাড়ি নির্বাচন করুন',
+                                fontSize: 18,
+                              ),
+                            ),
+                            Divider(),
+                            sizeH10,
+                            Container(
+                              height: Get.height / 1.7,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemCount: rentalData.length,
+                                  itemBuilder: (c, i) {
+                                    final item = rentalData[i];
+                                    return InkWell(
+                                      borderRadius:
+                                      BorderRadius.circular(5),
+                                      onTap: () {
+
+                                          returnTripController.selectedCar.value =
+                                              item.title.toString();
+                                          returnTripController.selectedCarCapacity.value =
+                                              item.description.toString();
+                                          returnTripController.selectedCarImage.value =
+                                              item.image.toString();
+                                          Get.back();
+
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              item.image.toString(),
+                                              width: 50,
+                                              // width: Get.width / 6,
+                                            ),
+                                            sizeW20,
+                                            SizedBox(
+                                              width: Get.width / 1.5,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  KText(
+                                                    text: item.title,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                  ),
+                                                  SizedBox(width: 3),
+                                                  KText(
+                                                    text: item.description,
+                                                    fontSize: 12,
+                                                    color: black45,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            CircleAvatar(
+                                              radius: 10,
+                                              backgroundColor:
+                                              returnTripController.selectedCar.value == item.title
+                                                  ? primaryColor
+                                                  : grey,
+                                              child: CircleAvatar(
+                                                backgroundColor:
+                                                returnTripController.selectedCar.value ==
+                                                    item.title
+                                                    ? primaryColor
+                                                    : white,
+                                                radius: 9,
+                                                child: returnTripController.selectedCar.value ==
+                                                    item.title
+                                                    ? Icon(
+                                                  Icons.done,
+                                                  size: 15,
+                                                  color: white,
+                                                )
+                                                    : null,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          ],
+                        ),
+                      ),
+                      title: '',
+                      hintText: returnTripController.selectedCar.value.isNotEmpty
+                          ? returnTripController.selectedCar.value
+                          : 'গাড়ির ধরণ',
+                      requiredText: '*',
+                    );
+                  },
                   title: 'গাড়ি সিলেক্ট করুন',
                   icon: Icons.local_taxi_outlined,
                 ),
@@ -189,12 +391,12 @@ class ReturnTripPage extends StatelessWidget {
   }
 
   _button({
-    required void Function() onTap,
+    required Function()? onTap,
     required String? title,
     required IconData? icon,
   }) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(5),
       child: Padding(
         padding: paddingH10V10,
