@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/pages/driver/controller/driver_image_controller.dart';
 import 'package:druto_seba_driver/src/widgets/formField/requiredForm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../configs/appColors.dart';
 import '../../widgets/button/primaryButton.dart';
 import '../../widgets/text/kText.dart';
@@ -15,6 +19,8 @@ class AddNewDriverPage extends StatefulWidget {
 
 class _AddNewDriverPageState extends State<AddNewDriverPage> {
   String gender = 'পুরুষ';
+  final DriverImageController driverImageController =
+      Get.put(DriverImageController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
           color: white,
         ),
       ),
-      body: Padding(
+      body: Obx(() =>  Padding(
         padding: paddingH20,
         child: ListView(
           children: [
@@ -51,17 +57,46 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Image.asset(
+                   /* Image.asset(
                       'assets/img/profile.png',
                       height: 100,
                       width: 100,
+                    ),*/
+                    driverImageController.profileImagePath.isEmpty
+                        ? Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/img/profile.png',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                        : Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: FileImage(
+                            File(driverImageController.profileImagePath.value),
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     Positioned(
                       right: -20,
                       bottom: 30,
                       child: IconButton(
                         tooltip: 'Add Photo',
-                        onPressed: () {},
+                        onPressed: () {
+                            driverImageController.profilePickImage(ImageSource.gallery);
+                        },
                         icon: CircleAvatar(
                           radius: 15,
                           backgroundColor: grey.shade200,
@@ -179,14 +214,75 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
               ],
             ),
             sizeH10,
-            roundedRectBorderWidget(),
+            roundedRectBorderWidget(
+              onTap: () {
+                driverImageController.drivingLicencePickImage(ImageSource.gallery);
+              },
+              imageData: driverImageController.drivingLicenceImagePath.isEmpty
+                  ? Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              )
+                  : Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(driverImageController.drivingLicenceImagePath.value),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
             sizeH10,
             _addImage(
+              onTap: () {
+                driverImageController.nidFrontPickImage(ImageSource.gallery);
+              },
               titleText: 'এনআইডি সামনের ছবি',
+              imageData: driverImageController.nidFrontImagePath.isEmpty
+                  ? Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              )
+                  : Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(driverImageController.nidFrontImagePath.value),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
             sizeH20,
             _addImage(
+              onTap: () {
+                driverImageController.nidBackPickImage(ImageSource.gallery);
+              },
               titleText: 'এনআইডি পিছনের ছবি',
+              imageData: driverImageController.nidBackImagePath.isEmpty
+                  ? Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              )
+                  : Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(driverImageController.nidBackImagePath.value),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
             sizeH40,
             primaryButton(
@@ -196,11 +292,12 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             sizeH20,
           ],
         ),
-      ),
+      ),)
     );
   }
 
-  Widget roundedRectBorderWidget({void Function()? onTap}) {
+  Widget roundedRectBorderWidget(
+      {void Function()? onTap, required Widget imageData}) {
     return GestureDetector(
       onTap: onTap,
       child: DottedBorder(
@@ -213,15 +310,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
-          child: Container(
-            height: 100,
-            width: Get.width,
-            child: Icon(
-              Icons.add_a_photo_outlined,
-              size: 30,
-              color: grey.shade400,
-            ),
-          ),
+          child: Container(height: 100, width: Get.width, child: imageData),
         ),
       ),
     );
@@ -229,12 +318,11 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
 
   Widget _addImage({
     required String? titleText,
-    void Function()? onTap,
+    required Function()? onTap,
+    required Widget imageData,
   }) {
     return Column(
       children: [
-
-        
         Row(
           children: [
             KText(
@@ -245,7 +333,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
           ],
         ),
         sizeH10,
-        roundedRectBorderWidget(onTap: onTap),
+        roundedRectBorderWidget(onTap: onTap, imageData: imageData),
       ],
     );
   }

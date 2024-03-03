@@ -98,6 +98,7 @@ class DriverPage extends StatelessWidget {
         child: Icon(
           Icons.add,
           size: 30,
+          color: white,
         ),
       ),
     );

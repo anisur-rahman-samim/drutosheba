@@ -49,8 +49,6 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
                 size: 30,
                 color: grey.shade400,
               ):  Container(
-                /*width: 100,
-          height: 100,*/
                 decoration: BoxDecoration(
                   // shape: BoxShape.circle,
                   image: DecorationImage(
