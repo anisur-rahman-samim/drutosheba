@@ -115,55 +115,6 @@ class _HomePageState extends State<HomePage> {
                           ]),
                         ),
                       ),
-                      /*   Obx(
-                () => GestureDetector(
-                  onTap: isShowCreadit.value == true
-                      ? () {
-                          Get.to(CreditPage());
-                          Future.delayed(Duration(seconds: 1)).then(
-                            (value) => isShowCreadit.value = false,
-                          );
-                        }
-                      : () {
-                          isShowCreadit.value = true;
-                        },
-                  child: Container(
-                    width: isShowCreadit.value == true ? 150 : 140,
-                    decoration: BoxDecoration(
-                      color: grey.shade300,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 3,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.credit_card,
-                            color: black,
-                            size: 15,
-                          ),
-                          sizeW10,
-                          KText(
-                            text: isShowCreadit.value == true
-                                ? 'মোট ক্রেডিট 500'
-                                : 'ক্রেডিট দেখুন',
-                            fontSize: 12,
-                          ),
-                          sizeW10,
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: black,
-                            size: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),*/
                     ],
                   ),
                 ],
@@ -197,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: () => Get.to(() => TripRequestPage()),
                     child: Image.asset(
-                      'assets/img/Rental-Trip.png',
+                      'assets/img/Rental-Trip-2.png',
                       width: 230,
                       height: 280,
                     ),
@@ -205,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: () => Get.to(() => ReturnTripPage()),
                     child: Image.asset(
-                      'assets/img/Rental-Trip-2.png',
+                      'assets/img/Rental-Trip.png',
                       width: 230,
                       height: 280,
                     ),

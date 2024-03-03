@@ -20,6 +20,17 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
   String airCondition = 'এসি';
   String selectedNidOrLicense = 'এনআইডি';
 
+  var carFrontImage;
+  var carBackImage;
+  var numberPlatImage;
+  var regPapersImage;
+  var rootPermitImage;
+  var fitnessPapersImage;
+  var texTokenImage;
+  var insuranceImage;
+  var drivingLicenceFront;
+  var drivingLicenceBack;
+
   final AddGariController addGariController = Get.put(AddGariController());
 
   var selectedCar = RxString('');
@@ -40,11 +51,14 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
             sizeH20,
 
             _addImage(
-              onTap: (){
-                addGariController.pickImage(ImageSource.gallery);
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                 setState(() {
+                   carFrontImage = imagePath;
+                 });
               },
               titleText: 'গাড়ির সামনের ছবি',
-              imageData: addGariController.imagePath.isEmpty?  Icon(
+              imageData: carFrontImage == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
@@ -53,7 +67,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
                   // shape: BoxShape.circle,
                   image: DecorationImage(
                     image: FileImage(
-                      File(addGariController.imagePath.value),
+                      File(carFrontImage),
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -64,95 +78,239 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
             selectedCar.value == 'Truck'
                 ? sizeW10
                 : _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  carBackImage = imagePath;
+                });
+              },
               titleText: 'গাড়ির ভিতরে ছবি',
-              imageData: Icon(
-              Icons.add_a_photo_outlined,
-              size: 30,
-              color: grey.shade400,
-            ),
-            ),
-            sizeH20,
-            _addImage(
-              titleText: 'নম্বর প্লেট সহ গাড়ির পিছনের ছবি',
-              imageData: Icon(
+              imageData: carBackImage == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(carBackImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             sizeH20,
             _addImage(
-              titleText: 'রেজিস্ট্রেশন পেপার ছবি',
-              imageData: Icon(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  numberPlatImage = imagePath;
+                });
+              },
+              titleText: 'নম্বর প্লেট সহ গাড়ির পিছনের ছবি',
+              imageData: numberPlatImage == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(numberPlatImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            sizeH20,
+            _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  regPapersImage = imagePath;
+                });
+              },
+              titleText: 'রেজিস্ট্রেশন পেপার ছবি',
+              imageData: regPapersImage == null?  Icon(
+                Icons.add_a_photo_outlined,
+                size: 30,
+                color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(regPapersImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             sizeH10,
             Divider(),
             sizeH10,
             _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  rootPermitImage = imagePath;
+                });
+              },
               titleText: 'বাস, ট্রাক রুট পারমিটের কাগজ',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
-              imageData: Icon(
+              imageData: rootPermitImage == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(rootPermitImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             sizeH20,
             _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  fitnessPapersImage = imagePath;
+                });
+              },
               titleText: 'ফিটনেস পেপার ছবি',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
-              imageData: Icon(
+              imageData: fitnessPapersImage == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(fitnessPapersImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             sizeH20,
             _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  texTokenImage = imagePath;
+                });
+              },
               titleText: 'ট্যাক্স টোকেন পেপার ছবি',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
-              imageData: Icon(
+              imageData: texTokenImage == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(texTokenImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             sizeH20,
             _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  insuranceImage = imagePath;
+                });
+              },
               titleText: 'ইন্সুরেন্স পেপার ছবি',
               rigthSideText: ' (অপশনাল)',
               textSize: 12,
-              imageData: Icon(
+              imageData: insuranceImage == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(insuranceImage),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             // sizeH10,
             // Divider(),
             sizeH20,
             _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  drivingLicenceFront = imagePath;
+                });
+              },
               titleText: 'ড্রাইভিং লাইসেন্স সামনের ছবি',
-              imageData: Icon(
+              imageData: drivingLicenceFront == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(drivingLicenceFront),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             sizeH20,
             _addImage(
+              onTap: ()async{
+                String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                setState(() {
+                  drivingLicenceBack = imagePath;
+                });
+              },
               titleText: 'ড্রাইভিং লাইসেন্স পিছনের ছবি',
-              imageData: Icon(
+              imageData: drivingLicenceBack == null?  Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
                 color: grey.shade400,
+              ):  Container(
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: FileImage(
+                      File(drivingLicenceBack),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             sizeH40,

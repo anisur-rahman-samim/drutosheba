@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/pages/trip/tripDetailsPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import '../../configs/appColors.dart';
 import '../../configs/appUtils.dart';
@@ -7,7 +8,30 @@ import '../../widgets/card/customCardWidget.dart';
 import '../../widgets/dottedDivider/dotDivider.dart';
 import '../../widgets/text/kText.dart';
 
-class TripRequestComponent extends StatelessWidget {
+class TripRequestComponent extends StatefulWidget {
+  @override
+  State<TripRequestComponent> createState() => _TripRequestComponentState();
+}
+
+class _TripRequestComponentState extends State<TripRequestComponent> {
+  late FlutterTts flutterTts;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeTts();
+  }
+
+  Future<void> initializeTts() async {
+    flutterTts = FlutterTts();
+    await  flutterTts.setLanguage("bn-BD");
+    await flutterTts.setPitch(1);
+  }
+
+  Future _speak(String text) async {
+    await flutterTts.speak(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -195,6 +219,21 @@ class TripRequestComponent extends StatelessWidget {
                         ),
                       ),
                       sizeH10,
+                      DotDividerWidget(
+                        fillRate: .5,
+                      ),
+                      Container(
+                        width: Get.width,
+                        height: 25,
+                        child: Center(
+                          child: InkWell(
+                              onTap: (){
+                                _speak("পিকআপ লোকেশন,Panthapath,ঢাকা,বাংলাদেশ,ড্রপ লোকেশন, Balipara Bridge,Balipara Bridge,বাংলাদেশ ");
+                                print("test");
+                              },
+                              child: Icon(Icons.volume_up_outlined,color: Colors.red,)),
+                        ),
+                      ),
                       DotDividerWidget(
                         fillRate: .5,
                       ),

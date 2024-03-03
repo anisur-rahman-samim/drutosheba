@@ -5,4 +5,7 @@ class ReturnTripController extends GetxController{
   var selectedCarCapacity = ''.obs;
   var selectedCarImage = ''.obs;
 
+  var dateSelected = 'তারিখ সিলেক্ট করুন'.obs;
+  var timeSelected = 'সময় সিলেক্ট করুন'.obs;
+
 }

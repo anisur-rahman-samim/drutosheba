@@ -307,6 +307,121 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                         ),
                       ),
                       sizeH10,
+                      Obx(
+                            () => dropDownForm(
+                          onTap: () => customBottomSheet(
+                            context: context,
+                            height: Get.height / 1.4,
+                            child: ListView(
+                              shrinkWrap: true,
+                              primary: false,
+                              children: [
+                                Center(
+                                  child: KText(
+                                    text: 'গাড়ি নির্বাচন করুন',
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Divider(),
+                                sizeH10,
+                                Container(
+                                  height: Get.height / 1.7,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      itemCount: rentalData.length,
+                                      itemBuilder: (c, i) {
+                                        final item = rentalData[i];
+                                        return InkWell(
+                                          borderRadius:
+                                          BorderRadius.circular(5),
+                                          onTap: () {
+                                            setState(() {
+                                              selectedCarCapacity =
+                                                  item.description.toString();
+                                              selectedCarImage =
+                                                  item.image.toString();
+                                              Get.back();
+                                            });
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  item.image.toString(),
+                                                  width: 50,
+                                                  // width: Get.width / 6,
+                                                ),
+                                                sizeW20,
+                                                SizedBox(
+                                                  width: Get.width / 1.5,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      KText(
+                                                        text: item.title,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                      ),
+                                                      SizedBox(width: 3),
+                                                      KText(
+                                                        text: item.description,
+                                                        fontSize: 12,
+                                                        color: black45,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                CircleAvatar(
+                                                  radius: 10,
+                                                  backgroundColor:
+                                                  selectedCar.value == item.title
+                                                      ? primaryColor
+                                                      : grey,
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
+                                                    selectedCar.value ==
+                                                        item.title
+                                                        ? primaryColor
+                                                        : white,
+                                                    radius: 9,
+                                                    child: selectedCar.value ==
+                                                        item.title
+                                                        ? Icon(
+                                                      Icons.done,
+                                                      size: 15,
+                                                      color: white,
+                                                    )
+                                                        : null,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                ),
+                              ],
+                            ),
+                          ),
+                          title: '',
+                          hintText: selectedCar.value.isNotEmpty
+                              ? selectedCar.value
+                              : 'গাড়ির ধরণ',
+                          requiredText: '*',
+                        ),
+                      ),
                       requiredForm(
                         title: 'ব্র্যান্ড এর নাম',
                         hintText: 'ব্র্যান্ড এর নাম',

@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/pages/trip/views/map_page_view.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -301,14 +302,19 @@ class TripDetailsPage extends StatelessWidget {
                                       color: grey,
                                     ),
                                   ),
-                                  CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor: grey,
+                                  InkWell(
+                                    onTap: (){
+                                      Get.to(() => MapPage());
+                                    },
                                     child: CircleAvatar(
-                                      radius: 14,
-                                      backgroundColor: white,
-                                      child: Icon(
-                                        Icons.location_on,
+                                      radius: 15,
+                                      backgroundColor: grey,
+                                      child: CircleAvatar(
+                                        radius: 14,
+                                        backgroundColor: white,
+                                        child: Icon(
+                                          Icons.location_on,
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -41,7 +41,7 @@ class CompletedTripPage extends StatelessWidget {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 110,
+                              height: 115,
                               child: Row(
                                 children: [
                                   Column(

@@ -2,6 +2,7 @@ import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/pages/trip/controller/return_trip_controller.dart';
+import 'package:druto_seba_driver/src/pages/trip/views/return_trip_location_select.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ import '../../widgets/bottomSheet/customBottomSheet.dart';
 import '../../widgets/card/customCardWidget.dart';
 import '../../widgets/formField/dropDownForm.dart';
 import 'returnTripHistoryPage.dart';
+import 'package:intl/intl.dart';
 
 class ReturnTripPage extends StatelessWidget {
   final ReturnTripController returnTripController = Get.put(ReturnTripController());
@@ -29,7 +31,7 @@ class ReturnTripPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: CustomCardWidget(
-              onTap: () => Get.to(() => ReturnTripHistoryPage()),
+              onTap: () => Get.to(() => ReturnTripHistoryPage(),transition: Transition.circularReveal),
               radius: 30,
               color: greyBackgroundColor,
               isPaddingHide: true,
@@ -55,75 +57,109 @@ class ReturnTripPage extends StatelessWidget {
         ],
       ),
       backgroundColor: greyBackgroundColor,
-      body: ListView(
+      body: Obx(() => ListView(
         children: [
-          CustomCardWidget(
-            radius: 0,
-            elevation: 0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                sizeH10,
-                KText(
-                  text: 'আপনার লোকেশন ও গন্তব্য প্ৰদান করুন',
-                  fontSize: 14,
-                  color: black54,
-                ),
-                sizeH20,
-                SizedBox(
-                  height: 100,
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.location_pin,
-                            size: 15,
-                          ),
-                          sizeH5,
-                          Container(
-                            height: 50,
-                            width: .5,
-                            color: grey,
-                          ),
-                          sizeH5,
-                          Icon(
-                            Icons.location_pin,
-                            size: 15,
-                          ),
-                        ],
-                      ),
-                      sizeW20,
-                      Expanded(
-                        child: Column(
+          InkWell(
+            onTap: () =>  Get.to(() => ReturnTripLocationSelect()),
+            child: CustomCardWidget(
+              radius: 0,
+              elevation: 0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sizeH10,
+                  KText(
+                    text: 'আপনার লোকেশন ও গন্তব্য প্ৰদান করুন',
+                    fontSize: 14,
+                    color: black54,
+                  ),
+                  sizeH20,
+                  SizedBox(
+                    height: 100,
+                    child: Row(
+                      children: [
+                        Column(
                           children: [
-                            customFormField(
-                              height: 45,
-                              isFilled: true,
-                              hintText: 'পিকআপ',
-                              hintTextSize: 12,
-                              isHintText: true,
-                              filledColor: greyBackgroundColor,
-                              isHideBorder: true,
+                            Icon(
+                              Icons.location_pin,
+                              size: 15,
                             ),
-                            sizeH10,
-                            customFormField(
-                              height: 45,
-                              isFilled: true,
-                              hintText: 'গন্তব্য',
-                              hintTextSize: 12,
-                              isHintText: true,
-                              filledColor: greyBackgroundColor,
-                              isHideBorder: true,
+                            sizeH5,
+                            Container(
+                              height: 50,
+                              width: .5,
+                              color: grey,
+                            ),
+                            sizeH5,
+                            Icon(
+                              Icons.location_pin,
+                              size: 15,
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        sizeW20,
+                        Expanded(
+                          child: Column(
+                            children: [
+                              /*customFormField(
+                                height: 45,
+                                isFilled: true,
+                                hintText: 'পিকআপ',
+                                hintTextSize: 12,
+                                isHintText: true,
+                                filledColor: greyBackgroundColor,
+                                isHideBorder: true,
+                              ),*/
+                              Container(
+                                height: 45,
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                  color: greyBackgroundColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                    child: Text('পিকআপ',style: TextStyle(
+                                      color: black54,
+                                      fontSize: 12,
+
+                                    ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              sizeH10,
+                              Container(
+                                height: 45,
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                  color: greyBackgroundColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                    child: Text('গন্তব্য',style: TextStyle(
+                                      color: black54,
+                                      fontSize: 12,
+
+                                    ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                sizeH10,
-              ],
+                  sizeH10,
+                ],
+              ),
             ),
           ),
           sizeH10,
@@ -151,10 +187,17 @@ class ReturnTripPage extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       onChange: (index) {
-                        print(index.toString() + "jjjjj");
+                        print(index.toString());
                       },
                       onSubmit: (index) {
-                        print(index.toString() + "mmmm");
+                        print(index.toString());
+                        String inputTime = index.toString();
+                        DateTime timeObj = DateTime.parse(inputTime);
+                        //  String outputTime = DateFormat("hh:mma").format(timeObj);
+                        String outputTime = DateFormat("dd MMM yyyy").format(timeObj);
+                        print(outputTime);
+                        returnTripController.dateSelected.value = outputTime;
+
                       },
                       bottomPickerTheme: BottomPickerTheme.plumPlate,
                       buttonStyle: BoxDecoration(
@@ -188,7 +231,7 @@ class ReturnTripPage extends StatelessWidget {
                       ),
                     ).show(context);
                   },
-                  title: 'তারিখ সিলেক্ট করুন',
+                  title: returnTripController.dateSelected.value,
                   icon: Icons.calendar_month,
                 ),
                 Divider(),
@@ -204,6 +247,11 @@ class ReturnTripPage extends StatelessWidget {
                       ),
                       onSubmit: (index) {
                         print(index);
+                        String inputTime = index.toString();
+                        DateTime timeObj = DateTime.parse(inputTime);
+                        String outputTime = DateFormat("hh:mma").format(timeObj);
+                        print(outputTime);
+                        returnTripController.timeSelected.value = outputTime;
                       },
                       onClose: () {
                         print('Picker closed');
@@ -218,7 +266,7 @@ class ReturnTripPage extends StatelessWidget {
                       ),
                     ).show(context);
                   },
-                  title: 'সময় সিলেক্ট করুন',
+                  title: returnTripController.timeSelected.value,
                   icon: Icons.access_time_outlined,
                 ),
                 Divider(),
@@ -253,13 +301,13 @@ class ReturnTripPage extends StatelessWidget {
                                       BorderRadius.circular(5),
                                       onTap: () {
 
-                                          returnTripController.selectedCar.value =
-                                              item.title.toString();
-                                          returnTripController.selectedCarCapacity.value =
-                                              item.description.toString();
-                                          returnTripController.selectedCarImage.value =
-                                              item.image.toString();
-                                          Get.back();
+                                        returnTripController.selectedCar.value =
+                                            item.title.toString();
+                                        returnTripController.selectedCarCapacity.value =
+                                            item.description.toString();
+                                        returnTripController.selectedCarImage.value =
+                                            item.image.toString();
+                                        Get.back();
 
                                       },
                                       child: Padding(
@@ -386,7 +434,7 @@ class ReturnTripPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),)
     );
   }
 

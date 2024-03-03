@@ -22,6 +22,11 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
   final DriverImageController driverImageController =
       Get.put(DriverImageController());
 
+  var profileImagePath;
+  var drivingLicenceImagePath;
+  var nidFrontImagePath ;
+  var nidBackImagePath ;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +37,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
           color: white,
         ),
       ),
-      body: Obx(() =>  Padding(
+      body: Padding(
         padding: paddingH20,
         child: ListView(
           children: [
@@ -57,12 +62,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                   /* Image.asset(
-                      'assets/img/profile.png',
-                      height: 100,
-                      width: 100,
-                    ),*/
-                    driverImageController.profileImagePath.isEmpty
+                    profileImagePath == null
                         ? Container(
                       width: 100,
                       height: 100,
@@ -83,7 +83,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           image: FileImage(
-                            File(driverImageController.profileImagePath.value),
+                            File(profileImagePath),
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -94,8 +94,12 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
                       bottom: 30,
                       child: IconButton(
                         tooltip: 'Add Photo',
-                        onPressed: () {
-                            driverImageController.profilePickImage(ImageSource.gallery);
+                        onPressed: () async{
+                          String? imagePath = await driverImageController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            profileImagePath = imagePath;
+                          });
+
                         },
                         icon: CircleAvatar(
                           radius: 15,
@@ -215,10 +219,13 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             ),
             sizeH10,
             roundedRectBorderWidget(
-              onTap: () {
-                driverImageController.drivingLicencePickImage(ImageSource.gallery);
+              onTap: ()async{
+                String? imagePath = await driverImageController.captureImage(ImageSource.gallery);
+                setState(() {
+                  drivingLicenceImagePath = imagePath;
+                });
               },
-              imageData: driverImageController.drivingLicenceImagePath.isEmpty
+              imageData: drivingLicenceImagePath == null
                   ? Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
@@ -229,7 +236,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
                   // shape: BoxShape.circle,
                   image: DecorationImage(
                     image: FileImage(
-                      File(driverImageController.drivingLicenceImagePath.value),
+                      File(drivingLicenceImagePath),
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -238,11 +245,14 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             ),
             sizeH10,
             _addImage(
-              onTap: () {
-                driverImageController.nidFrontPickImage(ImageSource.gallery);
+              onTap: ()async{
+                String? imagePath = await driverImageController.captureImage(ImageSource.gallery);
+                setState(() {
+                  nidFrontImagePath = imagePath;
+                });
               },
               titleText: 'এনআইডি সামনের ছবি',
-              imageData: driverImageController.nidFrontImagePath.isEmpty
+              imageData: nidFrontImagePath == null
                   ? Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
@@ -253,7 +263,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
                   // shape: BoxShape.circle,
                   image: DecorationImage(
                     image: FileImage(
-                      File(driverImageController.nidFrontImagePath.value),
+                      File(nidFrontImagePath),
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -262,11 +272,14 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             ),
             sizeH20,
             _addImage(
-              onTap: () {
-                driverImageController.nidBackPickImage(ImageSource.gallery);
+              onTap: ()async{
+                String? imagePath = await driverImageController.captureImage(ImageSource.gallery);
+                setState(() {
+                  nidBackImagePath = imagePath;
+                });
               },
               titleText: 'এনআইডি পিছনের ছবি',
-              imageData: driverImageController.nidBackImagePath.isEmpty
+              imageData: nidBackImagePath == null
                   ? Icon(
                 Icons.add_a_photo_outlined,
                 size: 30,
@@ -277,7 +290,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
                   // shape: BoxShape.circle,
                   image: DecorationImage(
                     image: FileImage(
-                      File(driverImageController.nidBackImagePath.value),
+                      File(nidBackImagePath),
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -292,7 +305,7 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             sizeH20,
           ],
         ),
-      ),)
+      ),
     );
   }
 
