@@ -1,6 +1,7 @@
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
+import 'package:druto_seba_driver/src/pages/trip/controller/location_controller.dart';
 import 'package:druto_seba_driver/src/pages/trip/controller/return_trip_controller.dart';
 import 'package:druto_seba_driver/src/pages/trip/views/return_trip_location_select.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
@@ -18,6 +19,7 @@ import 'package:intl/intl.dart';
 
 class ReturnTripPage extends StatelessWidget {
   final ReturnTripController returnTripController = Get.put(ReturnTripController());
+  final LocationController locationController = Get.put(LocationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +123,7 @@ class ReturnTripPage extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                    child: Text('পিকআপ',style: TextStyle(
+                                    child: Text(locationController.pickUpLocation.value,style: TextStyle(
                                       color: black54,
                                       fontSize: 12,
 
@@ -142,7 +144,7 @@ class ReturnTripPage extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                    child: Text('গন্তব্য',style: TextStyle(
+                                    child: Text(locationController.dropLocation.value,style: TextStyle(
                                       color: black54,
                                       fontSize: 12,
 
@@ -173,9 +175,10 @@ class ReturnTripPage extends StatelessWidget {
                     BottomPicker.date(
                       title: 'তারিখ সিলেক্ট করুন',
                       dateOrder: DatePickerDateOrder.dmy,
-                      initialDateTime: DateTime(1996, 10, 22),
-                      maxDateTime: DateTime(1998),
-                      minDateTime: DateTime(1980),
+                      //initialDateTime: DateTime(1996, 10, 22),
+                      initialDateTime: DateTime(2024),
+                      maxDateTime: DateTime(2024, 04, 07),
+                      minDateTime: DateTime(2024),
                       pickerTextStyle: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
@@ -196,6 +199,7 @@ class ReturnTripPage extends StatelessWidget {
                         //  String outputTime = DateFormat("hh:mma").format(timeObj);
                         String outputTime = DateFormat("dd MMM yyyy").format(timeObj);
                         print(outputTime);
+
                         returnTripController.dateSelected.value = outputTime;
 
                       },
@@ -243,7 +247,7 @@ class ReturnTripPage extends StatelessWidget {
                       titleStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
-                        color: Colors.orange,
+                        color: primaryColor,
                       ),
                       onSubmit: (index) {
                         print(index);
@@ -256,14 +260,15 @@ class ReturnTripPage extends StatelessWidget {
                       onClose: () {
                         print('Picker closed');
                       },
-                      bottomPickerTheme: BottomPickerTheme.orange,
-                      use24hFormat: true,
+                      bottomPickerTheme: BottomPickerTheme.blue,
+                      //use24hFormat: true,
                       initialTime: Time(
-                        minutes: 23,
+                        hours: DateTime.now().hour,
+                        minutes: DateTime.now().minute,
                       ),
-                      maxTime: Time(
+                     /* maxTime: Time(
                         hours: 17,
-                      ),
+                      ),*/
                     ).show(context);
                   },
                   title: returnTripController.timeSelected.value,

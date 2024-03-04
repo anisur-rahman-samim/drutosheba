@@ -7,6 +7,9 @@ class LocationController extends GetxController{
   var isLoading = false.obs;
   var isLoadingDrop = false.obs;
 
+  var pickUpLocation = 'পিকআপ'.obs;
+  var dropLocation = 'গন্তব্য'.obs;
+
   RxList suggestionsPickUp = <Suggestion>[].obs;
   RxList suggestionsDrop = <Suggestion>[].obs;
 
@@ -91,6 +94,7 @@ class LocationController extends GetxController{
       }
 
       print('Selected PickUp Address: ${suggestion.description}');
+      pickUpLocation.value = suggestion.description;
       print('Division PickUp Name: $divisionName');
       print('Latitude: $lat, Longitude: $lng');
 
@@ -128,6 +132,7 @@ class LocationController extends GetxController{
       }
 
       print('Selected Drop Address: ${suggestion.description}');
+      dropLocation.value = suggestion.description;
       print('Division Drop Name: $divisionName');
       print('Latitude: $lat, Longitude: $lng');
 

@@ -3,6 +3,7 @@ import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../widgets/dottedDivider/dotDivider.dart';
 
@@ -16,6 +17,7 @@ class ReturnTripHistoryPage extends StatelessWidget {
           color: white,
           fontSize: 18,
         ),
+
       ),
       backgroundColor: greyBackgroundColor,
       body: Padding(
@@ -41,17 +43,47 @@ class ReturnTripHistoryPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(
-                                  Icons.location_pin,
-                                  size: 15,
-                                ),
-                                sizeW10,
-                                KText(
-                                  text: 'Panthapath,ঢাকা,বাংলাদেশ',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  maxLines: 2,
+                               Row(
+                                 children: [
+                                   Icon(
+                                     Icons.location_pin,
+                                     size: 15,
+                                   ),
+                                   sizeW10,
+                                   KText(
+                                     text: 'Panthapath,ঢাকা,বাংলাদেশ',
+                                     fontWeight: FontWeight.bold,
+                                     fontSize: 14,
+                                     maxLines: 2,
+                                   ),
+                                 ],
+                               ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: CustomCardWidget(
+                                   // onTap: () => Get.to(() => ReturnTripHistoryPage(),transition: Transition.circularReveal),
+                                    radius: 30,
+                                    color: greyBackgroundColor,
+                                    isPaddingHide: true,
+                                    child: Row(
+                                      children: [
+                                        sizeW10,
+                                        Icon(
+                                          Icons.monetization_on,
+                                          size: 20,
+                                          color: black,
+                                        ),
+                                        sizeW5,
+                                        KText(
+                                          text: 'Fares',
+                                          fontSize: 14,
+                                        ),
+                                        sizeW10,
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),

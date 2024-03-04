@@ -216,6 +216,7 @@ class ReturnTripLocationSelect extends StatelessWidget {
                         locationController.selectDropAddress(locationController.suggestionsDrop[index]);
 
                         locationController.suggestionsDrop.clear();
+                        Get.back();
 
                       },
                     );
