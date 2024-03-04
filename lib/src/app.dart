@@ -11,9 +11,9 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       debugShowCheckedModeBanner: false,
-     // home: BottombarHome(),
+      home: BottombarHome(),
       //home: WelcomeView(),
-      home: AddressAutocomplete(),
+      //home: AddressAutocomplete(),
     );
   }
 }

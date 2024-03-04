@@ -14,12 +14,15 @@ customFormField({
   bool? isHideBorder = false,
   double? hintTextSize,
   bool? isHintText = false,
+  Function(String)? onChanged,
   EdgeInsetsGeometry? contentPadding,
 }) {
   return SizedBox(
     height: height,
     child: TextFormField(
       controller: controller ?? TextEditingController(),
+      onChanged: onChanged,
+    //  maxLines: 1,
       obscureText: isPassword == false ? false : true,
       keyboardType: keyboardType,
       maxLength: isNumberField == false ? null : 11,
