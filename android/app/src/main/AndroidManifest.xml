@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.druto_sheba_driver">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -36,5 +37,14 @@
             android:value="2" />
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g"/>
+       <receiver
+           android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+           android:exported="true"
+           tools:ignore="MissingClass">
+           <intent-filter>
+               <action android:name="android.intent.action.BOOT_COMPLETED"/>
+               <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+           </intent-filter>
+       </receiver>
     </application>
 </manifest>

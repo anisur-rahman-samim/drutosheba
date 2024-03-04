@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../../../configs/appColors.dart';
 
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapWithDirections extends StatefulWidget {
   @override
@@ -25,7 +22,7 @@ class _MapWithDirectionsState extends State<MapWithDirections> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: LatLng(23.8069245, 90.36869779999999), // Initial position (San Francisco, CA)
+          target: LatLng(23.8069245, 90.36869779999999),
           zoom: 12.0,
         ),
         markers: markers,
@@ -42,27 +39,25 @@ class _MapWithDirectionsState extends State<MapWithDirections> {
       markers.add(
         Marker(
           markerId: MarkerId('Start'),
-          position: LatLng(23.8069245, 90.36869779999999), // Start point (San Francisco, CA)
+          position: LatLng(23.8069245, 90.36869779999999),
           infoWindow: InfoWindow(title: 'Start'),
         ),
       );
       markers.add(
         Marker(
           markerId: MarkerId('End'),
-          position: LatLng(25.6216192, 88.638052), // End point (San Jose, CA)
+          position: LatLng(25.6216192, 88.638052),
           infoWindow: InfoWindow(title: 'End'),
         ),
       );
     });
 
-    // Get directions between markers
     getDirections();
   }
 
-  // Method to fetch directions using Google Maps Directions API
   void getDirections() async {
-    final start = LatLng(23.8069245, 90.36869779999999); // Start point (San Francisco, CA)
-    final end = LatLng(25.6216192, 88.638052); // End point (San Jose, CA)
+    final start = LatLng(23.8069245, 90.36869779999999);
+    final end = LatLng(25.6216192, 88.638052);
 
     final response = await http.get(Uri.parse(
         'https://maps.googleapis.com/maps/api/directions/json?origin=${start.latitude},${start.longitude}&destination=${end.latitude},${end.longitude}&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g'));
