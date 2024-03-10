@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 // final primaryColor = Colors.blueGrey;
 final primaryColor = Colors.black;//HexColor('#b3020a');
 final primaryColor50 = HexColor('#ffe6e5');
+final bgColor = Color(0xfff2f2f2);
 final grey = Colors.grey;
 final blue = Colors.blue;
 final white = Colors.white;

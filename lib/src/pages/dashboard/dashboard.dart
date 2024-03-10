@@ -34,15 +34,15 @@ class _DashboardViewState
         duration: const Duration(seconds: 1),
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
-        behaviour: SnakeBarBehaviour.pinned,
+        behaviour: SnakeBarBehaviour.floating,
+        backgroundColor: Colors.red.shade50,
         snakeShape: SnakeShape.circle,
-        padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: _borderRadius),
-        snakeViewColor: Colors.black,
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
         selectedItemColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+        ),
         unselectedItemColor: Colors.blueGrey,
-        showUnselectedLabels: true,
-        showSelectedLabels: true,
         currentIndex: _selectedItemPosition,
         onTap: (index) => setState(() => _selectedItemPosition = index),
         items: const [

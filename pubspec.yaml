@@ -35,6 +35,9 @@ dependencies:
   vibration: ^1.7.2
   flutter_snake_navigationbar: ^0.6.1
 
+  #network
+  http: ^0.13.6
+
 
 
 

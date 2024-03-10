@@ -20,7 +20,7 @@ class ReturnTripHistoryPage extends StatelessWidget {
         ),
 
       ),
-      backgroundColor: greyBackgroundColor,
+      backgroundColor: bgColor,
       body: Padding(
         padding: paddingH10,
         child: ListView(
