@@ -113,7 +113,7 @@ class _OtpPageState extends State<OtpPage> {
                 sizeH40,
                 primaryButton(
                   buttonName: 'যাচাই করুন',
-                  onTap: () => Get.to(() => RegisterUserInfoPage()),
+                  onTap: () => Get.to(() => RegisterUserInfoPage(),transition: Transition.circularReveal),
                 ),
                 sizeH20,
                 Row(

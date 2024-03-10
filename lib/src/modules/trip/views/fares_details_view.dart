@@ -242,7 +242,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                     ),
                     InkWell(
                       onTap: (){
-                        Get.to(() => MapWithDirections());
+                        Get.to(() => MapWithDirections(),transition: Transition.circularReveal);
                       },
                       child: Container(
                         height: 40,

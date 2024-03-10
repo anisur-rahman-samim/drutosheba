@@ -62,7 +62,7 @@ class ReturnTripPage extends StatelessWidget {
       body: Obx(() => ListView(
         children: [
           InkWell(
-            onTap: () =>  Get.to(() => ReturnTripLocationSelect()),
+            onTap: () =>  Get.to(() => ReturnTripLocationSelect(),transition: Transition.circularReveal),
             child: CustomCardWidget(
               radius: 0,
               elevation: 0,

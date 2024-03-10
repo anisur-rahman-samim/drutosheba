@@ -244,7 +244,7 @@ class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
             sizeH20,
             primaryButton(
               buttonName: 'নিবন্ধন',
-              onTap: () => Get.to(() => DashboardView()),
+              onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
             ),
             sizeH20,
             Row(

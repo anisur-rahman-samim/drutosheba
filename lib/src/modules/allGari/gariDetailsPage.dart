@@ -82,7 +82,7 @@ class GariDetailsPage extends StatelessWidget {
                               InkWell(
                                 onTap: () => Get.to(() => AddNewGariPage(
                                   isEditPage: true,
-                                )),
+                                ),transition: Transition.circularReveal),
                                 borderRadius: BorderRadius.circular(30),
                                 child: CircleAvatar(
                                   radius: 15,

@@ -234,7 +234,7 @@ class _CreditPageState extends State<CreditPage> {
                                 height: 45,
                                 width: 50,
                                 buttonName: 'পরবর্তী',
-                                onTap: () => Get.to(() => PaymentTypePage()),
+                                onTap: () => Get.to(() => PaymentTypePage(),transition: Transition.circularReveal),
                               ),
                             ),
                           ],

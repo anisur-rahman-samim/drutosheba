@@ -211,7 +211,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             sizeH20,
             primaryButton(
               buttonName: 'আপডেট করুন',
-              onTap: () => Get.to(() => DashboardView()),
+              onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
             ),
             sizeH20,
           ],

@@ -32,7 +32,7 @@ class AuthController extends GetxController {
         if(responseBody['status'] == "success"){
           LocalStorage.saveData(key: AppTexts.token, data: responseBody['token']);
           kSnackBar(message: "Login Successfully Done", bgColor: Colors.green);
-          Get.to(() => DashboardView());
+          Get.to(() => DashboardView(),transition: Transition.circularReveal);
         }else{
           kSnackBar(message: "Login Failed", bgColor: Colors.red);
         }

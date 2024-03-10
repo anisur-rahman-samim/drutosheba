@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => Get.to(() => ProfilePage()),
+                    onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
                     child: Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: CircleAvatar(
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               IconButton(
-                onPressed: () => Get.to(() =>NotificationsPage()),
+                onPressed: () => Get.to(() =>NotificationsPage(),transition: Transition.circularReveal),
                 splashRadius: 1,
                 icon: Icon(
                   Icons.notifications_outlined,
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () => Get.to(() => TripRequestPage()),
+                    onTap: () => Get.to(() => TripRequestPage(),transition: Transition.circularReveal),
                     child: Image.asset(
                       'assets/img/Rental-Trip-2.png',
                       width: 230,
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Get.to(() => ReturnTripPage()),
+                    onTap: () => Get.to(() => ReturnTripPage(),transition: Transition.circularReveal),
                     child: Image.asset(
                       'assets/img/Rental-Trip.png',
                       width: 230,

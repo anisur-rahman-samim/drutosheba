@@ -319,7 +319,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
               height: 45,
               buttonName: 'গাড়ির তথ্য সেভ করুন',
               fontSize: 14,
-              onTap: () => Get.to(() => DashboardView()),
+              onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
             ),
             sizeH30,
           ],

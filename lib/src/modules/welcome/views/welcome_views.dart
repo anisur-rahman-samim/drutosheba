@@ -30,7 +30,7 @@ class WelcomeView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5),
               child: InkWell(
-                onTap: ()=> Get.to(() => LoginPage()),
+                onTap: ()=> Get.to(() => LoginPage(),transition: Transition.circularReveal),
                 child: Container(
                   height: Get.height * 0.09,
                   decoration: BoxDecoration(
@@ -49,7 +49,7 @@ class WelcomeView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5),
               child: InkWell(
-                onTap: ()=> Get.to(() => RegisterPage()),
+                onTap: ()=> Get.to(() => RegisterPage(),transition: Transition.circularReveal),
                 child: Container(
                   height: Get.height * 0.09,
                   decoration: BoxDecoration(

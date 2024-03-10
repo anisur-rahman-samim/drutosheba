@@ -78,14 +78,14 @@ class ForgetPasswordPage extends StatelessWidget {
                     sizeH20,
                     primaryButton(
                       buttonName: 'পরবর্তী',
-                      onTap: () => Get.to(() => DashboardView()),
+                      onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
                     ),
                     SizedBox(
                       height: Get.height / 2.4,
                     ),
                     outlineButton(
                       buttonName: 'লগইন',
-                      onTap: () => Get.to(() => LoginPage()),
+                      onTap: () => Get.to(() => LoginPage(),transition: Transition.circularReveal),
                     )
                   ],
                 ),

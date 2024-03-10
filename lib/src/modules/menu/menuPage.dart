@@ -30,7 +30,7 @@ class MenuPage extends StatelessWidget {
           CustomCardWidget(
             radius: 0,
             elevation: .5,
-            onTap: () => Get.to(() => ProfilePage()),
+            onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +108,7 @@ class MenuPage extends StatelessWidget {
             child: Column(
               children: [
                 _listTile(
-                  onTap: () => Get.to(() => CreditPage()),
+                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.credit_card,
                   title: 'ক্রেডিট',
                 ),
@@ -117,7 +117,7 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => GariListPage()),
+                  onTap: () => Get.to(() => GariListPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.local_taxi,
                   title: 'গাড়ি',
                 ),
@@ -126,7 +126,7 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => DriverPage()),
+                  onTap: () => Get.to(() => DriverPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.person,
                   title: 'ড্রাইভার',
                 ),
@@ -140,7 +140,7 @@ class MenuPage extends StatelessWidget {
             child: Column(
               children: [
                 _listTile(
-                  onTap: () => Get.to(() => ProfilePage()),
+                  onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.person_outline,
                   title: 'প্রোফাইল',
                 ),
@@ -149,7 +149,7 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => DashboardPage()),
+                  onTap: () => Get.to(() => DashboardPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.dashboard_outlined,
                   title: 'ড্যাশবোর্ড',
                 ),
@@ -158,7 +158,7 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => LeaderBoardPage()),
+                  onTap: () => Get.to(() => LeaderBoardPage(),transition: Transition.circularReveal),
                   leadingIcon: Ionicons.ribbon_outline,
                   title: 'লিডারবোর্ড',
                 ),
@@ -169,7 +169,7 @@ class MenuPage extends StatelessWidget {
                 sizeH10,
                 _listTile(
                   onTap: () {
-                    Get.to(() => PenaltyView());
+                    Get.to(() => PenaltyView(),transition: Transition.circularReveal);
                   },
                   leadingIcon: Ionicons.document_text_outline,
                   title: 'জরিমানা',
@@ -191,7 +191,7 @@ class MenuPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => NotificationsPage()),
+                  onTap: () => Get.to(() => NotificationsPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.notifications_outlined,
                   title: 'নোটিফিকেশন',
                 ),
@@ -200,7 +200,7 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => OfferPage()),
+                  onTap: () => Get.to(() => OfferPage(),transition: Transition.circularReveal),
                   leadingIcon: Ionicons.gift_outline,
                   title: 'অফার',
                 ),
@@ -218,7 +218,7 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => SettingsPage()),
+                  onTap: () => Get.to(() => SettingsPage(),transition: Transition.circularReveal),
                   leadingIcon: Ionicons.settings_outline,
                   title: 'সেটিংস',
                 ),
@@ -232,7 +232,7 @@ class MenuPage extends StatelessWidget {
             child: Column(
               children: [
                 _listTile(
-                  onTap: () => Get.to(() => HelpPage()),
+                  onTap: () => Get.to(() => HelpPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.help_outline,
                   title: 'সাহায্য',
                   textColor: blue,
@@ -242,7 +242,7 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => LoginPage()),
+                  onTap: () => Get.to(() => LoginPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.logout,
                   title: 'লগআউট',
                   textColor: primaryColor,

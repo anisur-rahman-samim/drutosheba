@@ -60,61 +60,61 @@ class DrawerComponent extends StatelessWidget {
             primary: false,
             children: [
               customListTile(
-                onTap: () => Get.to(() => ProfilePage()),
+                onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
                 title: 'প্রোফাইল',
                 icons: Ionicons.person_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => DashboardPage()),
+                onTap: () => Get.to(() => DashboardPage(),transition: Transition.circularReveal),
                 title: 'ড্যাশবোর্ড',
                 icons: Ionicons.grid_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => LeaderBoardPage()),
+                onTap: () => Get.to(() => LeaderBoardPage(),transition: Transition.circularReveal),
                 title: 'লিডারবোর্ড',
                 icons: Ionicons.ribbon_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => DriverPage()),
+                onTap: () => Get.to(() => DriverPage(),transition: Transition.circularReveal),
                 title: 'ড্রাইভার',
                 icons: Ionicons.person_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => CreditPage()),
+                onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
                 title: 'ক্রেডিট',
                 icons: Ionicons.card_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => OfferPage()),
+                onTap: () => Get.to(() => OfferPage(),transition: Transition.circularReveal),
                 title: 'অফার',
                 icons: Ionicons.gift_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => TikaPage()),
+                onTap: () => Get.to(() => TikaPage(),transition: Transition.circularReveal),
                 title: 'টিকা',
                 icons: Ionicons.bag_add_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => NotificationsPage()),
+                onTap: () => Get.to(() => NotificationsPage(),transition: Transition.circularReveal),
                 title: 'নোটিফিকেশন',
                 icons: Ionicons.notifications_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => HelpPage()),
+                onTap: () => Get.to(() => HelpPage(),transition: Transition.circularReveal),
                 title: 'সাহায্য',
                 icons: Ionicons.help_circle_outline,
               ),
               Divider(),
               customListTile(
-                onTap: () => Get.to(() => SettingsPage()),
+                onTap: () => Get.to(() => SettingsPage(),transition: Transition.circularReveal),
                 title: 'সেটিংস',
                 icons: Ionicons.settings_outline,
               ),
@@ -192,7 +192,7 @@ class DrawerComponent extends StatelessWidget {
                 color: primaryColor,
               ),
               onPressed: () {
-                Get.to(() => LoginPage());
+                Get.to(() => LoginPage(),transition: Transition.circularReveal);
               },
             ),
           ],
