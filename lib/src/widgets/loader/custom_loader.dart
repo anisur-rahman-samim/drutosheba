@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CustomLoader extends StatelessWidget {
-  const CustomLoader({super.key});
+  final Color color;
+  final double size;
+   CustomLoader({super.key, required this.color, required this.size});
 
   @override
   Widget build(BuildContext context) {
     return SpinKitFadingCircle(
-      color: Colors.white,
-      size: 30.0,
+      color: color,
+      size: size,
     );
   }
 }

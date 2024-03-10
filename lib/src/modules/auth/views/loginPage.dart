@@ -92,7 +92,7 @@ class LoginPage extends StatelessWidget {
                    ),
                    sizeH20,
                    authController.isLoading.value == true? primaryButton(
-                       child: CustomLoader(), buttonName: 'null', onTap: () {  }
+                       child: CustomLoader(color: white,size: 30,), buttonName: 'null', onTap: () {  }
                    ) : primaryButton(
                        buttonName: 'লগইন',
                        onTap: () {

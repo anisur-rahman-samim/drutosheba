@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:druto_seba_driver/src/modules/auth/controller/image_controller.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../configs/appColors.dart';
 import '../../../configs/appUtils.dart';
@@ -16,8 +20,11 @@ class RegisterUserInfoPage extends StatefulWidget {
 }
 
 class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
+  final ImageController imageController = Get.put(ImageController());
+
   String nidSelected = 'এনআইডি';
   String gender = 'পুরুষ';
+  var profileImagePath;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,24 +58,73 @@ class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
         child: ListView(
           children: [
             sizeH20,
-            CircleAvatar(
-              radius: 40,
-              backgroundColor: grey.shade200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+            profileImagePath != null? Center(
+              child: Stack(
                 children: [
-                  Icon(
-                    Icons.camera_alt,
-                    color: blue,
-                    size: 15,
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundColor: grey.shade200,
+                    child: ClipOval(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          // shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: FileImage(
+                              File(profileImagePath),
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  KText(
-                    text: 'ছবি যোগ করুন',
-                    color: blue,
-                    fontSize: 10,
-                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 50,
+                    child: InkWell(
+                      onTap: ()async{
+                        String? imagePath = await imageController.captureImage(ImageSource.gallery);
+                        setState(() {
+                          profileImagePath = imagePath;
+                        });
+                      },
+                      child: CircleAvatar(
+                        radius: 12,
+                        backgroundColor: black,
+                        child: Center(
+                          child: Icon(Icons.camera_alt,color: white,size: 14,),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
+              ),
+            ) : InkWell(
+              onTap: ()async{
+                String? imagePath = await imageController.captureImage(ImageSource.gallery);
+                setState(() {
+                  profileImagePath = imagePath;
+                });
+              },
+              child: CircleAvatar(
+                radius: 40,
+                backgroundColor: grey.shade200,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.camera_alt,
+                      color: blue,
+                      size: 15,
+                    ),
+                    KText(
+                      text: 'ছবি যোগ করুন',
+                      color: blue,
+                      fontSize: 10,
+                    ),
+                  ],
+                ),
               ),
             ),
             sizeH20,

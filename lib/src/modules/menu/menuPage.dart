@@ -1,3 +1,5 @@
+import 'package:druto_seba_driver/src/configs/app_texts.dart';
+import 'package:druto_seba_driver/src/services/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -242,9 +244,12 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () => Get.to(() => LoginPage(),transition: Transition.circularReveal),
+                  onTap: () {
+                    LocalStorage.removeData(key: AppTexts.token);
+                    Get.to(() => LoginPage(),transition: Transition.circularReveal);
+                  },
                   leadingIcon: Icons.logout,
-                  title: 'লগআউট',
+                  title: 'লগ আউট',
                   textColor: primaryColor,
                 ),
                 sizeH40,
