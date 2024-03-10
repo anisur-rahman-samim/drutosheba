@@ -1,9 +1,6 @@
-import 'dart:typed_data';
-
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:vibration/vibration.dart';
 
 class NotificationPage extends StatelessWidget {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

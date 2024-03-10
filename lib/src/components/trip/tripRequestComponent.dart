@@ -1,4 +1,5 @@
-import 'package:druto_seba_driver/src/pages/trip/tripDetailsPage.dart';
+
+import 'package:druto_seba_driver/src/modules/trip/tripDetailsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';

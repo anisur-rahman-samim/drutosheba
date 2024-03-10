@@ -1,20 +1,21 @@
-import 'package:druto_seba_driver/src/pages/auth/loginPage.dart';
-import 'package:druto_seba_driver/src/pages/credit/creditPage.dart';
-import 'package:druto_seba_driver/src/pages/drawerPage/dashboardPage.dart';
-import 'package:druto_seba_driver/src/pages/driver/driverPage.dart';
-import 'package:druto_seba_driver/src/pages/drawerPage/helpPage.dart';
-import 'package:druto_seba_driver/src/pages/drawerPage/settingsPage.dart';
-import 'package:druto_seba_driver/src/pages/drawerPage/tikaPage.dart';
-import 'package:druto_seba_driver/src/pages/userAccount/views/profilePage.dart';
+
+import 'package:druto_seba_driver/src/modules/auth/loginPage.dart';
+import 'package:druto_seba_driver/src/modules/credit/creditPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/dashboardPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/helpPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/leaderBoardPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/notificationsPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/offerPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/settingsPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/tikaPage.dart';
+import 'package:druto_seba_driver/src/modules/driver/driverPage.dart';
+import 'package:druto_seba_driver/src/modules/userAccount/views/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../configs/appColors.dart';
 import '../../configs/appUtils.dart';
-import '../../pages/drawerPage/leaderBoardPage.dart';
-import '../../pages/drawerPage/notificationsPage.dart';
-import '../../pages/drawerPage/offerPage.dart';
 import '../../widgets/text/kText.dart';
 
 class DrawerComponent extends StatelessWidget {
