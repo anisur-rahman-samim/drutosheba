@@ -1,10 +1,12 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
+import 'package:druto_seba_driver/src/modules/auth/controller/auth_controller.dart';
 import 'package:druto_seba_driver/src/modules/auth/views/otpPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/formWithCountryCode.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,8 @@ import 'package:get/get.dart';
 import 'loginPage.dart';
 
 class RegisterPage extends StatelessWidget {
+  final TextEditingController numberController = TextEditingController();
+  final AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +23,7 @@ class RegisterPage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
-        child: Column(
+        child: Obx(() => Column(
           children: [
             Container(
               height: 150,
@@ -65,7 +69,7 @@ class RegisterPage extends StatelessWidget {
                     sizeH10,
                     KText(
                       text:
-                          'যাত্রী অংশিদার হিসাবে নিবন্দন করতে আপনার ফোন নম্বর যাচাই করুন',
+                      'যাত্রী অংশিদার হিসাবে নিবন্দন করতে আপনার ফোন নম্বর যাচাই করুন',
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -74,25 +78,32 @@ class RegisterPage extends StatelessWidget {
                     sizeH30,
                     formWithCountryCode(
                       hintText: 'মোবাইল নাম্বার লিখুন',
+                      numberTextC: numberController,
                     ),
                     sizeH20,
-                    primaryButton(
-                      buttonName: 'পরবর্তী',
-                      onTap: () => Get.to(() => OtpPage(),transition: Transition.circularReveal),
+                    authController.isLoading.value == true? primaryButton(
+                        child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+                    ): primaryButton(
+                        buttonName: 'পরবর্তী',
+                        onTap: () {
+                          authController.otpSend(phone: numberController.text);
+                        }
                     ),
                     SizedBox(
                       height: Get.height / 2.45,
                     ),
                     outlineButton(
-                      buttonName: 'লগইন',
-                      onTap: () => Get.to(() => LoginPage(),transition: Transition.circularReveal),
+                        buttonName: 'লগইন',
+                        onTap: () {
+                          Get.to(() => LoginPage(),transition: Transition.circularReveal);
+                        }
                     )
                   ],
                 ),
               ),
             ),
           ],
-        ),
+        ),)
       ),
     );
   }

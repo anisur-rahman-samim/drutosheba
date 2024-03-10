@@ -11,7 +11,8 @@ import '../../../configs/appUtils.dart';
 import '../../../widgets/text/kText.dart';
 
 class OtpPage extends StatefulWidget {
-  const OtpPage({Key? key}) : super(key: key);
+  final String number;
+  const OtpPage({Key? key, required this.number}) : super(key: key);
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -103,7 +104,7 @@ class _OtpPageState extends State<OtpPage> {
                 ),
                 sizeH5,
                 KText(
-                  text: '+8801771282104',
+                  text: '+88${widget.number}',
                   fontSize: 16,
                   color: black45,
                   textAlign: TextAlign.center,

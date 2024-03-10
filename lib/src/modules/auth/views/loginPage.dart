@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
-        child: Column(
+        child: Obx(() => Column(
           children: [
             Container(
               height: 150,
@@ -48,89 +48,89 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
             ),
-           Obx(() =>  Container(
-             height: Get.height,
-             width: Get.width,
-             decoration: BoxDecoration(
-               color: white,
-               borderRadius: BorderRadius.only(
-                 topLeft: Radius.circular(30),
-                 topRight: Radius.circular(30),
-               ),
-             ),
-             child: Padding(
-               padding: paddingH20,
-               child: Column(
-                 children: [
-                   sizeH20,
-                   KText(
-                     text: 'লগইন',
-                     fontSize: 25,
-                     fontWeight: FontWeight.bold,
-                   ),
-                   sizeH10,
-                   KText(
-                     text:
-                     '''আপনার মোবাইল নাম্বার এবং পাসওয়ার্ড দিয়ে লগইন অপশনে ক্লিক করুন। পাসওয়ার্ড ভুলে গিয়ে থাকলে অথবা নতুন পাসওয়ার্ড সেট করতে, 'আপনার পাসওয়ার্ড ভুলে গেছেন?' অপশনে ক্লিক করতে হবে।''',
-                     textAlign: TextAlign.center,
-                     color: black45,
-                     fontSize: 14,
+            Container(
+              height: Get.height,
+              width: Get.width,
+              decoration: BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Padding(
+                padding: paddingH20,
+                child: Column(
+                  children: [
+                    sizeH20,
+                    KText(
+                      text: 'লগইন',
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    sizeH10,
+                    KText(
+                      text:
+                      '''আপনার মোবাইল নাম্বার এবং পাসওয়ার্ড দিয়ে লগইন অপশনে ক্লিক করুন। পাসওয়ার্ড ভুলে গিয়ে থাকলে অথবা নতুন পাসওয়ার্ড সেট করতে, 'আপনার পাসওয়ার্ড ভুলে গেছেন?' অপশনে ক্লিক করতে হবে।''',
+                      textAlign: TextAlign.center,
+                      color: black45,
+                      fontSize: 14,
 
-                     // fontWeight: FontWeight.w600,
-                   ),
-                   sizeH30,
-                   customFormField(
-                     controller: phoneController,
-                     hintText: 'মোবাইল নাম্বার লিখুন',
-                     isNumberField: true,
-                   ),
-                   sizeH20,
-                   customFormField(
-                     controller: passwordController,
-                     hintText: 'আপনার পাসওয়ার্ড লিখুন',
-                     isPassword: true,
-                   ),
-                   sizeH20,
-                   authController.isLoading.value == true? primaryButton(
-                       child: CustomLoader(color: white,size: 30,), buttonName: 'null', onTap: () {  }
-                   ) : primaryButton(
-                       buttonName: 'লগইন',
-                       onTap: () {
-                         authController.login(
-                             phone: phoneController.text,
-                             password: passwordController.text
-                         );
-                       }
-                   ),
-                   sizeH20,
-                   GestureDetector(
-                     onTap: () => Get.to(() => ForgetPasswordPage(),transition: Transition.circularReveal),
-                     child: SizedBox(
-                       height: 45,
-                       width: Get.width,
-                       child: Center(
-                         child: KText(
-                           text: 'আপনার পাসওয়ার্ড ভুলে গেছেন?',
-                           // fontWeight: FontWeight.bold,
-                           color: primaryColor,
-                         ),
-                       ),
-                     ),
-                   ),
-                   SizedBox(
-                     height: Get.height / 6,
-                   ),
-                   outlineButton(
-                     buttonName: 'রেজিস্টার',
-                     fontWeight: FontWeight.normal,
-                     onTap: () => Get.to(() => RegisterPage(),transition: Transition.circularReveal),
-                   ),
-                 ],
-               ),
-             ),
-           ),)
+                      // fontWeight: FontWeight.w600,
+                    ),
+                    sizeH30,
+                    customFormField(
+                      controller: phoneController,
+                      hintText: 'মোবাইল নাম্বার লিখুন',
+                      isNumberField: true,
+                    ),
+                    sizeH20,
+                    customFormField(
+                      controller: passwordController,
+                      hintText: 'আপনার পাসওয়ার্ড লিখুন',
+                      isPassword: true,
+                    ),
+                    sizeH20,
+                    authController.isLoading.value == true? primaryButton(
+                        child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+                    ) : primaryButton(
+                        buttonName: 'লগইন',
+                        onTap: () {
+                          authController.login(
+                              phone: phoneController.text,
+                              password: passwordController.text
+                          );
+                        }
+                    ),
+                    sizeH20,
+                    GestureDetector(
+                      onTap: () => Get.to(() => ForgetPasswordPage(),transition: Transition.circularReveal),
+                      child: SizedBox(
+                        height: 45,
+                        width: Get.width,
+                        child: Center(
+                          child: KText(
+                            text: 'আপনার পাসওয়ার্ড ভুলে গেছেন?',
+                            // fontWeight: FontWeight.bold,
+                            color: primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height / 6,
+                    ),
+                    outlineButton(
+                      buttonName: 'রেজিস্টার',
+                      fontWeight: FontWeight.normal,
+                      onTap: () => Get.to(() => RegisterPage(),transition: Transition.circularReveal),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
-        ),
+        ),)
       ),
     );
   }

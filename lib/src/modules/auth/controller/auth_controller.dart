@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../widgets/snack_bar/snack_bar.dart';
 import '../../dashboard/dashboard.dart';
+import '../views/otpPage.dart';
 
 class AuthController extends GetxController {
   var isLoading = false.obs;
@@ -35,6 +36,43 @@ class AuthController extends GetxController {
           Get.to(() => DashboardView(),transition: Transition.circularReveal);
         }else{
           kSnackBar(message: "Login Failed", bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Logged in Failed!';
+      }
+    } catch (e) {
+      // kSnackBar(message: e.toString(), bgColor: failedColor);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  ///OTP send
+  Future otpSend({
+    required String phone,
+  }) async {
+    try {
+      isLoading(true);
+      var map = <String, dynamic>{};
+      map['phone'] = phone;
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.register,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          String otp = responseBody['data']['verify'];
+          debugPrint("OTP: "+otp.toString());
+
+          Get.to(() => OtpPage(number: phone,),transition: Transition.circularReveal);
+          kSnackBar(message: "OTP Send Successfully", bgColor: Colors.green);
+        }else{
+          kSnackBar(message: responseBody['message']['phone'].toString(), bgColor: Colors.red);
         }
 
         isLoading(false);

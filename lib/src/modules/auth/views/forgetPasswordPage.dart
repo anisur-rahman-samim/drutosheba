@@ -13,6 +13,7 @@ import '../../dashboard/dashboard.dart';
 
 
 class ForgetPasswordPage extends StatelessWidget {
+  final TextEditingController numberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +75,7 @@ class ForgetPasswordPage extends StatelessWidget {
                     sizeH30,
                     formWithCountryCode(
                       hintText: 'মোবাইল নাম্বার লিখুন',
+                      numberTextC: numberController,
                     ),
                     sizeH20,
                     primaryButton(

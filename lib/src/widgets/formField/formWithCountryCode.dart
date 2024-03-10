@@ -6,11 +6,12 @@ import '../text/kText.dart';
 
 formWithCountryCode({
   required hintText,
+  required numberTextC
 }) {
   return SizedBox(
     height: 55,
     child: TextFormField(
-      // controller: numberTextC,
+       controller: numberTextC,
       maxLength: 11,
 
       autovalidateMode: AutovalidateMode.always,
