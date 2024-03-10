@@ -1,4 +1,4 @@
-package com.example.druto_sheba_driver
+package com.rental.partner
 
 import io.flutter.embedding.android.FlutterActivity
 

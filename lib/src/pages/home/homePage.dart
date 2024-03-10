@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/configs/app_images.dart';
 import 'package:druto_seba_driver/src/pages/credit/creditPage.dart';
 import 'package:druto_seba_driver/src/pages/drawerPage/notificationsPage.dart';
 import 'package:druto_seba_driver/src/pages/trip/returnTripPage.dart';
@@ -168,7 +169,7 @@ class _HomePageState extends State<HomePage> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                'assets/img/banner.jpg',
+                AppImages.banner,
               ),
             ),
             sizeH10,

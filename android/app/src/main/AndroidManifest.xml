@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.druto_sheba_driver">
+    package="com.rental.partner">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
    <application
-        android:label="Druto Sheba Driver"
+        android:label="Rental Partner"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

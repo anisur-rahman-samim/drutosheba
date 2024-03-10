@@ -13,8 +13,8 @@ class App extends StatelessWidget {
       theme: AppTheme.appTheme,
       debugShowCheckedModeBanner: false,
      // home: BottombarHome(),
-      //home: WelcomeView(),
-      home: NotificationPage(),
+      home: WelcomeView(),
+    //  home: NotificationPage(),
     );
   }
 }

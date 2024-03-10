@@ -90,7 +90,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         sizeH5,
                         KText(
-                          text: '01771282104',
+                          text: '017000000000',
                           fontSize: 14,
                           color: black54,
                         ),

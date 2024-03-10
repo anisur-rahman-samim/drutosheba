@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/configs/app_images.dart';
 import 'package:druto_seba_driver/src/pages/Auth/loginPage.dart';
 import 'package:druto_seba_driver/src/pages/auth/otpPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
@@ -28,9 +29,9 @@ class RegisterPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/img/logo.png',
+                    AppImages.logoWhite,
                     color: white,
-                    scale: 2,
+                    scale: 5,
                   ),
                   KText(
                     text: 'Partner',

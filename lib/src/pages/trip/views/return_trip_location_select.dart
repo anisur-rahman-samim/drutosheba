@@ -67,20 +67,6 @@ class ReturnTripLocationSelect extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          /*customFormField(
-                            controller: pickUpTextController,
-                            onChanged: (value){
-                              value.isEmpty? locationController.fetchPickSuggestions("Bangladesh")
-                              : locationController.fetchPickSuggestions(value);
-                            },
-                            height: 45,
-                            isFilled: true,
-                            hintText: 'পিকআপ',
-                            hintTextSize: 12,
-                            isHintText: true,
-                            filledColor: greyBackgroundColor,
-                            isHideBorder: true,
-                          ),*/
                           SizedBox(
                             height: 45,
                             child: TextField(
@@ -118,20 +104,6 @@ class ReturnTripLocationSelect extends StatelessWidget {
                             ),
                           ),
                           sizeH10,
-                       /*   customFormField(
-                            controller: dropTextController,
-                            onChanged: (value){
-                              value.isEmpty? locationController.fetchPickSuggestions("Bangladesh")
-                                  : locationController.fetchDropSuggestions(value);
-                            },
-                            height: 45,
-                            isFilled: true,
-                            hintText: 'গন্তব্য',
-                            hintTextSize: 12,
-                            isHintText: true,
-                            filledColor: greyBackgroundColor,
-                            isHideBorder: true,
-                          ),*/
                           SizedBox(
                             height: 45,
                             child: TextField(

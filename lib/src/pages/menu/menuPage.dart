@@ -80,13 +80,13 @@ class MenuPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     KText(
-                      text: 'Abdur Rashid',
+                      text: 'Anisur Rahman',
                       color: black,
                       fontWeight: FontWeight.w500,
                       fontSize: 22,
                     ),
                     KText(
-                      text: '+8801718955885',
+                      text: '+8801700000000',
                       color: black54,
                       fontSize: 16,
                     ),
