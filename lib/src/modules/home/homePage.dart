@@ -1,7 +1,11 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
+import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
+import 'package:druto_seba_driver/src/widgets/cached_network_image/cached_network_image.dart';
 import 'package:druto_seba_driver/src/widgets/header_title/header_title.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ProfileController profileController = Get.put(ProfileController());
   final isShowCreadit = RxBool(false);
   bool _isAnimation = false;
   bool _isBalanceShown = false;
@@ -37,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               bottomLeft: Radius.circular(16),
             ),
           ),
-          child: Row(
+          child: Obx(() => profileController.isLoading.value == true? CustomLoader(color: white, size: 20) : Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
@@ -46,21 +51,24 @@ class _HomePageState extends State<HomePage> {
                     onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
                     child: Padding(
                       padding: EdgeInsets.only(left: 10),
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundColor: transparent,
-                        backgroundImage: AssetImage(
-                          'assets/img/profile.png',
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white)
                         ),
+                        child: ClipOval(child: Image.network(Api.getImageURL(profileController.profileModel.value.data!.image.toString()), fit: BoxFit.fill,)),
                       ),
                     ),
                   ),
+                  SizedBox(width: 10,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       KText(
-                        text: 'MD Anisur Rahman',
+                        text: profileController.profileModel.value.data?.name.toString(),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: white,
@@ -131,7 +139,7 @@ class _HomePageState extends State<HomePage> {
               ),
 
             ],
-          )
+          ))
 
         ),
       ),

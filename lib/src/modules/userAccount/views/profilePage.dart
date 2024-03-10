@@ -1,3 +1,5 @@
+import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../configs/appColors.dart';
@@ -7,6 +9,7 @@ import '../../auth/views/changePasswordPage.dart';
 import 'profileEditPage.dart';
 
 class ProfilePage extends StatelessWidget {
+  final ProfileController profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +52,7 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
       backgroundColor: grey.shade100,
-      body: Padding(
+      body: Obx(() => Padding(
         padding: paddingH10,
         child: ListView(
           children: [
@@ -73,8 +76,8 @@ class ProfilePage extends StatelessWidget {
                     CircleAvatar(
                       radius: 30,
                       backgroundColor: white,
-                      backgroundImage: AssetImage(
-                        'assets/img/profile.png',
+                      backgroundImage: NetworkImage(
+                        Api.getImageURL(profileController.profileModel.value.data?.image),
                       ),
                     ),
                     sizeW10,
@@ -83,13 +86,13 @@ class ProfilePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         KText(
-                          text: 'Fsd',
+                          text: profileController.profileModel.value.data?.name,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                         sizeH5,
                         KText(
-                          text: '017000000000',
+                          text: profileController.profileModel.value.data?.phone,
                           fontSize: 14,
                           color: black54,
                         ),
@@ -136,7 +139,7 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.badge,
               cirleColor: Color.fromARGB(255, 255, 51, 0),
               title: 'এনআইডি',
-              subTitle: '123456789',
+              subTitle: profileController.profileModel.value.data!.docNumber.toString(),
             ),
             sizeH10,
             _button(
@@ -144,7 +147,7 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.location_on_rounded,
               cirleColor: Color.fromARGB(255, 82, 14, 207),
               title: 'ঠিকানা',
-              subTitle: 'Mirpur',
+              subTitle: profileController.profileModel.value.data!.address.toString(),
             ),
             sizeH10,
             _button(
@@ -152,7 +155,7 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.map,
               cirleColor: Color.fromARGB(255, 82, 14, 207),
               title: 'বিভাগ',
-              subTitle: 'Dhaka',
+              subTitle: profileController.profileModel.value.data?.division,
             ),
             sizeH10,
             _button(
@@ -160,7 +163,7 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.map,
               cirleColor: null,
               title: 'ইমেইল',
-              subTitle: 'fsd.ramjan@gmail.com',
+              subTitle: profileController.profileModel.value.data!.email.toString(),
             ),
             sizeH10,
             _button(
@@ -168,7 +171,7 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.transgender,
               cirleColor: Colors.green,
               title: 'লিঙ্গ',
-              subTitle: 'Male',
+              subTitle: profileController.profileModel.value.data!.gender.toString(),
             ),
             sizeH10,
             _button(
@@ -176,7 +179,7 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.record_voice_over,
               cirleColor: null,
               title: 'রেফারেল কোড',
-              subTitle: 'FGSHLA',
+              subTitle: profileController.profileModel.value.data?.referCode,
               action: GestureDetector(
                 onTap: () {},
                 child: Container(
@@ -200,7 +203,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: GestureDetector(

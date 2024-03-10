@@ -1,4 +1,6 @@
 import 'package:druto_seba_driver/src/configs/app_texts.dart';
+import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,12 +24,14 @@ import '../penalty/views/penalty_view.dart';
 import '../userAccount/views/profilePage.dart';
 
 class MenuPage extends StatelessWidget {
-  const MenuPage({Key? key}) : super(key: key);
+   MenuPage({Key? key}) : super(key: key);
+  final ProfileController profileController = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: grey.shade200,
-      body: ListView(
+      body: Obx(() => ListView(
         children: [
           CustomCardWidget(
             radius: 0,
@@ -43,8 +47,8 @@ class MenuPage extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: AssetImage(
-                        'assets/img/profile.png',
+                      backgroundImage: NetworkImage(
+                        Api.getImageURL(profileController.profileModel.value.data?.image),
                       ),
                     ),
                     Positioned(
@@ -82,13 +86,13 @@ class MenuPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     KText(
-                      text: 'Anisur Rahman',
+                      text: profileController.profileModel.value.data?.name,
                       color: black,
                       fontWeight: FontWeight.w500,
                       fontSize: 22,
                     ),
                     KText(
-                      text: '+8801700000000',
+                      text: profileController.profileModel.value.data?.phone,
                       color: black54,
                       fontSize: 16,
                     ),
@@ -258,7 +262,7 @@ class MenuPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      )),
     );
   }
 
