@@ -3,6 +3,7 @@ import 'package:druto_seba_driver/src/configs/app_images.dart';
 import 'package:druto_seba_driver/src/modules/auth/controller/auth_controller.dart';
 import 'package:druto_seba_driver/src/modules/auth/views/registerUserInfoPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -71,7 +72,7 @@ class _OtpPageState extends State<OtpPage> {
         child: SingleChildScrollView(
           child: Padding(
             padding: paddingH20,
-            child: Column(
+            child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -99,11 +100,13 @@ class _OtpPageState extends State<OtpPage> {
                 sizeH10,
                 OtpForm(controller: otpController,),
                 sizeH40,
-                primaryButton(
-                  buttonName: 'যাচাই করুন',
-                  onTap: () {
-                    authController.otpVerify(phone: widget.number, otp: otpController.text.toString());
-                  }
+                authController.isLoading.value == true? primaryButton(
+                    child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+                ) : primaryButton(
+                    buttonName: 'যাচাই করুন',
+                    onTap: () {
+                      authController.otpVerify(phone: widget.number, otp: otpController.text.toString());
+                    }
                 ),
                 sizeH20,
                 Row(
@@ -119,50 +122,50 @@ class _OtpPageState extends State<OtpPage> {
                     sizeW5,
                     _start == 0
                         ? GestureDetector(
-                            onTap: () {
+                      onTap: () {
 
-                              authController.otpResend(phone: widget.number);
+                        authController.otpResend(phone: widget.number);
 
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          super.widget));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                super.widget));
 
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10,
-                              ),
-                              child: KText(
-                                text: 'Resend Code',
-                                color: primaryColor,
-                              ),
-                            ),
-                          )
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        child: KText(
+                          text: 'Resend Code',
+                          color: primaryColor,
+                        ),
+                      ),
+                    )
                         : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              KText(
-                                text: '$_start',
-                                fontSize: 16,
-                                color: primaryColor,
-                                textAlign: TextAlign.center,
-                              ),
-                              sizeW5,
-                              KText(
-                                text: 'sec',
-                                fontSize: 16,
-                                color: primaryColor,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        KText(
+                          text: '$_start',
+                          fontSize: 16,
+                          color: primaryColor,
+                          textAlign: TextAlign.center,
+                        ),
+                        sizeW5,
+                        KText(
+                          text: 'sec',
+                          fontSize: 16,
+                          color: primaryColor,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ],
-            ),
+            ),)
           ),
         ),
       ),

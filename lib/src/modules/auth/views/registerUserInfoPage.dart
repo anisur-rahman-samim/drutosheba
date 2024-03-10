@@ -28,31 +28,11 @@ class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
-        child: Container(
-          color: primaryColor,
-          child: Column(
-            children: [
-              AppBar(),
-              Padding(
-                padding: paddingH20,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    KText(
-                      text: 'নতুন একাউন্ট তৈরী',
-                      fontSize: 18,
-                      color: white,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: AppBar(title: KText(
+        text: 'নতুন একাউন্ট তৈরী',
+        fontSize: 18,
+        color: white,
+      ),centerTitle: true,),
       body: Padding(
         padding: paddingH20,
         child: ListView(

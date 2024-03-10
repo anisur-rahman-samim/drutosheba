@@ -7,13 +7,13 @@ class Api{
 
   ///Auth
   static const login = "$baseUrl/partner/login";//done
-  static const register = "$baseUrl/partner/register";
+  static const register = "$baseUrl/partner/register";//done
   static const registerProfile = "$baseUrl/partner/register-step";
-  static const verify = "$baseUrl/partner/verify";
-  static const resend = "$baseUrl/partner/resend-otp";
-  static const forgot = "$baseUrl/partner/forgot-password";
-  static const resendForgot = "$baseUrl/partner/resend-forgot";
-  static const forgotVerify = "$baseUrl/partner/forgot-verify";
+  static const verify = "$baseUrl/partner/verify";//done
+  static const resend = "$baseUrl/partner/resend-otp";//done
+  static const forgot = "$baseUrl/partner/forgot-password";//done
+  static const resendForgot = "$baseUrl/partner/resend-forgot";//done
+  static const forgotVerify = "$baseUrl/partner/forgot-verify";//done
   static const profile = "$baseUrl/partner/profile"; //done
   static const profileUpdate = "$baseUrl/partner/profile-update";
 

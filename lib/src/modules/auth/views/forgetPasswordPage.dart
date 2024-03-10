@@ -1,10 +1,12 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
+import 'package:druto_seba_driver/src/modules/auth/controller/auth_controller.dart';
 import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/formWithCountryCode.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,7 @@ import '../../dashboard/dashboard.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   final TextEditingController numberController = TextEditingController();
+  final AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +59,7 @@ class ForgetPasswordPage extends StatelessWidget {
               ),
               child: Padding(
                 padding: paddingH20,
-                child: Column(
+                child: Obx(() => Column(
                   children: [
                     sizeH20,
                     KText(
@@ -78,9 +81,13 @@ class ForgetPasswordPage extends StatelessWidget {
                       numberTextC: numberController,
                     ),
                     sizeH20,
-                    primaryButton(
-                      buttonName: 'পরবর্তী',
-                      onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
+                    authController.isLoading.value == true? primaryButton(
+                        child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+                    ) : primaryButton(
+                        buttonName: 'পরবর্তী',
+                        onTap: () {
+                          authController.forgot(phone: numberController.text);
+                        }
                     ),
                     SizedBox(
                       height: Get.height / 2.4,
@@ -90,7 +97,7 @@ class ForgetPasswordPage extends StatelessWidget {
                       onTap: () => Get.to(() => LoginPage(),transition: Transition.circularReveal),
                     )
                   ],
-                ),
+                ),)
               ),
             ),
           ],

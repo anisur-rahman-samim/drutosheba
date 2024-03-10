@@ -1,4 +1,5 @@
 import 'package:druto_seba_driver/src/configs/app_texts.dart';
+import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/network/base_client/base_client.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../../../widgets/snack_bar/snack_bar.dart';
 import '../../dashboard/dashboard.dart';
+import '../views/forgotOtpPage.dart';
 import '../views/otpPage.dart';
 import '../views/registerUserInfoPage.dart';
 
@@ -141,6 +143,112 @@ class AuthController extends GetxController {
           kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.green);
         }else{
           kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      // kSnackBar(message: e.toString(), bgColor: failedColor);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  ///OTP forgot
+  Future forgot({
+    required String phone,
+  }) async {
+    try {
+      isLoading(true);
+      var map = <String, dynamic>{};
+      map['phone'] = phone;
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.forgot,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          Get.to(() => ForgotOtpPage(number: phone,),transition: Transition.circularReveal);
+          kSnackBar(message: "Forgot OTP Send Successfully", bgColor: Colors.green);
+        }else{
+          kSnackBar(message: responseBody['message']['phone'].toString(), bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      // kSnackBar(message: e.toString(), bgColor: failedColor);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  ///OTP Forgot verify
+  Future forgotOtpVerify({
+    required String phone,
+    required String otp,
+    required String password,
+  }) async {
+    try {
+      isLoading(true);
+      var map = <String, dynamic>{};
+      map['phone'] = phone;
+      map['otp'] = otp;
+      map['password'] = password;
+
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.forgotVerify,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          Get.to(() => LoginPage(),transition: Transition.circularReveal);
+          kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.green);
+        }else{
+          kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      // kSnackBar(message: e.toString(), bgColor: failedColor);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  ///OTP resend
+  Future forgotOtpResend({
+    required String phone,
+  }) async {
+    try {
+      isLoading(true);
+      var map = <String, dynamic>{};
+      map['phone'] = phone;
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.resendForgot,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          kSnackBar(message: "Forgot OTP Resend Successfully", bgColor: Colors.green);
+        }else{
+          kSnackBar(message: responseBody['message']['phone'].toString(), bgColor: Colors.red);
         }
 
         isLoading(false);
