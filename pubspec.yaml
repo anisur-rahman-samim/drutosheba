@@ -34,6 +34,7 @@ dependencies:
   flutter_local_notifications: ^8.2.0
   vibration: ^1.7.2
   flutter_snake_navigationbar: ^0.6.1
+  get_storage: ^2.1.1
 
   #network
   http: ^0.13.6
