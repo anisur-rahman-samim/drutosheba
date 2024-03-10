@@ -229,7 +229,6 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                           child: InkWell(
                               onTap: (){
                                 _speak("পিকআপ লোকেশন,Panthapath,ঢাকা,বাংলাদেশ,ড্রপ লোকেশন, Balipara Bridge,Balipara Bridge,বাংলাদেশ ");
-                                print("test");
                               },
                               child: Icon(Icons.volume_up_outlined,color: Colors.red,)),
                         ),

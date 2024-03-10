@@ -100,26 +100,29 @@ class _FilterComponentState extends State<FilterComponent> {
                 itemCount: rentalData.length,
                 itemBuilder: (c, i) {
                   final item = rentalData[i];
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Divider(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        child: KText(
-                          text:
-                              '${item.title} ( ${item.description})'.replaceAll(
-                            'capacity',
-                            '',
+                  return InkWell(
+                    onTap: () => Get.back(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Divider(),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
                           ),
-                          fontSize: 18,
+                          child: KText(
+                            text:
+                                '${item.title} ( ${item.description})'.replaceAll(
+                              'capacity',
+                              '',
+                            ),
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 }),
           ],
@@ -158,14 +161,17 @@ class _FilterComponentState extends State<FilterComponent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Divider(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        child: KText(
-                          text: '${item.vivagName}',
-                          fontSize: 18,
+                      InkWell(
+                        onTap: () => Get.back(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          child: KText(
+                            text: '${item.vivagName}',
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ],

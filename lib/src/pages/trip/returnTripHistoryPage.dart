@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/pages/trip/views/fares_view.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class ReturnTripHistoryPage extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: 10),
                                   child: CustomCardWidget(
-                                   // onTap: () => Get.to(() => ReturnTripHistoryPage(),transition: Transition.circularReveal),
+                                  onTap: () => Get.to(() => FaresView(),transition: Transition.circularReveal),
                                     radius: 30,
                                     color: greyBackgroundColor,
                                     isPaddingHide: true,
@@ -77,7 +78,7 @@ class ReturnTripHistoryPage extends StatelessWidget {
                                         ),
                                         sizeW5,
                                         KText(
-                                          text: 'Fares',
+                                          text: 'ফেয়ার',
                                           fontSize: 14,
                                         ),
                                         sizeW10,
