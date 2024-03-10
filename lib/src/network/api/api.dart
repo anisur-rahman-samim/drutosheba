@@ -1,7 +1,7 @@
 class Api{
   /// base url
   static const domain = "https://carbook.cutiaidcorporation.com";
-  static const baseUrl = "$domain/api";
+  static const baseUrl = "$domain/api/v1";
   static String getImageURL(endPoint) => '$domain/$endPoint';
 
 

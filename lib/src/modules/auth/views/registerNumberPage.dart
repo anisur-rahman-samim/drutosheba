@@ -1,7 +1,7 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
-import 'package:druto_seba_driver/src/modules/auth/otpPage.dart';
+import 'package:druto_seba_driver/src/modules/auth/views/otpPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/formWithCountryCode.dart';

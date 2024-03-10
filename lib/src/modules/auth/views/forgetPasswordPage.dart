@@ -1,18 +1,18 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
-import 'package:druto_seba_driver/src/modules/dashboard/dashboard.dart';
+import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
-import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
+import 'package:druto_seba_driver/src/widgets/formField/formWithCountryCode.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'forgetPasswordPage.dart';
-import 'registerNumberPage.dart';
+import '../../dashboard/dashboard.dart';
 
-class LoginPage extends StatelessWidget {
+
+class ForgetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,58 +59,34 @@ class LoginPage extends StatelessWidget {
                   children: [
                     sizeH20,
                     KText(
-                      text: 'লগইন',
-                      fontSize: 25,
+                      text: 'মোবাইল নাম্বার লিখুন',
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                     sizeH10,
                     KText(
-                      text:
-                          '''আপনার মোবাইল নাম্বার এবং পাসওয়ার্ড দিয়ে লগইন অপশনে ক্লিক করুন। পাসওয়ার্ড ভুলে গিয়ে থাকলে অথবা নতুন পাসওয়ার্ড সেট করতে, 'আপনার পাসওয়ার্ড ভুলে গেছেন?' অপশনে ক্লিক করতে হবে।''',
+                      text: 'পাসওয়ার্ড রিসেট করতে আপনার ফোন নম্বর যাচাই করুন',
                       textAlign: TextAlign.center,
-                      color: black45,
+                      fontWeight: FontWeight.w600,
                       fontSize: 14,
-
-                      // fontWeight: FontWeight.w600,
+                      color: black45,
                     ),
                     sizeH30,
-                    customFormField(
+                    formWithCountryCode(
                       hintText: 'মোবাইল নাম্বার লিখুন',
-                      isNumberField: true,
-                    ),
-                    sizeH20,
-                    customFormField(
-                      hintText: 'আপনার পাসওয়ার্ড লিখুন',
-                      isPassword: true,
                     ),
                     sizeH20,
                     primaryButton(
-                      buttonName: 'লগইন',
+                      buttonName: 'পরবর্তী',
                       onTap: () => Get.to(() => DashboardView()),
                     ),
-                    sizeH20,
-                    GestureDetector(
-                      onTap: () => Get.to(() => ForgetPasswordPage()),
-                      child: SizedBox(
-                        height: 45,
-                        width: Get.width,
-                        child: Center(
-                          child: KText(
-                            text: 'আপনার পাসওয়ার্ড ভুলে গেছেন?',
-                            // fontWeight: FontWeight.bold,
-                            color: primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
                     SizedBox(
-                      height: Get.height / 6,
+                      height: Get.height / 2.4,
                     ),
                     outlineButton(
-                      buttonName: 'রেজিস্টার',
-                      fontWeight: FontWeight.normal,
-                      onTap: () => Get.to(() => RegisterPage()),
-                    ),
+                      buttonName: 'লগইন',
+                      onTap: () => Get.to(() => LoginPage()),
+                    )
                   ],
                 ),
               ),

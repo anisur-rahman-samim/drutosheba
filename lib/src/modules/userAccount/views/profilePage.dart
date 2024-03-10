@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../configs/appColors.dart';
 import '../../../configs/appUtils.dart';
 import '../../../widgets/text/kText.dart';
-import '../../auth/changePasswordPage.dart';
+import '../../auth/views/changePasswordPage.dart';
 import 'profileEditPage.dart';
 
 class ProfilePage extends StatelessWidget {

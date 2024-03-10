@@ -4,11 +4,11 @@ import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../widgets/formField/dropDownForm.dart';
-import '../../widgets/text/kText.dart';
-import '../dashboard/dashboard.dart';
+import '../../../configs/appColors.dart';
+import '../../../configs/appUtils.dart';
+import '../../../widgets/formField/dropDownForm.dart';
+import '../../../widgets/text/kText.dart';
+import '../../dashboard/dashboard.dart';
 
 class RegisterUserInfoPage extends StatefulWidget {
   @override

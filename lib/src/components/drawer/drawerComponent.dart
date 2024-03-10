@@ -1,5 +1,5 @@
 
-import 'package:druto_seba_driver/src/modules/auth/loginPage.dart';
+import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
 import 'package:druto_seba_driver/src/modules/credit/creditPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/dashboardPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/helpPage.dart';

@@ -16,9 +16,9 @@ class BaseClient {
     debugPrint("Request Params: $params");
 
     var headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
+      //'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      "remember_token": "${LocalStorage.getData(key: AppTexts.token)}"
+      "Authorization": "${LocalStorage.getData(key: AppTexts.token)}"
     };
     debugPrint("statusCode: remember_token: ${LocalStorage.getData(key: AppTexts.token)}");
 
@@ -36,8 +36,8 @@ class BaseClient {
 
     var headers = {
       'Accept': 'application/json',
-      // 'Content-Type': 'application/json; charset=UTF-8',
-      "remember_token": "${LocalStorage.getData(key: AppTexts.token)}"
+     // 'Content-Type': 'application/json; charset=UTF-8',
+      "Authorization": "${LocalStorage.getData(key: AppTexts.token)}"
     };
 
     http.Response response = await http.post(
@@ -54,7 +54,7 @@ class BaseClient {
 
     var headers = {
       'Accept': 'application/json',
-      "remember_token":  "${LocalStorage.getData(key: AppTexts.token)}"
+      "Authorization":  "${LocalStorage.getData(key: AppTexts.token)}"
     };
 
 
@@ -79,7 +79,7 @@ class BaseClient {
 
     var headers = {
       'Accept': 'application/json',
-      "remember_token": "${LocalStorage.getData(key: AppTexts.token)}"
+      "Authorization": "${LocalStorage.getData(key: AppTexts.token)}"
     };
 
     http.MultipartRequest request;

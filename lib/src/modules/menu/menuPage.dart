@@ -7,7 +7,7 @@ import '../../configs/appUtils.dart';
 import '../../widgets/card/customCardWidget.dart';
 import '../../widgets/text/kText.dart';
 import '../allGari/gariListPage.dart';
-import '../auth/loginPage.dart';
+import '../auth/views/loginPage.dart';
 import '../credit/creditPage.dart';
 import '../drawerPage/dashboardPage.dart';
 import '../drawerPage/helpPage.dart';

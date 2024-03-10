@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'package:druto_seba_driver/src/modules/auth/registerUserInfoPage.dart';
+import 'package:druto_seba_driver/src/modules/auth/views/registerUserInfoPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../widgets/text/kText.dart';
+import '../../../configs/appColors.dart';
+import '../../../configs/appUtils.dart';
+import '../../../widgets/text/kText.dart';
 
 class OtpPage extends StatefulWidget {
   const OtpPage({Key? key}) : super(key: key);
