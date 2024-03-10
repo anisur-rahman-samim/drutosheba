@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../widgets/snack_bar/snack_bar.dart';
 import '../../dashboard/dashboard.dart';
 import '../views/otpPage.dart';
+import '../views/registerUserInfoPage.dart';
 
 class AuthController extends GetxController {
   var isLoading = false.obs;
@@ -40,7 +41,7 @@ class AuthController extends GetxController {
 
         isLoading(false);
       } else {
-        throw 'Logged in Failed!';
+        throw 'Failed!';
       }
     } catch (e) {
       // kSnackBar(message: e.toString(), bgColor: failedColor);
@@ -66,9 +67,6 @@ class AuthController extends GetxController {
 
       if (responseBody != null) {
         if(responseBody['status'] == "success"){
-          String otp = responseBody['data']['verify'];
-          debugPrint("OTP: "+otp.toString());
-
           Get.to(() => OtpPage(number: phone,),transition: Transition.circularReveal);
           kSnackBar(message: "OTP Send Successfully", bgColor: Colors.green);
         }else{
@@ -77,7 +75,77 @@ class AuthController extends GetxController {
 
         isLoading(false);
       } else {
-        throw 'Logged in Failed!';
+        throw 'Failed!';
+      }
+    } catch (e) {
+      // kSnackBar(message: e.toString(), bgColor: failedColor);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  ///OTP resend
+  Future otpResend({
+    required String phone,
+  }) async {
+    try {
+      isLoading(true);
+      var map = <String, dynamic>{};
+      map['phone'] = phone;
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.resend,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          kSnackBar(message: "OTP Resend Successfully", bgColor: Colors.green);
+        }else{
+          kSnackBar(message: responseBody['message']['phone'].toString(), bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      // kSnackBar(message: e.toString(), bgColor: failedColor);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  ///OTP verify
+  Future otpVerify({
+    required String phone,
+    required String otp,
+  }) async {
+    try {
+      isLoading(true);
+      var map = <String, dynamic>{};
+      map['phone'] = phone;
+      map['otp'] = otp;
+
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.verify,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          Get.to(() => RegisterUserInfoPage(),transition: Transition.circularReveal);
+          kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.green);
+        }else{
+          kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
       }
     } catch (e) {
       // kSnackBar(message: e.toString(), bgColor: failedColor);

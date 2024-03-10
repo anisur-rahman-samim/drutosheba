@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:druto_seba_driver/src/configs/app_images.dart';
+import 'package:druto_seba_driver/src/modules/auth/controller/auth_controller.dart';
 import 'package:druto_seba_driver/src/modules/auth/views/registerUserInfoPage.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,9 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpPageState extends State<OtpPage> {
+  final AuthController authController = Get.put(AuthController());
+  final TextEditingController otpController = TextEditingController();
+
   Timer? _timer;
   int _start = 59;
 
@@ -57,31 +62,11 @@ class _OtpPageState extends State<OtpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
-        child: Container(
-          color: primaryColor,
-          child: Column(
-            children: [
-              AppBar(),
-              Padding(
-                padding: paddingH20,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    KText(
-                      text: 'যাচাই করুন',
-                      fontSize: 18,
-                      color: white,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: AppBar(title: KText(
+        text: 'যাচাই করুন',
+        fontSize: 18,
+        color: white,
+      ),centerTitle: true,),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -90,6 +75,8 @@ class _OtpPageState extends State<OtpPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Center(child: Image.asset(AppImages.logo,scale: 4,),),
+                sizeH20,
                 KText(
                   text: 'যাচাই কোড প্রবেশ করুন',
                   fontSize: 22,
@@ -110,11 +97,13 @@ class _OtpPageState extends State<OtpPage> {
                   textAlign: TextAlign.center,
                 ),
                 sizeH10,
-                OtpForm(),
+                OtpForm(controller: otpController,),
                 sizeH40,
                 primaryButton(
                   buttonName: 'যাচাই করুন',
-                  onTap: () => Get.to(() => RegisterUserInfoPage(),transition: Transition.circularReveal),
+                  onTap: () {
+                    authController.otpVerify(phone: widget.number, otp: otpController.text.toString());
+                  }
                 ),
                 sizeH20,
                 Row(
@@ -131,11 +120,15 @@ class _OtpPageState extends State<OtpPage> {
                     _start == 0
                         ? GestureDetector(
                             onTap: () {
+
+                              authController.otpResend(phone: widget.number);
+
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           super.widget));
+
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
@@ -178,6 +171,9 @@ class _OtpPageState extends State<OtpPage> {
 }
 
 class OtpForm extends StatefulWidget {
+  final controller;
+
+  const OtpForm({super.key, required this.controller});
   @override
   _OtpFormState createState() => _OtpFormState();
 
@@ -186,12 +182,12 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  final controller = TextEditingController();
+
   final focusNode = FocusNode();
 
   @override
   void dispose() {
-    controller.dispose();
+    widget.controller.dispose();
     focusNode.dispose();
     super.dispose();
   }
@@ -200,7 +196,7 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    final length = 4;
+    final length = 6;
     const errorColor = Color.fromRGBO(255, 234, 238, 1);
     const fillColor = Color.fromARGB(255, 240, 240, 240);
     final defaultPinTheme = PinTheme(
@@ -221,7 +217,7 @@ class _OtpFormState extends State<OtpForm> {
       height: 68,
       child: Pinput(
         length: length,
-        controller: controller,
+        controller: widget.controller,
         focusNode: focusNode,
         defaultPinTheme: defaultPinTheme,
         onCompleted: (pin) {
