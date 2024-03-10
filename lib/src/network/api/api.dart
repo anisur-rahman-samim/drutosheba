@@ -53,6 +53,7 @@ class Api{
 
   ///common
   static const districts = "$baseUrl/partner/districts";
+  static const divisions = "$baseUrl/partner/divisions";
   static const shareReferKey = "$baseUrl/partner/share-referkey";
   static const offer = "$baseUrl/partner/offer";
   static const help = "$baseUrl/partner/help";

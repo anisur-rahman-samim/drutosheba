@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:druto_seba_driver/src/modules/auth/controller/image_controller.dart';
+import 'package:druto_seba_driver/src/modules/auth/controller/profile_create_controller.dart';
+import 'package:druto_seba_driver/src/modules/auth/model/divisions_model.dart';
+import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 
@@ -21,6 +24,7 @@ class RegisterUserInfoPage extends StatefulWidget {
 
 class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
   final ImageController imageController = Get.put(ImageController());
+  final ProfileCreateController profileCreateController = Get.put(ProfileCreateController());
 
   String nidSelected = 'এনআইডি';
   String gender = 'পুরুষ';
@@ -185,12 +189,72 @@ class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
               outlineColor: grey.shade200,
               height: 45,
             ),
-            dropDownForm(
+            sizeH20,
+            /*dropDownForm(
               hintText: 'বিভাগ *',
               title: '',
               requiredText: '',
               onTap: () {},
-            ),
+            ),*/
+          Obx(
+                () => SizedBox(
+                  height: 55,
+                  child: DropdownButtonFormField<Datum>(
+                                value: null, // Set initial value if needed
+                                items: profileCreateController.divisionsList.map((datum) {
+                  return DropdownMenuItem<Datum>(
+                    value: datum,
+                    child: Text(datum.name!,style: TextStyle(
+                      color: black54,
+                      fontSize: 14,
+                    ),),
+                  );
+                                }).toList(),
+                                onChanged: (Datum? newValue) {
+                                print('Selected Division ID: ${newValue!.id}');
+                                },
+                                decoration: InputDecoration(
+                                 // labelText: 'Select Division',
+                                   border: OutlineInputBorder(borderSide: BorderSide(width: 1,color: Colors.red.shade400)),
+                                ),
+                              ),
+                ),
+          ),
+            /*FormField<String>(
+              builder: (FormFieldState<String> state) {
+                return InputDecorator(
+                  decoration: InputDecoration(
+                    contentPadding:
+                    const EdgeInsets.fromLTRB(10, 2, 10, 2),
+                    label: const Text("বিভাগ *"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: profileCreateController.selectedDivisions.value,
+                      isDense: true,
+                      onChanged: (String? newValue) {
+
+                        setState(() {
+                          profileCreateController
+                              .changedDivisionsValue(newValue!);
+                         // widget.categoriesController.printIdByNameIndex(widget.categoriesController.categoryIdList, widget.categoriesController.categoryList, newValue);
+
+                        });
+                      },
+                      items: profileCreateController.divisionsList.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                );
+              },
+            ),*/
             sizeH20,
             customFormField(
               hintText: 'ঠিকানা',
