@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:http_parser/http_parser.dart';
 import '../../../network/api/api.dart';
+import '../driverPage.dart';
 
 class DriverController extends GetxController{
   var isLoading = false.obs;
@@ -157,8 +158,8 @@ class DriverController extends GetxController{
       if (response.statusCode == 200) {
         if(responseBody['status'] == "success"){
           getDriver();
-          Get.to(() => DashboardView(),transition: Transition.circularReveal);
-          kSnackBar(message: responseBody['message'], bgColor: Colors.green);
+          Get.to(() => DriverPage(),transition: Transition.circularReveal);
+          //kSnackBar(message: responseBody['message'], bgColor: Colors.green);
         }else{
           kSnackBar(message: "Failed", bgColor: Colors.red);
         }

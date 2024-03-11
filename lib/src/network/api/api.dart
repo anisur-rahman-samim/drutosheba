@@ -28,8 +28,8 @@ class Api{
   static const tripDetails = "$baseUrl/partner/trip-details";
 
   ///Driver
-  static const driverManage = "$baseUrl/partner/driver-manage";//working 11
-  static const driverAdd = "$baseUrl/partner/driver-add";
+  static const driverManage = "$baseUrl/partner/driver-manage";//done 11
+  static const driverAdd = "$baseUrl/partner/driver-add"; // done 11
 
   ///Penalty and Balance
   static const credit = "$baseUrl/partner/credit";
@@ -53,7 +53,7 @@ class Api{
 
   ///common
   static const districts = "$baseUrl/partner/districts";
-  static const divisions = "$baseUrl/partner/divisions";
+  static const divisions = "$baseUrl/partner/divisions"; //done 10
   static const shareReferKey = "$baseUrl/partner/share-referkey";
   static const offer = "$baseUrl/partner/offer";
   static const help = "$baseUrl/partner/help";
