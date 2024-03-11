@@ -8,7 +8,7 @@ class Api{
   ///Auth
   static const login = "$baseUrl/partner/login";//done
   static const register = "$baseUrl/partner/register";//done
-  static const registerProfile = "$baseUrl/partner/register-step";
+  static const registerProfile = "$baseUrl/partner/register-step"; //done 11
   static const verify = "$baseUrl/partner/verify";//done
   static const resend = "$baseUrl/partner/resend-otp";//done
   static const forgot = "$baseUrl/partner/forgot-password";//done
@@ -28,7 +28,7 @@ class Api{
   static const tripDetails = "$baseUrl/partner/trip-details";
 
   ///Driver
-  static const driverManage = "$baseUrl/partner/driver-manage";
+  static const driverManage = "$baseUrl/partner/driver-manage";//working 11
   static const driverAdd = "$baseUrl/partner/driver-add";
 
   ///Penalty and Balance

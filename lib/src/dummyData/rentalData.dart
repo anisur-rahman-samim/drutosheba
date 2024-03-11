@@ -41,6 +41,31 @@ final rentalData = [
     description: 'Available',
     image: 'assets/img/car6.webp',
   ),
+  RentalCarDummyData(
+    title: 'Truck',
+    description: 'Available',
+    image: 'assets/img/car6.webp',
+  ),
+  RentalCarDummyData(
+    title: 'Truck',
+    description: 'Available',
+    image: 'assets/img/car6.webp',
+  ),
+  RentalCarDummyData(
+    title: 'Truck',
+    description: 'Available',
+    image: 'assets/img/car6.webp',
+  ),
+  RentalCarDummyData(
+    title: 'Truck',
+    description: 'Available',
+    image: 'assets/img/car6.webp',
+  ),
+  RentalCarDummyData(
+    title: 'Truck',
+    description: 'Available',
+    image: 'assets/img/car6.webp',
+  ),
 ];
 
 class VivagData {

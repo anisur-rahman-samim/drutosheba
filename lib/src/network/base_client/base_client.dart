@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../configs/app_texts.dart';
 
@@ -37,7 +39,7 @@ class BaseClient {
     var headers = {
       'Accept': 'application/json',
      // 'Content-Type': 'application/json; charset=UTF-8',
-      "Authorization": "${LocalStorage.getData(key: AppTexts.token)}"
+      "Authorization": "Bearer ${LocalStorage.getData(key: AppTexts.token)}"
     };
 
     http.Response response = await http.post(
@@ -54,7 +56,7 @@ class BaseClient {
 
     var headers = {
       'Accept': 'application/json',
-      "Authorization":  "${LocalStorage.getData(key: AppTexts.token)}"
+      "Authorization":  "Bearer ${LocalStorage.getData(key: AppTexts.token)}"
     };
 
 
@@ -79,7 +81,7 @@ class BaseClient {
 
     var headers = {
       'Accept': 'application/json',
-      "Authorization": "${LocalStorage.getData(key: AppTexts.token)}"
+      "Authorization": "Bearer ${LocalStorage.getData(key: AppTexts.token)}"
     };
 
     http.MultipartRequest request;
@@ -115,7 +117,7 @@ class BaseClient {
         }
       } else if (response.statusCode == 401) {
         debugPrint("statusCode: 401");
-        // _logout();
+        Get.to(() => LoginPage());
         String msg = "Unauthorized";
         if (response.body.isNotEmpty) {
           if(json.decode(response.body)['errors'] != null){

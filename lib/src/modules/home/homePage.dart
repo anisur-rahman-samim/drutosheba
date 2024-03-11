@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white)
                         ),
-                        child: ClipOval(child: Image.network(Api.getImageURL(profileController.profileModel.value.data!.image.toString()), fit: BoxFit.fill,)),
+                        child: ClipOval(child: Image.network(Api.getImageURL(profileController.profileModel.value.data?.image.toString()), fit: BoxFit.fill,)),
                       ),
                     ),
                   ),

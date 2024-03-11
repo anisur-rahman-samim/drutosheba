@@ -248,8 +248,8 @@ class MenuPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _listTile(
-                  onTap: () {
-                    LocalStorage.removeData(key: AppTexts.token);
+                  onTap: () async {
+                   await LocalStorage.removeData(key: AppTexts.token);
                     Get.to(() => LoginPage(),transition: Transition.circularReveal);
                   },
                   leadingIcon: Icons.logout,
