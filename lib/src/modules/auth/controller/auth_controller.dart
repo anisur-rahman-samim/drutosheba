@@ -46,7 +46,7 @@ class AuthController extends GetxController {
         throw 'Failed!';
       }
     } catch (e) {
-      // kSnackBar(message: e.toString(), bgColor: failedColor);
+       kSnackBar(message: e.toString(), bgColor: Colors.red);
     } finally {
       isLoading(false);
     }
@@ -139,7 +139,7 @@ class AuthController extends GetxController {
 
       if (responseBody != null) {
         if(responseBody['status'] == "success"){
-          Get.to(() => RegisterUserInfoPage(),transition: Transition.circularReveal);
+          Get.to(() => RegisterUserInfoPage(number: phone,),transition: Transition.circularReveal);
           kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.green);
         }else{
           kSnackBar(message: responseBody['message'].toString(), bgColor: Colors.red);

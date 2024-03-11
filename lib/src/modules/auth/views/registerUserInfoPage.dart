@@ -6,6 +6,7 @@ import 'package:druto_seba_driver/src/modules/auth/model/divisions_model.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,105 +15,131 @@ import 'package:image_picker/image_picker.dart';
 import '../../../configs/appColors.dart';
 import '../../../configs/appUtils.dart';
 import '../../../widgets/formField/dropDownForm.dart';
+import '../../../widgets/snack_bar/snack_bar.dart';
 import '../../../widgets/text/kText.dart';
 import '../../dashboard/dashboard.dart';
 
 class RegisterUserInfoPage extends StatefulWidget {
+  final String number;
+
+  const RegisterUserInfoPage({super.key, required this.number});
   @override
   State<RegisterUserInfoPage> createState() => _RegisterUserInfoPageState();
 }
 
 class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
   final ImageController imageController = Get.put(ImageController());
-  final ProfileCreateController profileCreateController = Get.put(ProfileCreateController());
+  final ProfileCreateController profileCreateController =
+      Get.put(ProfileCreateController());
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController refCodeController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController rePasswordController = TextEditingController();
 
   String nidSelected = 'এনআইডি';
   String gender = 'পুরুষ';
   var profileImagePath;
+  var divisionId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: KText(
-        text: 'নতুন একাউন্ট তৈরী',
-        fontSize: 18,
-        color: white,
-      ),centerTitle: true,),
+      appBar: AppBar(
+        title: KText(
+          text: 'নতুন একাউন্ট তৈরী',
+          fontSize: 18,
+          color: white,
+        ),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: paddingH20,
         child: ListView(
           children: [
             sizeH20,
-            profileImagePath != null? Center(
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: grey.shade200,
-                    child: ClipOval(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: FileImage(
-                              File(profileImagePath),
+            profileImagePath != null
+                ? Center(
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundColor: grey.shade200,
+                          child: ClipOval(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                // shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: FileImage(
+                                    File(profileImagePath),
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                            fit: BoxFit.cover,
                           ),
                         ),
+                        Positioned(
+                          bottom: 0,
+                          left: 50,
+                          child: InkWell(
+                            onTap: () async {
+                              String? imagePath = await imageController
+                                  .captureImage(ImageSource.gallery);
+                              setState(() {
+                                profileImagePath = imagePath;
+                              });
+                            },
+                            child: CircleAvatar(
+                              radius: 12,
+                              backgroundColor: black,
+                              child: Center(
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: white,
+                                  size: 14,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                : InkWell(
+                    onTap: () async {
+                      String? imagePath = await imageController
+                          .captureImage(ImageSource.gallery);
+                      setState(() {
+                        profileImagePath = imagePath;
+                      });
+                    },
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundColor: grey.shade200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.camera_alt,
+                            color: blue,
+                            size: 15,
+                          ),
+                          KText(
+                            text: 'ছবি যোগ করুন',
+                            color: blue,
+                            fontSize: 10,
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 50,
-                    child: InkWell(
-                      onTap: ()async{
-                        String? imagePath = await imageController.captureImage(ImageSource.gallery);
-                        setState(() {
-                          profileImagePath = imagePath;
-                        });
-                      },
-                      child: CircleAvatar(
-                        radius: 12,
-                        backgroundColor: black,
-                        child: Center(
-                          child: Icon(Icons.camera_alt,color: white,size: 14,),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ) : InkWell(
-              onTap: ()async{
-                String? imagePath = await imageController.captureImage(ImageSource.gallery);
-                setState(() {
-                  profileImagePath = imagePath;
-                });
-              },
-              child: CircleAvatar(
-                radius: 40,
-                backgroundColor: grey.shade200,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.camera_alt,
-                      color: blue,
-                      size: 15,
-                    ),
-                    KText(
-                      text: 'ছবি যোগ করুন',
-                      color: blue,
-                      fontSize: 10,
-                    ),
-                  ],
-                ),
-              ),
-            ),
             sizeH20,
             customFormField(
+              controller: nameController,
               hintText: 'নাম *',
               outlineColor: grey.shade200,
               height: 45,
@@ -179,12 +206,14 @@ class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
             ),
             sizeH20,
             customFormField(
+              controller: idController,
               hintText: 'এনআইডি নম্বর *',
               outlineColor: grey.shade200,
               height: 45,
             ),
             sizeH20,
             customFormField(
+              controller: emailController,
               hintText: 'ইমেইল',
               outlineColor: grey.shade200,
               height: 45,
@@ -196,67 +225,46 @@ class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
               requiredText: '',
               onTap: () {},
             ),*/
-          Obx(
-                () => SizedBox(
-                  height: 55,
-                  child: DropdownButtonFormField<Datum>(
-                                value: null, // Set initial value if needed
-                                items: profileCreateController.divisionsList.map((datum) {
-                  return DropdownMenuItem<Datum>(
-                    value: datum,
-                    child: Text(datum.name!,style: TextStyle(
-                      color: black54,
-                      fontSize: 14,
-                    ),),
-                  );
-                                }).toList(),
-                                onChanged: (Datum? newValue) {
-                                print('Selected Division ID: ${newValue!.id}');
-                                },
-                                decoration: InputDecoration(
-                                 // labelText: 'Select Division',
-                                   border: OutlineInputBorder(borderSide: BorderSide(width: 1,color: Colors.red.shade400)),
-                                ),
-                              ),
-                ),
-          ),
-            /*FormField<String>(
-              builder: (FormFieldState<String> state) {
-                return InputDecorator(
+            Obx(
+              () => SizedBox(
+                height: 45,
+                child: DropdownButtonFormField<Datum>(
+                  value: profileCreateController.divisionsList.isNotEmpty
+                      ? profileCreateController.divisionsList[0]
+                      : null,
+                  items: profileCreateController.divisionsList.map((datum) {
+                    return DropdownMenuItem<Datum>(
+                      value: datum,
+                      child: Text(
+                        datum.name!,
+                        style: TextStyle(
+                          color: black54,
+                          fontSize: 14,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (Datum? newValue) {
+                   setState(() {
+                     divisionId = newValue!.name;
+                   });
+                    print('Selected $divisionId Division ID: ${newValue!.id}');
+                  },
                   decoration: InputDecoration(
-                    contentPadding:
-                    const EdgeInsets.fromLTRB(10, 2, 10, 2),
-                    label: const Text("বিভাগ *"),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 14),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1, color: grey.shade200)),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                        borderSide: BorderSide(width: 1, color: grey.shade200)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1, color: grey.shade200)),
                   ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: profileCreateController.selectedDivisions.value,
-                      isDense: true,
-                      onChanged: (String? newValue) {
-
-                        setState(() {
-                          profileCreateController
-                              .changedDivisionsValue(newValue!);
-                         // widget.categoriesController.printIdByNameIndex(widget.categoriesController.categoryIdList, widget.categoriesController.categoryList, newValue);
-
-                        });
-                      },
-                      items: profileCreateController.divisionsList.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                );
-              },
-            ),*/
+                ),
+              ),
+            ),
             sizeH20,
             customFormField(
+              controller: addressController,
               hintText: 'ঠিকানা',
               outlineColor: grey.shade200,
               height: 45,
@@ -325,27 +333,50 @@ class _RegisterUserInfoPageState extends State<RegisterUserInfoPage> {
             ),
             sizeH20,
             customFormField(
+              controller: refCodeController,
               hintText: 'রেফারেল কোড',
               outlineColor: grey.shade200,
               height: 45,
             ),
             sizeH20,
             customFormField(
+              controller: passwordController,
               hintText: 'পাসওয়ার্ড *',
               outlineColor: grey.shade200,
               height: 45,
             ),
             sizeH20,
             customFormField(
+              controller: rePasswordController,
               hintText: 'পাসওয়ার্ড নিশ্চিত করুন *',
               outlineColor: grey.shade200,
               height: 45,
             ),
             sizeH20,
-            primaryButton(
-              buttonName: 'নিবন্ধন',
-              onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
-            ),
+            Obx(() => profileCreateController.isLoading.value == true? primaryButton(
+                child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+            ): primaryButton(
+                buttonName: 'নিবন্ধন',
+                onTap: () {
+                  if(passwordController.text == rePasswordController.text){
+                    profileCreateController.profileCreate(
+                        name: nameController.text,
+                        phone: widget.number,
+                        email: emailController.text,
+                        gender: gender,
+                        address: addressController.text,
+                        docType: nidSelected,
+                        docNumber: idController.text,
+                        image: profileImagePath,
+                        password: passwordController.text,
+                        referCode: refCodeController.text,
+                        division: divisionId.toString());
+                  }else{
+                    kSnackBar(message: "Password not match", bgColor: Colors.red);
+                  }
+
+                }
+            ),),
             sizeH20,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

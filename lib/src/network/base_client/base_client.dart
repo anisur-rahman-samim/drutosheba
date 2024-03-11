@@ -18,7 +18,7 @@ class BaseClient {
     var headers = {
       //'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NhcmJvb2suY3V0aWFpZGNvcnBvcmF0aW9uLmNvbS9hcGkvdjEvcGFydG5lci9sb2dpbiIsImlhdCI6MTcxMDA1NzIyMywiZXhwIjoxNzEwMTQzNjIzLCJuYmYiOjE3MTAwNTcyMjMsImp0aSI6ImMzcHc1WU9UdjlWSWtWRkoiLCJzdWIiOiI3IiwicHJ2IjoiNGY5ZTUwMzQ0MzcyMDc1ZDlkYmE3NTAwMWZiYWVjMDI2YWE2YTE3OCJ9.2uQOnsyKV54PESdjzY-TVUitVNedhsu9GskNLNXJYDQ"
+      "Authorization": "Bearer ${LocalStorage.getData(key: AppTexts.token)}"
     };
     debugPrint("statusCode: token: ${LocalStorage.getData(key: AppTexts.token)}");
 

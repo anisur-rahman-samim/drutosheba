@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/modules/auth/views/registerUserInfoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'configs/appTheme.dart';
@@ -15,6 +16,7 @@ class App extends StatelessWidget {
      home: SplashScreen(),
      // home: DashboardView(),
     //  home: NotificationPage(),
+     // home: RegisterUserInfoPage(),
     );
   }
 }
