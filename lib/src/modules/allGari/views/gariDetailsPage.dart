@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../widgets/card/customCardWidget.dart';
-import '../../widgets/text/kText.dart';
+import '../../../configs/appColors.dart';
+import '../../../configs/appUtils.dart';
+import '../../../widgets/card/customCardWidget.dart';
+import '../../../widgets/text/kText.dart';
 import 'addNewGariPage.dart';
 
 class GariDetailsPage extends StatelessWidget {

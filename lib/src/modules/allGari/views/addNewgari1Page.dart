@@ -10,7 +10,7 @@ import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'controller/add_gari_controller.dart';
+import '../controller/gari_image_controller.dart';
 
 class AddNewGari1Page extends StatefulWidget {
   @override
@@ -32,7 +32,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
   var drivingLicenceFront;
   var drivingLicenceBack;
 
-  final AddGariController addGariController = Get.put(AddGariController());
+  final GariImageController addGariController = Get.put(GariImageController());
 
   var selectedCar = RxString('');
   @override

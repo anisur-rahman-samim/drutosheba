@@ -158,7 +158,7 @@ class DriverController extends GetxController{
       if (response.statusCode == 200) {
         if(responseBody['status'] == "success"){
           getDriver();
-          Get.to(() => DriverPage(),transition: Transition.circularReveal);
+          Get.off(() => DriverPage(),transition: Transition.circularReveal);
           //kSnackBar(message: responseBody['message'], bgColor: Colors.green);
         }else{
           kSnackBar(message: "Failed", bgColor: Colors.red);

@@ -2,7 +2,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/dummyData/rentalData.dart';
-import 'package:druto_seba_driver/src/modules/allGari/addNewgari1Page.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/fual_controller.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_brand_controller.dart';
+import 'package:druto_seba_driver/src/modules/allGari/views/addNewgari1Page.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/dropDownForm.dart';
 import 'package:druto_seba_driver/src/widgets/formField/requiredForm.dart';
@@ -11,8 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
-
-import '../../widgets/bottomSheet/customBottomSheet.dart';
+import 'package:druto_seba_driver/src/modules/allGari/model/vehicles_brand_model.dart';
+import '../../../widgets/bottomSheet/customBottomSheet.dart';
+import '../model/fual_model.dart';
 
 class AddNewGariPage extends StatefulWidget {
   final bool? isEditPage;
@@ -24,6 +28,9 @@ class AddNewGariPage extends StatefulWidget {
 }
 
 class _AddNewGariPageState extends State<AddNewGariPage> {
+  final VehiclesBrandController vehiclesBrandController = Get.put(VehiclesBrandController());
+  final FualController fualController = Get.put(FualController());
+
   String airCondition = 'এসি';
   String selectedNidOrLicense = 'এনআইডি';
 
@@ -35,6 +42,9 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
 
   var selectedCarImage = '';
   var selectedCarCapacity = '';
+
+  var vehiclesName = '';
+  var fualName = '';
 
   @override
   void initState() {
@@ -184,11 +194,13 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
           ? AddNewGari1Page()
           : ListView(
               children: [
+                sizeH10,
                 Padding(
                   padding: paddingH20,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       Obx(
                         () => dropDownForm(
                           onTap: () => customBottomSheet(
@@ -211,18 +223,18 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       primary: false,
-                                      itemCount: rentalData.length,
+                                      itemCount: vehiclesBrandController.vehiclesBrandList.length,
                                       itemBuilder: (c, i) {
-                                        final item = rentalData[i];
+                                        final item = vehiclesBrandController.vehiclesBrandList[i];
                                         return InkWell(
                                           borderRadius:
                                               BorderRadius.circular(5),
                                           onTap: () {
                                             setState(() {
                                               selectedCar.value =
-                                                  item.title.toString();
+                                                  item.name.toString();
                                               selectedCarCapacity =
-                                                  item.description.toString();
+                                                  item.capacity.toString();
                                               selectedCarImage =
                                                   item.image.toString();
                                               Get.back();
@@ -236,11 +248,11 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
-                                                Image.asset(
-                                                  item.image.toString(),
+                                               /* Image.asset(
+                                                  Api.getImageURL(item.image.toString(),),
                                                   width: 50,
                                                   // width: Get.width / 6,
-                                                ),
+                                                ),*/
                                                 sizeW20,
                                                 SizedBox(
                                                   width: Get.width / 1.5,
@@ -252,14 +264,14 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                                             .start,
                                                     children: [
                                                       KText(
-                                                        text: item.title,
+                                                        text: item.name,
                                                         fontSize: 14,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
                                                       SizedBox(width: 3),
                                                       KText(
-                                                        text: item.description,
+                                                        text: item.capacity,
                                                         fontSize: 12,
                                                         color: black45,
                                                       ),
@@ -270,18 +282,18 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                                 CircleAvatar(
                                                   radius: 10,
                                                   backgroundColor:
-                                                      selectedCar.value == item.title
+                                                      selectedCar.value == item.name
                                                           ? primaryColor
                                                           : grey,
                                                   child: CircleAvatar(
                                                     backgroundColor:
                                                         selectedCar.value ==
-                                                                item.title
+                                                                item.name
                                                             ? primaryColor
                                                             : white,
                                                     radius: 9,
                                                     child: selectedCar.value ==
-                                                            item.title
+                                                            item.name
                                                         ? Icon(
                                                             Icons.done,
                                                             size: 15,
@@ -308,118 +320,39 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                       ),
                       sizeH10,
                       Obx(
-                            () => dropDownForm(
-                          onTap: () => customBottomSheet(
-                            context: context,
-                            height: Get.height / 1.4,
-                            child: ListView(
-                              shrinkWrap: true,
-                              primary: false,
-                              children: [
-                                Center(
-                                  child: KText(
-                                    text: 'গাড়ি নির্বাচন করুন',
-                                    fontSize: 18,
+                            () => SizedBox(
+                          height: 45,
+                          child: DropdownButtonFormField<FualList>(
+                            value: fualController.fualList.isNotEmpty
+                                ? fualController.fualList[0]
+                                : null,
+                            items: fualController.fualList.map((fuallist) {
+                              return DropdownMenuItem<FualList>(
+                                value: fuallist,
+                                child: Text(
+                                  fuallist.name!,
+                                  style: TextStyle(
+                                    color: black54,
+                                    fontSize: 14,
                                   ),
                                 ),
-                                Divider(),
-                                sizeH10,
-                                Container(
-                                  height: Get.height / 1.7,
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      primary: false,
-                                      itemCount: rentalData.length,
-                                      itemBuilder: (c, i) {
-                                        final item = rentalData[i];
-                                        return InkWell(
-                                          borderRadius:
-                                          BorderRadius.circular(5),
-                                          onTap: () {
-                                            setState(() {
-                                              selectedCarCapacity =
-                                                  item.description.toString();
-                                              selectedCarImage =
-                                                  item.image.toString();
-                                              Get.back();
-                                            });
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  item.image.toString(),
-                                                  width: 50,
-                                                  // width: Get.width / 6,
-                                                ),
-                                                sizeW20,
-                                                SizedBox(
-                                                  width: Get.width / 1.5,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      KText(
-                                                        text: item.title,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                      ),
-                                                      SizedBox(width: 3),
-                                                      KText(
-                                                        text: item.description,
-                                                        fontSize: 12,
-                                                        color: black45,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Spacer(),
-                                                CircleAvatar(
-                                                  radius: 10,
-                                                  backgroundColor:
-                                                  selectedCar.value == item.title
-                                                      ? primaryColor
-                                                      : grey,
-                                                  child: CircleAvatar(
-                                                    backgroundColor:
-                                                    selectedCar.value ==
-                                                        item.title
-                                                        ? primaryColor
-                                                        : white,
-                                                    radius: 9,
-                                                    child: selectedCar.value ==
-                                                        item.title
-                                                        ? Icon(
-                                                      Icons.done,
-                                                      size: 15,
-                                                      color: white,
-                                                    )
-                                                        : null,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }),
-                                ),
-                              ],
+                              );
+                            }).toList(),
+                            onChanged: (FualList? newValue) {
+                              setState(() {
+                                fualName = newValue!.name!;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(horizontal: 14),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 1, color: grey.shade200)),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 1, color: grey.shade200)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 1, color: grey.shade200)),
                             ),
                           ),
-                          title: '',
-                          hintText: selectedCar.value.isNotEmpty
-                              ? selectedCar.value
-                              : 'গাড়ির ধরণ',
-                          requiredText: '*',
                         ),
                       ),
                       requiredForm(

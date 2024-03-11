@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddGariController extends GetxController {
+class GariImageController extends GetxController {
 
   Future<String?> captureImage(ImageSource source) async {
     final pickedImage = await ImagePicker().pickImage(source: source);
