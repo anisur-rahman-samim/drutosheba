@@ -46,7 +46,7 @@ class DriverPage extends StatelessWidget {
                       CircleAvatar(
                         radius: 25,
                         backgroundColor: primaryColor50,
-                        backgroundImage: AssetImage(
+                        backgroundImage: NetworkImage(
                           Api.getImageURL(driverController.driverList[index].image.toString()),
                         ),
                       ),

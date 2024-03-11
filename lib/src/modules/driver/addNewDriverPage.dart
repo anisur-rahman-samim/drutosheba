@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/modules/driver/controller/driver_controller.dart';
 import 'package:druto_seba_driver/src/widgets/formField/requiredForm.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,6 +23,14 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
   String gender = 'পুরুষ';
   final DriverImageController driverImageController =
       Get.put(DriverImageController());
+
+  final DriverController driverController = Get.put(DriverController());
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController drivingNoController = TextEditingController();
 
   var profileImagePath;
   var drivingLicenceImagePath;
@@ -118,24 +128,28 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             ),
             sizeH20,
             requiredForm(
+              controller: nameController,
               title: 'নাম',
               hintText: 'নাম লিখুন',
               requiredText: '*',
             ),
             sizeH20,
             requiredForm(
+              controller: phoneController,
               title: 'মোবাইল নম্বর',
               hintText: 'মোবাইল নম্বর লিখুন',
               requiredText: '*',
             ),
             sizeH20,
             requiredForm(
+              controller: contactController,
               title: 'যোগাযোগ নম্বর',
               hintText: 'যোগাযোগ নম্বর লিখুন',
               requiredText: '*',
             ),
             sizeH20,
             requiredForm(
+              controller: emailController,
               title: 'ইমেইল',
               hintText: 'ইমেইল প্রদান করুন',
               requiredText: '*',
@@ -191,12 +205,14 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
             sizeH20,
             sizeH20,
             requiredForm(
+              controller: addressController,
               title: 'ঠিকানা',
               hintText: 'ঠিকানা লিখুন',
               requiredText: '*',
             ),
             sizeH20,
             requiredForm(
+              controller: drivingNoController,
               title: 'ড্রাইভিং লাইসেন্স নম্বর',
               hintText: 'ড্রাইভিং লাইসেন্স নম্বর প্রবেশ করান',
               requiredText: '*',
@@ -298,10 +314,28 @@ class _AddNewDriverPageState extends State<AddNewDriverPage> {
               ),
             ),
             sizeH40,
+            Obx(() => driverController.isLoading.value == true? primaryButton(
+                child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+            )  :
             primaryButton(
-              buttonName: 'নতুন ড্রাইভার যোগ করুন',
-              onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
-            ),
+                buttonName: 'নতুন ড্রাইভার যোগ করুন',
+                onTap: () {
+                  driverController.driverAdd(
+                      name: nameController.text,
+                      phone: phoneController.text,
+                      contactNo: contactController.text,
+                      email: emailController.text,
+                      drivingNo: drivingNoController.text,
+                      address: addressController.text,
+                      gender: gender,
+                      drivingImage: drivingLicenceImagePath,
+                      nidFront: nidFrontImagePath,
+                      nidBack: nidBackImagePath,
+                      image: profileImagePath
+                  );
+
+                }
+            ),),
             sizeH20,
           ],
         ),

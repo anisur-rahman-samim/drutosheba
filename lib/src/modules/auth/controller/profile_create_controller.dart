@@ -71,7 +71,7 @@ class ProfileCreateController extends GetxController {
         Uri.parse(Api.registerProfile),
       );
       request.headers['Accept'] = 'multipart/form-data;';
-      request.headers['Authorization'] = "${LocalStorage.getData(key: AppTexts.token)}";
+      request.headers['Authorization'] = "Bearer ${LocalStorage.getData(key: AppTexts.token)}";
 
       map.forEach((key, value) {
         request.fields[key] = value.toString();
