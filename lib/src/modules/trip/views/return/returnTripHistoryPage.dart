@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/fare_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/return_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/return/fares_view.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
@@ -12,6 +13,7 @@ import '../../../../widgets/dottedDivider/dotDivider.dart';
 
 class ReturnTripHistoryPage extends StatelessWidget {
   final ReturnTripController returnTripController = Get.put(ReturnTripController());
+  final FareTripController fareTripController = Get.put(FareTripController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +71,9 @@ class ReturnTripHistoryPage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: CustomCardWidget(
-                                onTap: () => Get.to(() => FaresView(),transition: Transition.circularReveal),
+                                onTap: () {
+                                  fareTripController.fareTripRequest(tripId: item.id.toString());
+                                },
                                 radius: 30,
                                 color: greyBackgroundColor,
                                 isPaddingHide: true,

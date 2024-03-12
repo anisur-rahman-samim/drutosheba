@@ -99,5 +99,47 @@ class ReturnTripController extends GetxController{
     }
   }
 
+  ///fare trip request
+  Future fareTripRequest({
+    required String tripId,
+
+
+  }) async {
+    try {
+      isLoading(true);
+
+      var map = <String, dynamic>{};
+      map['trip_id'] = tripId;
+
+
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.returnTripBids,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+
+
+
+          //kSnackBar(message: "Trip Submit Successfully", bgColor: Colors.green);
+        //  Get.to(() => DashboardView(),transition: Transition.circularReveal);
+        }else{
+          kSnackBar(message: "Failed", bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
+
 
 }
