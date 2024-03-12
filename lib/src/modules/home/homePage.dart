@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../drawerPage/notificationsPage.dart';
-import '../trip/returnTripPage.dart';
+import '../trip/views/return/returnTripPage.dart';
 import '../trip/tripRequestPage.dart';
 import '../userAccount/views/profilePage.dart';
 

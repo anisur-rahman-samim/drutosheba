@@ -1,26 +1,28 @@
-import 'package:druto_seba_driver/src/configs/appColors.dart';
-import 'package:druto_seba_driver/src/configs/appUtils.dart';
-import 'package:druto_seba_driver/src/modules/trip/views/fares_view.dart';
-import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
-import 'package:druto_seba_driver/src/widgets/text/kText.dart';
+import 'package:druto_seba_driver/src/widgets/dottedDivider/dotDivider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/dottedDivider/dotDivider.dart';
+import '../../../../configs/appColors.dart';
+import '../../../../configs/appUtils.dart';
+import '../../../../widgets/card/customCardWidget.dart';
+import '../../../../widgets/text/kText.dart';
+import 'fares_details_view.dart';
 
-class ReturnTripHistoryPage extends StatelessWidget {
+class FaresView extends StatelessWidget {
+  const FaresView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: KText(
-          text: 'রিটার্ন ট্রিপ হিস্ট্রি',
+          text: 'ফেয়ার',
           color: white,
           fontSize: 18,
         ),
 
       ),
-      backgroundColor: bgColor,
+      backgroundColor: greyBackgroundColor,
       body: Padding(
         padding: paddingH10,
         child: ListView(
@@ -46,46 +48,22 @@ class ReturnTripHistoryPage extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                               Row(
-                                 children: [
-                                   Icon(
-                                     Icons.location_pin,
-                                     size: 15,
-                                   ),
-                                   sizeW10,
-                                   KText(
-                                     text: 'Panthapath,ঢাকা,বাংলাদেশ',
-                                     fontWeight: FontWeight.bold,
-                                     fontSize: 14,
-                                     maxLines: 2,
-                                   ),
-                                 ],
-                               ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
-                                  child: CustomCardWidget(
-                                  onTap: () => Get.to(() => FaresView(),transition: Transition.circularReveal),
-                                    radius: 30,
-                                    color: greyBackgroundColor,
-                                    isPaddingHide: true,
-                                    child: Row(
-                                      children: [
-                                        sizeW10,
-                                        Icon(
-                                          Icons.monetization_on,
-                                          size: 20,
-                                          color: black,
-                                        ),
-                                        sizeW5,
-                                        KText(
-                                          text: 'ফেয়ার',
-                                          fontSize: 14,
-                                        ),
-                                        sizeW10,
-                                      ],
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_pin,
+                                      size: 15,
                                     ),
-                                  ),
+                                    sizeW10,
+                                    KText(
+                                      text: 'Panthapath,ঢাকা,বাংলাদেশ',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      maxLines: 2,
+                                    ),
+                                  ],
                                 ),
+
                               ],
                             ),
                             Row(
@@ -97,7 +75,7 @@ class ReturnTripHistoryPage extends StatelessWidget {
                                 sizeW10,
                                 KText(
                                   text:
-                                      'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
+                                  'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                   maxLines: 2,
@@ -169,9 +147,42 @@ class ReturnTripHistoryPage extends StatelessWidget {
                                       text: '207 TK',
                                       fontWeight: FontWeight.w600,
                                     ),
+                                    KText(
+                                      text: 'ফেয়ার ভাড়া: 157 TK',
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ],
                                 ),
                               ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: CustomCardWidget(
+                                onTap: () => Get.to(() => FaresDetailsView(),transition: Transition.circularReveal),
+                                radius: 30,
+                                color: greyBackgroundColor,
+                                isPaddingHide: true,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      sizeW10,
+                                      Icon(
+                                        Icons.car_rental_sharp,
+                                        size: 20,
+                                        color: black,
+                                      ),
+                                      sizeW5,
+                                      KText(
+                                        text: 'ডিটেলস',
+                                        fontSize: 14,
+                                      ),
+                                      sizeW10,
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),

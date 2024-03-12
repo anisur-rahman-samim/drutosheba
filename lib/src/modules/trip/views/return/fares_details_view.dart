@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 
-import '../../../configs/appUtils.dart';
-import '../../../widgets/card/customCardWidget.dart';
-import 'map_page_view.dart';
+import '../../../../configs/appUtils.dart';
+import '../../../../widgets/card/customCardWidget.dart';
+import '../map_page_view.dart';
 
 
 class FaresDetailsView extends StatefulWidget {
