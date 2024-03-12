@@ -1,4 +1,5 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/model/fare_trip_model.dart';
 import 'package:druto_seba_driver/src/widgets/dottedDivider/dotDivider.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
@@ -22,9 +23,11 @@ class FaresDetailsView extends StatefulWidget {
 
 class _FaresDetailsViewState extends State<FaresDetailsView> {
   late FlutterTts flutterTts;
+  final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
 
   @override
   void initState() {
+
     super.initState();
     initializeTts();
   }
@@ -53,6 +56,8 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
     double downLat = double.parse(downUpParts[0]);
     double downLng = double.parse(downUpParts[1]);
 
+    distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
+
     return Scaffold(
       appBar: AppBar(
         title: KText(
@@ -72,7 +77,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
           borderColor: grey.shade200,
           child: Padding(
             padding: paddingV10,
-            child: Column(
+            child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -212,7 +217,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                         sizeW10,
                         columnText(
                           title: 'সম্ভাব্য সময়',
-                          content: '1 ঘ. 40 মি. ',
+                          content: ' ${distanceTimeController.totalDuration.value} ',//1 ঘ. 40 মি.
                           isReplaceObject: true,
                         ),
                         Container(
@@ -223,7 +228,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                         sizeW10,
                         columnText(
                           title: 'সম্ভাব্য দুরুত্ব',
-                          content: '47.2 কিঃমিঃ',
+                          content: '${distanceTimeController.totalDistance.value} কিঃমিঃ',
                           isReplaceObject: true,
                         ),
                         sizeW20,
@@ -259,7 +264,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                     ),
                     InkWell(
                       onTap: (){
-                      Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
+                        Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
                       },
                       child: Container(
                         height: 40,
@@ -285,7 +290,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: CustomCardWidget(
-                 //   onTap: () => Get.to(() => FaresDetailsView(),transition: Transition.circularReveal),
+                    //   onTap: () => Get.to(() => FaresDetailsView(),transition: Transition.circularReveal),
                     radius: 30,
                     color: greyBackgroundColor,
                     isPaddingHide: true,
@@ -312,7 +317,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                   ),
                 ),
               ],
-            ),
+            ),)
           ),
         ),
       ),
@@ -330,14 +335,14 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
         children: [
           KText(
             text: isReplaceObject == true ? title : title + ':' ?? '',
-            fontSize: 14,
+            fontSize: 13,
             // color: black45,
           ),
           sizeH5,
           KText(
             text: content,
             fontWeight: FontWeight.bold,
-            fontSize: 16,
+            fontSize: 14,
           ),
         ],
       );

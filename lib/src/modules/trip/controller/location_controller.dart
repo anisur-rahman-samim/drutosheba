@@ -16,6 +16,10 @@ class LocationController extends GetxController{
   RxList suggestionsDrop = <Suggestion>[].obs;
 
 
+
+
+
+
   Future<void> fetchPickSuggestions(String input) async {
     isLoading(true);
     final String baseUrl =
