@@ -13,7 +13,8 @@ import '../../../../widgets/text/kText.dart';
 import 'fares_details_view.dart';
 
 class FaresView extends StatelessWidget {
-   FaresView({super.key});
+  final String tripId;
+   FaresView({super.key, required this.tripId});
 final FareTripController fareTripController = Get.put(FareTripController());
   @override
   Widget build(BuildContext context) {
@@ -160,7 +161,7 @@ final FareTripController fareTripController = Get.put(FareTripController());
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: CustomCardWidget(
-                            onTap: () => Get.to(() => FaresDetailsView(fareTrip: item, dateTimeData: tripDateTime,),transition: Transition.circularReveal),
+                            onTap: () => Get.to(() => FaresDetailsView(fareTrip: item, dateTimeData: tripDateTime,tripId:tripId),transition: Transition.circularReveal),
                             radius: 30,
                             color: greyBackgroundColor,
                             isPaddingHide: true,

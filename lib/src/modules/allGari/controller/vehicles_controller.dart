@@ -7,7 +7,7 @@ import '../model/vehicles_model.dart';
 class VehiclesController extends GetxController{
   var isLoading = false.obs;
   var vehicles = VehiclesModel(data: []).obs;
-  var vehiclesList = <Datum>[].obs;
+  var vehiclesList = <Vehicles>[].obs;
 
   @override
   void onInit() {

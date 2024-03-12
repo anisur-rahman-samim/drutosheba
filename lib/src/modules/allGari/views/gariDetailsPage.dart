@@ -1,6 +1,8 @@
+import 'package:druto_seba_driver/src/modules/allGari/model/vehicles_model.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import '../../../configs/appColors.dart';
 import '../../../configs/appUtils.dart';
 import '../../../widgets/card/customCardWidget.dart';
@@ -8,9 +10,13 @@ import '../../../widgets/text/kText.dart';
 import 'addNewGariPage.dart';
 
 class GariDetailsPage extends StatelessWidget {
-  const GariDetailsPage({Key? key}) : super(key: key);
+  final Vehicles vehicles;
+  const GariDetailsPage({Key? key, required this.vehicles}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    String dateTimeString = vehicles.createdAt.toString();
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    String formattedDate = DateFormat('dd MMM, yyyy').format(dateTime);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
@@ -51,15 +57,17 @@ class GariDetailsPage extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     KText(
-                                      text: 'Sedan Car',
+                                      text: vehicles.getbrand?.name,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
                                     ),
                                     sizeW5,
+                                    vehicles.status == "pending"?
                                     Container(
                                       decoration: BoxDecoration(
                                         color: Colors.orange.shade400,
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius:
+                                        BorderRadius.circular(10),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
@@ -68,7 +76,28 @@ class GariDetailsPage extends StatelessWidget {
                                         ),
                                         child: Center(
                                           child: KText(
-                                            text: 'অ্যাপ্রুভ হয়নি',
+                                            text:  'অ্যাপ্রুভ হয়নি',
+                                            fontSize: 9,
+                                            color: white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ):
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.green.shade400,
+                                        borderRadius:
+                                        BorderRadius.circular(10),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 7,
+                                          vertical: 3,
+                                        ),
+                                        child: Center(
+                                          child: KText(
+                                            text:  'অ্যাপ্রুভ',
                                             fontSize: 9,
                                             color: white,
                                             fontWeight: FontWeight.bold,
@@ -109,7 +138,7 @@ class GariDetailsPage extends StatelessWidget {
                               ),
                               sizeW5,
                               KText(
-                                text: '02 Mar, 2023',
+                                text: formattedDate,
                                 fontSize: 12,
                                 color: black54,
                                 fontWeight: FontWeight.w600,
@@ -123,31 +152,31 @@ class GariDetailsPage extends StatelessWidget {
                   sizeH10,
                   rawText(
                     title: 'ব্র্যান্ড এর নাম',
-                    content: 'Gg',
+                    content: vehicles.getbrand?.name,
                   ),
                   rawText(
                     title: 'মডেল',
-                    content: 'Gg',
+                    content: vehicles.model,
                   ),
                   rawText(
                     title: 'বছর',
-                    content: '55555',
+                    content: vehicles.modelYear,
                   ),
                   rawText(
                     title: 'রেজিস্ট্রেশন নম্বর',
-                    content: 'ঢাকা-মেট্রো-খ-55-55555',
+                    content: '${vehicles.metro}-${vehicles.metroType}-${vehicles.metroNo}',
                   ),
                   rawText(
                     title: 'আসন',
-                    content: '1-4',
+                    content: vehicles.getbrand?.capacity,
                   ),
                   rawText(
                     title: 'এয়ার কন্ডিশন',
-                    content: 'NonAC',
+                    content: vehicles.aircondition == "yes" ?'AC':'NonAC',
                   ),
                   rawText(
                     title: 'গাড়ির রং',
-                    content: 'Red',
+                    content: vehicles.vehicleColor,
                     isHideDivider: true,
                   ),
                 ],
@@ -168,7 +197,7 @@ class GariDetailsPage extends StatelessWidget {
                   color: black54,
                 ),
                 sizeH10,
-                FlutterLogo(size: 70),
+               Image.network(Api.getImageURL(vehicles.vehicleFrontPic),height: 70,width: 70,fit: BoxFit.fill,),
               ],
             ),
           ),
@@ -188,8 +217,11 @@ class GariDetailsPage extends StatelessWidget {
                 sizeH10,
                 Row(
                   children: [
-                    FlutterLogo(size: 70),
-                    FlutterLogo(size: 70),
+
+                    Image.network(Api.getImageURL(vehicles.vehicleFitnessPic),height: 70,width: 70,fit: BoxFit.fill,),
+                    Image.network(Api.getImageURL(vehicles.vehicleInsurancePic),height: 70,width: 70,fit: BoxFit.fill,),
+                    Image.network(Api.getImageURL(vehicles.vehicleDrivingFront),height: 70,width: 70,fit: BoxFit.fill,),
+                    Image.network(Api.getImageURL(vehicles.vehicleDrivingBack),height: 70,width: 70,fit: BoxFit.fill,),
                   ],
                 ),
               ],

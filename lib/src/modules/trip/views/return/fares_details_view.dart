@@ -2,6 +2,7 @@ import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/model/fare_trip_model.dart';
 import 'package:druto_seba_driver/src/widgets/dottedDivider/dotDivider.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -9,13 +10,15 @@ import 'package:get/get.dart';
 
 import '../../../../configs/appUtils.dart';
 import '../../../../widgets/card/customCardWidget.dart';
+import '../../controller/confirm_trip_controller.dart';
 import '../map_page_view.dart';
 
 
 class FaresDetailsView extends StatefulWidget {
   final FareTrip fareTrip;
   final String dateTimeData;
-  const FaresDetailsView({super.key, required this.fareTrip, required this.dateTimeData});
+  final String tripId;
+  const FaresDetailsView({super.key, required this.fareTrip, required this.dateTimeData, required this.tripId});
 
   @override
   State<FaresDetailsView> createState() => _FaresDetailsViewState();
@@ -24,6 +27,8 @@ class FaresDetailsView extends StatefulWidget {
 class _FaresDetailsViewState extends State<FaresDetailsView> {
   late FlutterTts flutterTts;
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
+  final ConfirmTripController confirmTripController = Get.put(ConfirmTripController());
+
 
   @override
   void initState() {
@@ -287,10 +292,12 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                   ],
                 ),
                 SizedBox(height: 20,),
-                Padding(
+                widget.fareTrip.status == 0?  Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: CustomCardWidget(
-                    //   onTap: () => Get.to(() => FaresDetailsView(),transition: Transition.circularReveal),
+                  child: confirmTripController.isLoading.value == true? CustomLoader(color: black, size: 20) : CustomCardWidget(
+                     onTap: () {
+                       confirmTripController.confirmTrip(tripId: widget.tripId, bidId: widget.fareTrip.id.toString());
+                     },
                     radius: 30,
                     color: greyBackgroundColor,
                     isPaddingHide: true,
@@ -315,7 +322,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                       ),
                     ),
                   ),
-                ),
+                ): SizedBox(),
               ],
             ),)
           ),

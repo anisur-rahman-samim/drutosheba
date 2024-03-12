@@ -41,7 +41,7 @@ class GariListPage extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: CustomCardWidget(
-                onTap: () => Get.to(() => GariDetailsPage(),transition: Transition.circularReveal),
+                onTap: () => Get.to(() => GariDetailsPage(vehicles: item,),transition: Transition.circularReveal),
                 radius: 10,
                 elevation: 0,
                 child: Padding(
@@ -65,12 +65,13 @@ class GariListPage extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     KText(
-                                      text: item.model.toString(),
+                                      text: item.getbrand?.name.toString(),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
                                     ),
                                     sizeW5,
-                                    item.status == "pending"?   Container(
+                                    item.status == "pending"?
+                                    Container(
                                       decoration: BoxDecoration(
                                         color: Colors.orange.shade400,
                                         borderRadius:
@@ -90,7 +91,8 @@ class GariListPage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ):Container(
+                                    ):
+                                    Container(
                                       decoration: BoxDecoration(
                                         color: Colors.green.shade400,
                                         borderRadius:
@@ -133,7 +135,7 @@ class GariListPage extends StatelessWidget {
                           Row(
                             children: [
                               KText(
-                                text: 'Gg-55555',
+                                text: item.model,
                                 fontSize: 12,
                                 color: black54,
                                 fontWeight: FontWeight.w600,
@@ -145,7 +147,7 @@ class GariListPage extends StatelessWidget {
                               ),
                               sizeW5,
                               KText(
-                                text: 'NonAC',
+                                text: item.aircondition == "yes" ?'AC':'NonAC',
                                 fontSize: 12,
                                 color: black54,
                                 fontWeight: FontWeight.w600,
@@ -157,7 +159,7 @@ class GariListPage extends StatelessWidget {
                               ),
                               sizeW5,
                               KText(
-                                text: '4 Seats',
+                                text: '${item.getbrand?.capacity} Seats',
                                 fontSize: 12,
                                 color: black54,
                                 fontWeight: FontWeight.w600,

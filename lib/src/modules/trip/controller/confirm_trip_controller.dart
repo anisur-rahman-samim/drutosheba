@@ -1,22 +1,17 @@
-import 'package:druto_seba_driver/src/modules/trip/views/return/fares_view.dart';
+import 'package:druto_seba_driver/src/modules/dashboard/dashboard.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/network/base_client/base_client.dart';
 import 'package:druto_seba_driver/src/widgets/snack_bar/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../model/fare_trip_model.dart';
-
-class FareTripController extends GetxController{
+class ConfirmTripController extends GetxController{
   var isLoading = false.obs;
 
-  var fareTrip = FareTripModel(data: []).obs;
-  var fareTripList = <FareTrip>[].obs;
-
-
-  ///fare trip request
-  Future fareTripRequest({
+  ///ConfirmTripController
+  Future confirmTrip({
     required String tripId,
+    required String bidId,
 
 
   }) async {
@@ -25,11 +20,12 @@ class FareTripController extends GetxController{
 
       var map = <String, dynamic>{};
       map['trip_id'] = tripId;
+      map['bid_id'] = bidId;
 
 
       dynamic responseBody = await BaseClient.handleResponse(
         await BaseClient.postRequest(
-          api: Api.returnTripBids,
+          api: Api.returnTripConfirm,
           body: map,
         ),
       );
@@ -37,13 +33,10 @@ class FareTripController extends GetxController{
       if (responseBody != null) {
         if(responseBody['status'] == "success"){
 
-          fareTripList.clear();
-          fareTrip.value = FareTripModel.fromJson(responseBody);
-          fareTripList.addAll(fareTrip.value.data);
-          Get.to(() => FaresView(tripId:tripId),transition: Transition.circularReveal);
+          kSnackBar(message: "Trip Confirm Successfully", bgColor: Colors.green);
+          Get.to(() => DashboardView(),transition: Transition.circularReveal);
 
-          //kSnackBar(message: "Trip Submit Successfully", bgColor: Colors.green);
-          //  Get.to(() => DashboardView(),transition: Transition.circularReveal);
+
         }else{
           kSnackBar(message: "Failed", bgColor: Colors.red);
         }
@@ -58,6 +51,4 @@ class FareTripController extends GetxController{
       isLoading(false);
     }
   }
-
-
 }
