@@ -130,6 +130,7 @@ class BaseClient {
         throw 'Page Not Found!';
       } else if (response.statusCode == 500) {
         debugPrint("statusCode: 500");
+        print("Response: " + response.body.toString());
         throw "Server Error";
       } else {
         debugPrint('ErrorCode: ${response.statusCode}');

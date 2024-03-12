@@ -25,6 +25,8 @@ class _ReturnTripLocationSelectState extends State<ReturnTripLocationSelect> {
   final TextEditingController dropTextController = TextEditingController();
   @override
   void initState() {
+/*    locationController.pickUpLocation.value = '';
+    locationController.dropLocation.value = '';*/
     pickUpTextController.text = locationController.pickUpLocation.toString();
     dropTextController.text = locationController.dropLocation.toString();
     super.initState();

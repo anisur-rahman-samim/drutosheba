@@ -5,6 +5,7 @@ import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_brand_
 import 'package:druto_seba_driver/src/modules/auth/controller/profile_create_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/return/return_trip_location_select.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,14 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
   final VehiclesBrandController vehiclesBrandController =
       Get.put(VehiclesBrandController());
 
+  final TextEditingController amountController = TextEditingController();
+
   var selectedCar = RxString('');
+  var selectedCarId = RxString('');
   var selectedDivision = RxString('');
+  var selectedDivisionId = RxString('');
   var selectedDropDivision = RxString('');
+  var selectedDropDivisionId = RxString('');
   var selectedCarImage = '';
   var selectedCarCapacity = '';
   @override
@@ -202,7 +208,7 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                           title: 'তারিখ সিলেক্ট করুন',
                           dateOrder: DatePickerDateOrder.dmy,
                           //initialDateTime: DateTime(1996, 10, 22),
-                          initialDateTime: DateTime(2024),
+                          initialDateTime: DateTime.now(),
                           maxDateTime: DateTime(2024, 04, 07),
                           minDateTime: DateTime(2024),
                           pickerTextStyle: TextStyle(
@@ -336,6 +342,8 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                           setState(() {
                                             selectedCar.value =
                                                 item.name.toString();
+                                            selectedCarId.value =
+                                                item.id.toString();
                                             selectedCarCapacity =
                                                 item.capacity.toString();
                                             selectedCarImage =
@@ -453,6 +461,8 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                           setState(() {
                                             selectedDivision.value =
                                                 item.name.toString();
+                                            selectedDivisionId.value =
+                                                item.id.toString();
                                             Get.back();
                                           });
                                         },
@@ -548,6 +558,8 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                           setState(() {
                                             selectedDropDivision.value =
                                                 item.name.toString();
+                                            selectedDropDivisionId.value =
+                                                item.id.toString();
                                             Get.back();
                                           });
                                         },
@@ -625,6 +637,7 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                     ),
                     sizeH10,
                     customFormField(
+                      controller: amountController,
                       height: 45,
                       isFilled: true,
                       hintText: 'আপনার ডিমান্ডকৃত ভাড়া',
@@ -635,16 +648,33 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                       contentPadding: paddingH10,
                     ),
                     sizeH20,
-                    CustomCardWidget(
-                      radius: 30,
-                      color: primaryColor,
-                      elevation: 0,
-                      width: Get.width,
-                      child: Center(
-                        child: KText(
-                          text: 'ট্রিপ পাবলিশ করুন',
-                          fontSize: 14,
-                          color: white,
+                    InkWell(
+                      onTap: (){
+                        returnTripController.returnTripRequest(
+                            pickupDivision: selectedDivisionId.value,
+                            dropoffDivision: selectedDropDivisionId.value,
+                            location: locationController.pickUpLocation.value,
+                            destination: locationController.dropLocation.value,
+                            amount: amountController.text,
+                            timedate: "${returnTripController.timeSelected.value} ${returnTripController.dateSelected.value}",
+                            vehicleId: selectedCarId.value
+                        );
+                        locationController.pickUpLocation.value = "পিকআপ";
+                        locationController.dropLocation.value = "গন্তব্য";
+                        returnTripController.timeSelected.value = "সময় সিলেক্ট করুন";
+                        returnTripController.dateSelected.value = "তারিখ সিলেক্ট করুন";
+                      },
+                      child: CustomCardWidget(
+                        radius: 30,
+                        color: primaryColor,
+                        elevation: 0,
+                        width: Get.width,
+                        child: Center(
+                          child: returnTripController.isLoading.value == true? CustomLoader(color: white, size: 30) : KText(
+                            text: 'ট্রিপ পাবলিশ করুন',
+                            fontSize: 14,
+                            color: white,
+                          ),
                         ),
                       ),
                     ),
