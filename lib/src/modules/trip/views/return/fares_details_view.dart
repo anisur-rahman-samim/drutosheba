@@ -1,4 +1,5 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
+import 'package:druto_seba_driver/src/modules/trip/model/fare_trip_model.dart';
 import 'package:druto_seba_driver/src/widgets/dottedDivider/dotDivider.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ import '../map_page_view.dart';
 
 
 class FaresDetailsView extends StatefulWidget {
-  const FaresDetailsView({super.key});
+  final FareTrip fareTrip;
+  final String dateTimeData;
+  const FaresDetailsView({super.key, required this.fareTrip, required this.dateTimeData});
 
   @override
   State<FaresDetailsView> createState() => _FaresDetailsViewState();
@@ -38,6 +41,18 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    String pickUpCoordinates = widget.fareTrip.map.toString();
+    List<String> pickUpParts = pickUpCoordinates.split(' ');
+
+    double upLat = double.parse(pickUpParts[0]);
+    double upLng = double.parse(pickUpParts[1]);
+
+    String downCoordinates = widget.fareTrip.dropoffMap.toString();
+    List<String> downUpParts = downCoordinates.split(' ');
+
+    double downLat = double.parse(downUpParts[0]);
+    double downLng = double.parse(downUpParts[1]);
+
     return Scaffold(
       appBar: AppBar(
         title: KText(
@@ -71,7 +86,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                         ),
                         sizeW10,
                         KText(
-                          text: 'Panthapath,ঢাকা,বাংলাদেশ',
+                          text: widget.fareTrip.pickupLocation,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                           maxLines: 2,
@@ -90,7 +105,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                     sizeW10,
                     KText(
                       text:
-                      'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
+                      widget.fareTrip.dropoffLocation,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       maxLines: 2,
@@ -104,10 +119,10 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                 sizeH20,
                 rawText(
                   title: 'ট্রিপের সময়',
-                  content: '02 Jun 2022, 12:59 PM',
+                  content: widget.dateTimeData,
                 ),
                 sizeH5,
-                Divider(),
+                /*Divider(),
                 sizeH5,
                 rawText(
                   title: 'যাওয়া-আসা',
@@ -122,7 +137,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                 ),
                 sizeH5,
                 Divider(),
-                sizeH5,
+                sizeH5,*/
                 Row(
                   children: [
                     CircleAvatar(
@@ -158,18 +173,20 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                           fontSize: 14,
                           color: grey,
                         ),
-                        KText(
+                        /*KText(
                           text: '207 TK',
                           fontWeight: FontWeight.w600,
-                        ),
+                        ),*/
                         KText(
-                          text: 'ফেয়ার ভাড়া: 157 TK',
+                          text: 'ফেয়ার ভাড়া: ${widget.fareTrip.price} TK',
                           fontWeight: FontWeight.w600,
                         ),
                       ],
                     ),
                   ],
                 ),
+
+                SizedBox(height: 20,),
                 CustomCardWidget(
                   radius: 0,
                   elevation: 0,
@@ -220,7 +237,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                   children: [
                     InkWell(
                       onTap: (){
-                        _speak("পিকআপ লোকেশন,Panthapath,ঢাকা,বাংলাদেশ,ড্রপ লোকেশন, Balipara Bridge,Balipara Bridge,বাংলাদেশ ");
+                        _speak("পিকআপ লোকেশন,${widget.fareTrip.pickupLocation},ড্রপ লোকেশন, ${widget.fareTrip.dropoffLocation} ");
                       },
                       child: Container(
                         height: 40,
@@ -242,7 +259,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                     ),
                     InkWell(
                       onTap: (){
-                        Get.to(() => MapWithDirections(),transition: Transition.circularReveal);
+                      Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
                       },
                       child: Container(
                         height: 40,

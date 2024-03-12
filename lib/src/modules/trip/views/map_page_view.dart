@@ -1,11 +1,18 @@
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 
 class MapWithDirections extends StatefulWidget {
+  final double pickUpLat;
+  final double pickUpLng;
+  final double dropUpLat;
+  final double dropUpLng;
+
+  const MapWithDirections({super.key, required this.pickUpLat, required this.pickUpLng, required this.dropUpLat, required this.dropUpLng});
   @override
   _MapWithDirectionsState createState() => _MapWithDirectionsState();
 }
@@ -17,12 +24,13 @@ class _MapWithDirectionsState extends State<MapWithDirections> {
 
   @override
   Widget build(BuildContext context) {
+    //var  pickUpLatLng.replaceAll(" ", ",");
     return Scaffold(
       appBar: AppBar(title: Text('Map with Directions',style: h2.copyWith(color: Colors.white),)),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: LatLng(23.8069245, 90.36869779999999),
+          target: LatLng(widget.pickUpLat, widget.pickUpLng),
           zoom: 12.0,
         ),
         markers: markers,
@@ -39,14 +47,14 @@ class _MapWithDirectionsState extends State<MapWithDirections> {
       markers.add(
         Marker(
           markerId: MarkerId('Start'),
-          position: LatLng(23.8069245, 90.36869779999999),
+          position: LatLng(widget.pickUpLat, widget.pickUpLng),
           infoWindow: InfoWindow(title: 'Start'),
         ),
       );
       markers.add(
         Marker(
           markerId: MarkerId('End'),
-          position: LatLng(25.6216192, 88.638052),
+          position: LatLng(widget.dropUpLat, widget.dropUpLng),
           infoWindow: InfoWindow(title: 'End'),
         ),
       );
@@ -56,8 +64,8 @@ class _MapWithDirectionsState extends State<MapWithDirections> {
   }
 
   void getDirections() async {
-    final start = LatLng(23.8069245, 90.36869779999999);
-    final end = LatLng(25.6216192, 88.638052);
+    final start = LatLng(widget.pickUpLat, widget.pickUpLng);
+    final end = LatLng(widget.dropUpLat, widget.dropUpLng);
 
     final response = await http.get(Uri.parse(
         'https://maps.googleapis.com/maps/api/directions/json?origin=${start.latitude},${start.longitude}&destination=${end.latitude},${end.longitude}&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g'));

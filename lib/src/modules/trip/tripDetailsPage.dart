@@ -304,7 +304,7 @@ class TripDetailsPage extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: (){
-                                      Get.to(() => MapWithDirections(),transition: Transition.circularReveal);
+                                    //  Get.to(() => MapWithDirections(),transition: Transition.circularReveal);
                                     },
                                     child: CircleAvatar(
                                       radius: 15,

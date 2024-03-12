@@ -160,7 +160,7 @@ final FareTripController fareTripController = Get.put(FareTripController());
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: CustomCardWidget(
-                            onTap: () => Get.to(() => FaresDetailsView(),transition: Transition.circularReveal),
+                            onTap: () => Get.to(() => FaresDetailsView(fareTrip: item, dateTimeData: tripDateTime,),transition: Transition.circularReveal),
                             radius: 30,
                             color: greyBackgroundColor,
                             isPaddingHide: true,
