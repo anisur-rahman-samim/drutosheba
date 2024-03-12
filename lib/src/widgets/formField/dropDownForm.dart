@@ -47,7 +47,7 @@ Widget dropDownForm({
                 children: [
                   KText(
                     text: hintText,
-                    fontSize: 14,
+                    fontSize: 13,
                     color: black45,
                   ),
                   Spacer(),

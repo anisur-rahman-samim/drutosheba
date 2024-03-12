@@ -13,6 +13,19 @@ import 'package:image_picker/image_picker.dart';
 import '../controller/gari_image_controller.dart';
 
 class AddNewGari1Page extends StatefulWidget {
+  final String carName;
+  final String fualName;
+  final String brandName;
+  final String metroName;
+  final String subMetroName;
+  final String metroNumber;
+  final String modelName;
+  final String modelYear;
+  final String colorName;
+  final String airCondition;
+
+  const AddNewGari1Page({super.key, required this.carName, required this.fualName, required this.brandName, required this.metroName, required this.subMetroName, required this.metroNumber, required this.modelName, required this.modelYear, required this.colorName, required this.airCondition});
+
   @override
   State<AddNewGari1Page> createState() => _AddNewGari1PageState();
 }
@@ -38,13 +51,6 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: KText(
-      //     text: 'নতুন গাড়ি যোগ করুন',
-      //     fontSize: 20,
-      //     color: white,
-      //   ),
-      // ),
       body: Obx(() => Padding(
         padding: paddingH20,
         child: ListView(

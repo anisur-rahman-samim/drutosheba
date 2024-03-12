@@ -16,6 +16,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:druto_seba_driver/src/modules/allGari/model/vehicles_brand_model.dart';
 import '../../../widgets/bottomSheet/customBottomSheet.dart';
+import '../controller/metro_controller.dart';
 import '../model/fual_model.dart';
 
 class AddNewGariPage extends StatefulWidget {
@@ -30,13 +31,20 @@ class AddNewGariPage extends StatefulWidget {
 class _AddNewGariPageState extends State<AddNewGariPage> {
   final VehiclesBrandController vehiclesBrandController = Get.put(VehiclesBrandController());
   final FualController fualController = Get.put(FualController());
+  final MetroController metroController = Get.put(MetroController());
 
   String airCondition = 'এসি';
   String selectedNidOrLicense = 'এনআইডি';
 
-  final carNo = TextEditingController();
+  final TextEditingController carNoController = TextEditingController();
+  final TextEditingController brandNameController = TextEditingController();
+  final TextEditingController modelController = TextEditingController();
+  final TextEditingController modelYearController = TextEditingController();
+  final TextEditingController colorController = TextEditingController();
 
   var selectedCar = RxString('');
+  var selectedMetro = RxString('');
+  var selectedMetroSub = RxString('');
   bool? isNextButton = false;
   var isCarInfo = true;
 
@@ -191,7 +199,18 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
         ),
       ),
       body: isNextButton == true && isCarInfo == false
-          ? AddNewGari1Page()
+          ? AddNewGari1Page(
+        carName: selectedCar.value,
+        fualName: fualName,
+        brandName: brandNameController.text,
+        metroName: selectedMetro.value,
+        subMetroName: selectedMetroSub.value,
+        metroNumber: carNoController.text,
+        modelName: modelController.text,
+        modelYear: modelYearController.text,
+        colorName: colorController.text,
+        airCondition: airCondition,
+      )
           : ListView(
               children: [
                 sizeH10,
@@ -356,6 +375,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                         ),
                       ),
                       requiredForm(
+                        controller: brandNameController,
                         title: 'ব্র্যান্ড এর নাম',
                         hintText: 'ব্র্যান্ড এর নাম',
                         requiredText: '*',
@@ -367,23 +387,189 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                         children: [
                           Expanded(
                             child: dropDownForm(
-                              onTap: () {},
+                              onTap: () {
+                                customBottomSheet(
+                                  context: context,
+                                  height: Get.height / 1.4,
+                                  child: ListView(
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    children: [
+                                      Center(
+                                        child: KText(
+                                          text: 'মেট্রো নির্বাচন করুন',
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Divider(),
+                                      sizeH10,
+                                      Container(
+                                        height: Get.height / 1.7,
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            primary: false,
+                                            itemCount: metroController.metroList.length,
+                                            itemBuilder: (c, i) {
+                                              final item = metroController.metroList[i];
+                                              return InkWell(
+                                                borderRadius:
+                                                BorderRadius.circular(5),
+                                                onTap: () {
+                                                  setState(() {
+                                                    selectedMetro.value =
+                                                        item.metroName.toString();
+                                                    Get.back();
+                                                  });
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(10),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: [
+                                                      KText(
+                                                        text: item.metroName,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                      ),
+                                                      Spacer(),
+                                                      CircleAvatar(
+                                                        radius: 10,
+                                                        backgroundColor:
+                                                        selectedMetro.value == item.metroName
+                                                            ? primaryColor
+                                                            : grey,
+                                                        child: CircleAvatar(
+                                                          backgroundColor:
+                                                          selectedMetro.value ==
+                                                              item.metroName
+                                                              ? primaryColor
+                                                              : white,
+                                                          radius: 9,
+                                                          child: selectedMetro.value ==
+                                                              item.metroName
+                                                              ? Icon(
+                                                            Icons.done,
+                                                            size: 15,
+                                                            color: white,
+                                                          )
+                                                              : null,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                               title: '',
-                              hintText: 'ঢাকা মেট্রো',
+                              hintText: selectedMetro.value.isNotEmpty
+                                  ? selectedMetro.value
+                                  : 'ঢাকা মেট্রো',
                               requiredText: '',
                             ),
                           ),
                           sizeW5,
                           dropDownForm(
                             width: 65,
-                            onTap: () {},
+                            onTap: () {
+                              customBottomSheet(
+                                context: context,
+                                height: Get.height / 1.4,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  children: [
+                                    Center(
+                                      child: KText(
+                                        text: 'মেট্রো নির্বাচন করুন',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Divider(),
+                                    sizeH10,
+                                    Container(
+                                      height: Get.height / 1.7,
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          primary: false,
+                                          itemCount: metroController.metroSubList.length,
+                                          itemBuilder: (c, i) {
+                                            final item = metroController.metroSubList[i];
+                                            return InkWell(
+                                              borderRadius:
+                                              BorderRadius.circular(5),
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedMetroSub.value =
+                                                      item.metroSubName.toString();
+                                                  Get.back();
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.all(10),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: [
+                                                    KText(
+                                                      text: item.metroSubName,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
+                                                    Spacer(),
+                                                    CircleAvatar(
+                                                      radius: 10,
+                                                      backgroundColor:
+                                                      selectedMetroSub.value == item.metroSubName
+                                                          ? primaryColor
+                                                          : grey,
+                                                      child: CircleAvatar(
+                                                        backgroundColor:
+                                                        selectedMetroSub.value ==
+                                                            item.metroSubName
+                                                            ? primaryColor
+                                                            : white,
+                                                        radius: 9,
+                                                        child: selectedMetroSub.value ==
+                                                            item.metroSubName
+                                                            ? Icon(
+                                                          Icons.done,
+                                                          size: 15,
+                                                          color: white,
+                                                        )
+                                                            : null,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                             title: '',
-                            hintText: 'ব',
+                            hintText: selectedMetroSub.value.isNotEmpty
+                                ? selectedMetroSub.value
+                                :  'ব',
                             requiredText: '',
                           ),
                           sizeW5,
                           requiredForm(
-                            controller: carNo,
+                            controller: carNoController,
                             onChanged: (_) {},
                             // contentPaddingHide: true,
                             width: 90,
@@ -398,6 +584,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                         children: [
                           Expanded(
                             child: requiredForm(
+                              controller: modelController,
                               title: 'মডেলের নাম',
                               hintText: 'মডেল',
                               requiredText: '*',
@@ -406,6 +593,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                           sizeW20,
                           Expanded(
                             child: requiredForm(
+                              controller: modelYearController,
                               title: 'মডেল এর বছর',
                               hintText: 'মডেল এর বছর',
                               requiredText: '*',
@@ -415,6 +603,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                       ),
                       sizeH10,
                       requiredForm(
+                        controller: colorController,
                         title: 'গাড়ির রং',
                         hintText: 'গাড়ির রং',
                         requiredText: '*',
@@ -517,6 +706,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                         isNextButton = true;
                         isCarInfo = false;
                       });
+
                     },
                   ),
                 ),

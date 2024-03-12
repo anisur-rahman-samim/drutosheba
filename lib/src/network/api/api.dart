@@ -51,6 +51,8 @@ class Api{
   static const fuelTypes = "$baseUrl/partner/fueltypes";
   static const vehicleAdd = "$baseUrl/partner/vehicle-add";
   static const returnTripCompleted = "$baseUrl/partner/return-trip-completed";
+  static const metroList = "$baseUrl/partner/metro-list";
+  static const metroSubList = "$baseUrl/partner/metro-sub-list";
 
   ///common
   static const districts = "$baseUrl/partner/districts";

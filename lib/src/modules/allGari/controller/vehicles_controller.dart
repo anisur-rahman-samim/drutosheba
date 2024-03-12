@@ -38,4 +38,6 @@ class VehiclesController extends GetxController{
       isLoading(false);
     }
   }
+
+
 }
