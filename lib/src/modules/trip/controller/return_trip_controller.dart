@@ -1,4 +1,5 @@
 import 'package:druto_seba_driver/src/modules/dashboard/dashboard.dart';
+import 'package:druto_seba_driver/src/modules/trip/model/return_trip_history_model.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/network/base_client/base_client.dart';
 import 'package:druto_seba_driver/src/widgets/snack_bar/snack_bar.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 
 class ReturnTripController extends GetxController{
   var isLoading = false.obs;
+
   var selectedCar = RxString('');
   var selectedCarCapacity = ''.obs;
   var selectedCarImage = ''.obs;
@@ -14,6 +16,38 @@ class ReturnTripController extends GetxController{
   var dateSelected = 'তারিখ সিলেক্ট করুন'.obs;
   var timeSelected = 'সময় সিলেক্ট করুন'.obs;
 
+  var returnTrip = ReturnTripModel(data: []).obs;
+  var returnTripList = <ReturnTrip>[].obs;
+
+
+  @override
+  void onInit() {
+    getRetrunTripHistory();
+    super.onInit();
+  }
+
+   getRetrunTripHistory() async {
+    try {
+      isLoading(true);
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.getRequest(api: Api.returnTripList),
+      );
+      if (responseBody != null) {
+        returnTripList.clear();
+        returnTrip.value = ReturnTripModel.fromJson(responseBody);
+        returnTripList.addAll(returnTrip.value.data);
+        isLoading(false);
+
+      } else {
+        throw 'Unable to load data!';
+      }
+    } catch (e) {
+      print(e);
+      //  kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
 
   ///retrun trip request
   Future returnTripRequest({

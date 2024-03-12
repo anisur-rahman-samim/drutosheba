@@ -42,6 +42,7 @@ class Api{
   ///Return Trip
   static const returnTripSubmit = "$baseUrl/partner/return-trip-submit";
   static const returnTripBids = "$baseUrl/partner/return-trip-bids";
+  static const returnTripList = "$baseUrl/partner/return-trip-lists";
   static const returnTripConfirm = "$baseUrl/partner/return-trip-confirm";
 
   ///Vehicle
