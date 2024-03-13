@@ -1,4 +1,4 @@
-import 'package:druto_seba_driver/src/modules/dashboard/model/dashboard_model.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/model/dashboard_model.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/network/base_client/base_client.dart';
 import 'package:druto_seba_driver/src/widgets/snack_bar/snack_bar.dart';
@@ -11,7 +11,7 @@ class DashBoardController extends GetxController{
   var dashboard = DashboardModel().obs;
   var dashboardData = Data().obs;
 
-  ///login Controller
+  ///dashboardDetails
   Future dashboardDetails({
     required String month,
     required String year,

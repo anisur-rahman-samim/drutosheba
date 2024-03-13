@@ -2,7 +2,7 @@ import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../modules/dashboard/controller/dashboard_controller.dart';
+import '../../modules/drawerPage/controller/dashboard_controller.dart';
 
 class MonthYearPicker extends StatefulWidget {
   @override
@@ -89,6 +89,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
 
             int month = selectedDate.month;
             int year = selectedDate.year;
+
             dashBoardController.dashboardDetails(month: month.toString(), year: year.toString());
             print("Month: $month");
             print("Year: $year");

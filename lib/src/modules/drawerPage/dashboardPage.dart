@@ -1,5 +1,5 @@
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
-import 'package:druto_seba_driver/src/modules/dashboard/controller/dashboard_controller.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/controller/dashboard_controller.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +8,7 @@ import 'package:ionicons/ionicons.dart';
 import '../../configs/appColors.dart';
 import '../../widgets/date_picker/date_picker_now.dart';
 import '../../widgets/text/kText.dart';
+import 'controller/leaderboard_controller.dart';
 
 class DashboardPage extends StatefulWidget {
   @override

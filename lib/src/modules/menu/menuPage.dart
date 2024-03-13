@@ -13,9 +13,10 @@ import '../../widgets/text/kText.dart';
 import '../allGari/views/gariListPage.dart';
 import '../auth/views/loginPage.dart';
 import '../credit/creditPage.dart';
+import '../drawerPage/controller/leaderboard_controller.dart';
 import '../drawerPage/dashboardPage.dart';
 import '../drawerPage/helpPage.dart';
-import '../drawerPage/leaderBoardPage.dart';
+import '../drawerPage/view/leaderBoardPage.dart';
 import '../drawerPage/notificationsPage.dart';
 import '../drawerPage/view/offerPage.dart';
 import '../drawerPage/settingsPage.dart';
@@ -26,6 +27,7 @@ import '../userAccount/views/profilePage.dart';
 class MenuPage extends StatelessWidget {
    MenuPage({Key? key}) : super(key: key);
   final ProfileController profileController = Get.put(ProfileController());
+   final LeaderboardController leaderboardController = Get.put(LeaderboardController());
 
   @override
   Widget build(BuildContext context) {

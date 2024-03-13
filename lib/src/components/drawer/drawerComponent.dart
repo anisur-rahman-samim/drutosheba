@@ -3,7 +3,7 @@ import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
 import 'package:druto_seba_driver/src/modules/credit/creditPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/dashboardPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/helpPage.dart';
-import 'package:druto_seba_driver/src/modules/drawerPage/leaderBoardPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/view/leaderBoardPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/notificationsPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/view/offerPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/settingsPage.dart';

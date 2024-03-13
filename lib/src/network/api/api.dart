@@ -20,7 +20,6 @@ class Api{
   ///Rental Trip
   static const tripRequest = "$baseUrl/partner/trip-request";
   static const tripCancel = "$baseUrl/partner/trip-cancel";
-  static const tripHistory = "$baseUrl/partner/penalty-history";
   static const tripStarted = "$baseUrl/partner/trip-started";
   static const tripCompleted = "$baseUrl/partner/trip-completed";
   static const tripBidSubmit = "$baseUrl/partner/trip-bid/submit";
@@ -31,13 +30,14 @@ class Api{
   static const driverManage = "$baseUrl/partner/driver-manage";//done 11
   static const driverAdd = "$baseUrl/partner/driver-add"; // done 11
 
-  ///Penalty and Balance
+  ///Penalty and Balance ////////// problems
   static const credit = "$baseUrl/partner/credit";
   static const creditHistory = "$baseUrl/partner/credit-history";
-  static const dashboard = "$baseUrl/partner/dashboard";
+  static const dashboard = "$baseUrl/partner/dashboard"; // done, but ui change need
   static const leaderboard = "$baseUrl/partner/leaderboard";
   static const withdrawalSubmit = "$baseUrl/partner/withdrawal-submit";
   static const creditBuy = "$baseUrl/partner/credit-buy";
+  static const penaltyHistory = "$baseUrl/partner/penalty-history";
 
   ///Return Trip
   static const returnTripSubmit = "$baseUrl/partner/return-trip-submit"; //done
@@ -49,7 +49,7 @@ class Api{
   static const vehicles = "$baseUrl/partner/vehicles"; // done
   static const vehicleManage = "$baseUrl/partner/vehicle-manage"; // done
   static const fuelTypes = "$baseUrl/partner/fueltypes"; // done
-  static const vehicleAdd = "$baseUrl/partner/vehicle-add";
+  static const vehicleAdd = "$baseUrl/partner/vehicle-add"; //done
   static const returnTripCompleted = "$baseUrl/partner/return-trip-completed"; // done
   static const metroList = "$baseUrl/partner/metro-list"; // done
   static const metroSubList = "$baseUrl/partner/metro-sub-list"; // done
