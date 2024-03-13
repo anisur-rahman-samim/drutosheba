@@ -1,12 +1,27 @@
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/modules/dashboard/controller/dashboard_controller.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../configs/appColors.dart';
+import '../../widgets/date_picker/date_picker_now.dart';
 import '../../widgets/text/kText.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  final DashBoardController dashBoardController = Get.put(DashBoardController());
+
+  @override
+  void initState() {
+    dashBoardController.dashboardDetails(month: DateTime.now().month.toString(), year: DateTime.now().year.toString());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +45,14 @@ class DashboardPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.dialog(Dialog(
+                    child: Container(
+                        width: Get.width,
+                        height: Get.height / 6,
+                        child: MonthYearPicker()),
+                  ));
+                },
                 borderRadius: BorderRadius.circular(20),
                 child: Padding(
                   padding: paddingH10,
@@ -75,7 +97,7 @@ class DashboardPage extends StatelessWidget {
                     ),
                     sizeW10,
                     KText(
-                      text: 'May 2022',
+                      text: '${DateTime.now().month} ${DateTime.now().year}',
                       fontSize: 12,
                       color: black54,
                     ),
@@ -86,8 +108,8 @@ class DashboardPage extends StatelessWidget {
           ),
         ),
       ),
- 
-      body: ListView(
+
+      body: Obx(() => dashBoardController.isLoading.value == true? CustomLoader(color: black, size: 30) : ListView(
         physics: NeverScrollableScrollPhysics(),
         children: [
           sizeH20,
@@ -99,17 +121,17 @@ class DashboardPage extends StatelessWidget {
               children: [
                 customText(
                   title: 'মোট বিড',
-                  money: '0',
+                  money: dashBoardController.dashboardData.value.totalBids.toString(),
                   iconData: Icons.balance,
                 ),
                 customText(
                   title: 'মোট অপেক্ষমান বিড',
-                  money: '0',
+                  money: dashBoardController.dashboardData.value.totalWaitingBid.toString(),
                   iconData: Icons.balance,
                 ),
                 customText(
                   title: 'মোট সম্পন্ন ট্রিপ',
-                  money: '0',
+                  money: dashBoardController.dashboardData.value.totalCompleteTrip.toString(),
                   iconData: Icons.where_to_vote,
                   cirleColor: blue,
                 ),
@@ -120,18 +142,18 @@ class DashboardPage extends StatelessWidget {
                 // ),
                 customText(
                   title: 'মোট আয়',
-                  money: '0 BDT',
+                  money: '${dashBoardController.dashboardData.value.earning.toString()} BDT',
                   cirleColor: Colors.green,
                   iconData: Icons.credit_card,
                 ),
                 customText(
                   title: 'মোট গাড়ি',
-                  money: '0',
+                  money: dashBoardController.dashboardData.value.totalCar.toString(),
                   iconData: Ionicons.car,
                 ),
                 customText(
                   title: 'মোট ড্রাইভার',
-                  money: '0',
+                  money: dashBoardController.dashboardData.value.totalDriver.toString(),
                   iconData: Ionicons.person,
                   iconSize: 15,
                   cirleColor: Colors.deepPurple,
@@ -140,7 +162,7 @@ class DashboardPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),)
     );
   }
 

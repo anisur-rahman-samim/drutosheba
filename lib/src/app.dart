@@ -1,6 +1,7 @@
 import 'package:druto_seba_driver/src/modules/auth/views/registerUserInfoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'configs/appTheme.dart';
 import 'modules/dashboard/dashboard.dart';
 import 'modules/splash/splash_view.dart';
@@ -12,6 +13,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
+      localizationsDelegates: [
+        MonthYearPickerLocalizations.delegate,
+      ],
       debugShowCheckedModeBanner: false,
      home: SplashScreen(),
      // home: DashboardView(),

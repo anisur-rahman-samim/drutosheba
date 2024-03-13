@@ -58,6 +58,6 @@ class Api{
   static const districts = "$baseUrl/partner/districts";
   static const divisions = "$baseUrl/partner/divisions"; //done 10
   static const shareReferKey = "$baseUrl/partner/share-referkey";
-  static const offer = "$baseUrl/partner/offer"; // working
+  static const offer = "$baseUrl/partner/offer";
   static const help = "$baseUrl/partner/help";
 }

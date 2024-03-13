@@ -296,7 +296,7 @@ class VehiclesSaveController extends GetxController{
         if(responseBody['status'] == "success"){
           vehiclesController.getVehicles();
           Get.to(() => DashboardView(),transition: Transition.circularReveal);
-          kSnackBar(message: responseBody['message'], bgColor: Colors.green);
+          kSnackBar(message: "Vehicles add successfully", bgColor: Colors.green);
         }else{
           kSnackBar(message: "Failed", bgColor: Colors.red);
         }
