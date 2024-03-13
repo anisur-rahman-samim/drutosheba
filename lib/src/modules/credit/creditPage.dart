@@ -1,7 +1,9 @@
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/modules/credit/controller/credit_controller.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../configs/appColors.dart';
@@ -15,6 +17,7 @@ class CreditPage extends StatefulWidget {
 
 class _CreditPageState extends State<CreditPage> {
   TextEditingController creditController = TextEditingController();
+  final CreditController creditDataController = Get.put(CreditController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +29,7 @@ class _CreditPageState extends State<CreditPage> {
           color: white,
         ),
       ),
-      body: Padding(
+      body: Obx(() => creditDataController.isLoading.value == true? CustomLoader(color: black, size: 30) : Padding(
         padding: paddingH10V10,
         child: ListView(
           children: [
@@ -53,7 +56,7 @@ class _CreditPageState extends State<CreditPage> {
                         ),
                         Spacer(),
                         KText(
-                          text: '500',
+                          text: creditDataController.credit.value.data?.currentBalance.toString(),
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
                         ),
@@ -80,14 +83,14 @@ class _CreditPageState extends State<CreditPage> {
                               ),
                               sizeH40,
                               KText(
-                                text: '500',
+                                text: creditDataController.credit.value.data?.currentCredit.toString(),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
                                 color: white,
                               ),
                               sizeH5,
                               KText(
-                                text: 'অব্যবহৃত ক্রেডিট',
+                                text: 'বর্তমান ক্রেডিট',
                                 fontSize: 14,
                                 color: white,
                                 fontWeight: FontWeight.w600,
@@ -115,14 +118,14 @@ class _CreditPageState extends State<CreditPage> {
                               ),
                               sizeH40,
                               KText(
-                                text: '500',
+                                text: creditDataController.credit.value.data?.currentBonus.toString(),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
                                 color: white,
                               ),
                               sizeH5,
                               KText(
-                                text: 'অব্যবহৃত ক্রেডিট',
+                                text: 'বোনাস ক্রেডিট',
                                 fontSize: 14,
                                 color: white,
                                 fontWeight: FontWeight.w600,
@@ -163,7 +166,7 @@ class _CreditPageState extends State<CreditPage> {
                         SizedBox(
                           height: 40,
                           child: ListView(
-                          //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             children: [
@@ -276,7 +279,7 @@ class _CreditPageState extends State<CreditPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: List<Widget>.generate(
                             3,
-                            (index) => Padding(
+                                (index) => Padding(
                               padding: EdgeInsets.only(bottom: 10),
                               child: CustomCardWidget(
                                 radius: 10,
@@ -324,7 +327,7 @@ class _CreditPageState extends State<CreditPage> {
             ),
           ],
         ),
-      ),
+      ),)
     );
   }
 }

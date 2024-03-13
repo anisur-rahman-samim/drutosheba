@@ -34,7 +34,7 @@ class Api{
   static const credit = "$baseUrl/partner/credit";
   static const creditHistory = "$baseUrl/partner/credit-history";
   static const dashboard = "$baseUrl/partner/dashboard"; // done, but ui change need
-  static const leaderboard = "$baseUrl/partner/leaderboard";
+  static const leaderboard = "$baseUrl/partner/leaderboard"; // done
   static const withdrawalSubmit = "$baseUrl/partner/withdrawal-submit";
   static const creditBuy = "$baseUrl/partner/credit-buy";
   static const penaltyHistory = "$baseUrl/partner/penalty-history";
