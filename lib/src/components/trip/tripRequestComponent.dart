@@ -47,7 +47,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
         itemCount: tripRequestController.tripRequestList.length,
         itemBuilder: ((context, index) {
           return GestureDetector(
-            onTap: () => Get.to(() => TripDetailsPage(),transition: Transition.circularReveal),
+            onTap: () => Get.to(() => TripDetailsPage(tripRequest: tripRequestController.tripRequestList[index],),transition: Transition.circularReveal),
             child: Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: CustomCardWidget(

@@ -18,7 +18,7 @@ class Api{
   static const profileUpdate = "$baseUrl/partner/profile-update";
 
   ///Rental Trip
-  static const tripRequest = "$baseUrl/partner/trip-request";
+  static const tripRequest = "$baseUrl/partner/trip-request"; // done
   static const tripCancel = "$baseUrl/partner/trip-cancel";
   static const tripStarted = "$baseUrl/partner/trip-started";
   static const tripCompleted = "$baseUrl/partner/trip-completed";

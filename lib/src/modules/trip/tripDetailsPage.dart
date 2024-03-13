@@ -1,4 +1,5 @@
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,8 +9,13 @@ import '../../configs/appUtils.dart';
 import '../../widgets/card/customCardWidget.dart';
 import '../../widgets/dottedDivider/dotDivider.dart';
 import '../../widgets/text/kText.dart';
+import 'model/trip_request_model.dart';
 
 class TripDetailsPage extends StatelessWidget {
+  final TripRequest tripRequest;
+
+
+  const TripDetailsPage({super.key, required this.tripRequest});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +49,7 @@ class TripDetailsPage extends StatelessWidget {
                             child: KText(
                               text: 'অন্য পার্টনারদের বিড',
                               fontWeight: FontWeight.bold,
+                              color: white,
                             ),
                           ),
                           Divider(),
@@ -207,15 +214,15 @@ class TripDetailsPage extends StatelessWidget {
                         elevation: 0,
                         child: Row(
                           children: [
-                            Image.asset(
-                              'assets/img/car5.png',
+                            Image.network(
+                              Api.getImageURL(tripRequest.vehicle?.image),
                               width: 30,
                               height: 40,
                               fit: BoxFit.cover,
                             ),
                             sizeW5,
                             KText(
-                              text: 'Mini Microbus | 7 Seats',
+                              text: '${tripRequest.vehicle?.name} | ${tripRequest.vehicle?.capacity} Seats',
                               fontSize: 13,
                               color: white,
                             ),
@@ -225,7 +232,7 @@ class TripDetailsPage extends StatelessWidget {
                       // sizeW10,
                       Spacer(),
                       KText(
-                        text: 'ট্রিপ DS8734444EF',
+                        text: 'ট্রিপ MS${tripRequest.id}',
                         color: primaryColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -283,7 +290,7 @@ class TripDetailsPage extends StatelessWidget {
                                 Container(
                                   width: Get.width / 1.3,
                                   child: KText(
-                                    text: 'Panthapath,ঢাকা,বাংলাদেশ',
+                                    text: tripRequest.pickupLocation,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                     maxLines: 2,
@@ -337,7 +344,7 @@ class TripDetailsPage extends StatelessWidget {
                                   // color: primaryColor,
                                   child: KText(
                                     text:
-                                        'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
+                                    tripRequest.dropoffLocation,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     maxLines: 2,
@@ -364,22 +371,22 @@ class TripDetailsPage extends StatelessWidget {
                 children: [
                   rawText(
                     title: 'ট্রিপের সময়',
-                    content: '02 Jun 2022, 12:59 PM',
+                    content: tripRequest.datetime,
                   ),
                   sizeH5,
                   Divider(),
                   sizeH5,
                   rawText(
                     title: 'যাওয়া-আসা',
-                    content: 'হাঁ',
+                    content: tripRequest.roundDatetime!.isNotEmpty? 'হাঁ': "না",
                   ),
                   sizeH5,
                   Divider(),
                   sizeH5,
-                  rawText(
+                  tripRequest.roundDatetime!.isNotEmpty?  rawText(
                     title: 'ফিরতি তারিখ',
-                    content: '03 Jun 2022, 12:59 PM',
-                  ),
+                    content: tripRequest.roundDatetime,
+                  ): SizedBox(),
                 ],
               ),
             ),
@@ -395,10 +402,10 @@ class TripDetailsPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  sizeW20,
+                  /*sizeW20,
                   columnText(
                     title: 'এয়ার কন্ডিশনার',
-                    content: 'যেকোনো',
+                    content: tripRequest.vehicle.,
                     isReplaceObject: true,
                   ),
                   sizeW10,
@@ -406,7 +413,7 @@ class TripDetailsPage extends StatelessWidget {
                     color: grey,
                     height: 60,
                     width: .5,
-                  ),
+                  ),*/
                   sizeW10,
                   columnText(
                     title: 'সম্ভাব্য সময়',
