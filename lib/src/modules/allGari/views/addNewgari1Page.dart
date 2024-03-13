@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_save_controller.dart';
 import 'package:druto_seba_driver/src/modules/dashboard/dashboard.dart';
 
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,6 +33,7 @@ class AddNewGari1Page extends StatefulWidget {
 }
 
 class _AddNewGari1PageState extends State<AddNewGari1Page> {
+   final VehiclesSaveController vehiclesSaveController = Get.put(VehiclesSaveController());
   String airCondition = 'এসি';
   String selectedNidOrLicense = 'এনআইডি';
 
@@ -320,12 +323,37 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
                 ),
               ),
             ),
-            sizeH40,
-            primaryButton(
+              sizeH40,
+            vehiclesSaveController.isLoading.value == true? primaryButton(
+                child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+            ): primaryButton(
               height: 45,
               buttonName: 'গাড়ির তথ্য সেভ করুন',
               fontSize: 14,
-              onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
+              onTap: () {
+                vehiclesSaveController.vehiclesAdd(
+                    brand: widget.brandName,
+                    metro: widget.metroName,
+                    metroType: widget.subMetroName,
+                    metroNo: widget.metroNumber,
+                    model: widget.modelName,
+                    modelYear: widget.modelYear,
+                    vehicleColor: widget.colorName,
+                    aircondition: widget.airCondition,
+
+
+                    vehicle_front_pic: carFrontImage,
+                    vehicle_back_pic: carBackImage,
+                    vehicle_reg_pic: regPapersImage,
+                    vehicle_plate_no: numberPlatImage,
+                    vehicle_root_pic: rootPermitImage,
+                    vehicle_fitness_pic: fitnessPapersImage,
+                    vehicle_tax_pic: texTokenImage,
+                    vehicle_insurance_pic: insuranceImage,
+                    vehicle_driving_front: drivingLicenceFront,
+                    vehicle_driving_back: drivingLicenceBack
+                );
+              },
             ),
             sizeH30,
           ],

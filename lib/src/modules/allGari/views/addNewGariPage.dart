@@ -43,6 +43,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
   final TextEditingController colorController = TextEditingController();
 
   var selectedCar = RxString('');
+  var selectedCarId = RxString('');
   var selectedMetro = RxString('');
   var selectedMetroSub = RxString('');
   bool? isNextButton = false;
@@ -200,7 +201,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
       ),
       body: isNextButton == true && isCarInfo == false
           ? AddNewGari1Page(
-        carName: selectedCar.value,
+        carName: selectedCarId.value,
         fualName: fualName,
         brandName: brandNameController.text,
         metroName: selectedMetro.value,
@@ -252,6 +253,8 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                             setState(() {
                                               selectedCar.value =
                                                   item.name.toString();
+                                              selectedCarId.value =
+                                                  item.id.toString();
                                               selectedCarCapacity =
                                                   item.capacity.toString();
                                               selectedCarImage =

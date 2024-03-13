@@ -46,18 +46,18 @@ class Api{
   static const returnTripConfirm = "$baseUrl/partner/return-trip-confirm"; // done
 
   ///Vehicle
-  static const vehicles = "$baseUrl/partner/vehicles";
-  static const vehicleManage = "$baseUrl/partner/vehicle-manage";
-  static const fuelTypes = "$baseUrl/partner/fueltypes";
+  static const vehicles = "$baseUrl/partner/vehicles"; // done
+  static const vehicleManage = "$baseUrl/partner/vehicle-manage"; // done
+  static const fuelTypes = "$baseUrl/partner/fueltypes"; // done
   static const vehicleAdd = "$baseUrl/partner/vehicle-add";
-  static const returnTripCompleted = "$baseUrl/partner/return-trip-completed";
-  static const metroList = "$baseUrl/partner/metro-list";
-  static const metroSubList = "$baseUrl/partner/metro-sub-list";
+  static const returnTripCompleted = "$baseUrl/partner/return-trip-completed"; // done
+  static const metroList = "$baseUrl/partner/metro-list"; // done
+  static const metroSubList = "$baseUrl/partner/metro-sub-list"; // done
 
   ///common
   static const districts = "$baseUrl/partner/districts";
   static const divisions = "$baseUrl/partner/divisions"; //done 10
   static const shareReferKey = "$baseUrl/partner/share-referkey";
-  static const offer = "$baseUrl/partner/offer";
+  static const offer = "$baseUrl/partner/offer"; // working
   static const help = "$baseUrl/partner/help";
 }

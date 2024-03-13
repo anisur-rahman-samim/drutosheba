@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:druto_seba_driver/src/configs/app_texts.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
 import 'package:druto_seba_driver/src/modules/dashboard/dashboard.dart';
 import 'package:druto_seba_driver/src/modules/driver/model/driver_model.dart';
 import 'package:druto_seba_driver/src/network/base_client/base_client.dart';
@@ -17,6 +18,7 @@ import '../../../network/api/api.dart';
 
 
 class VehiclesSaveController extends GetxController{
+  final VehiclesController vehiclesController = Get.put(VehiclesController());
   var isLoading = false.obs;
 
 
@@ -32,16 +34,16 @@ class VehiclesSaveController extends GetxController{
     required String vehicleColor,
     required String aircondition,
 
-    required String vehicle_front_pic,
-    required String vehicle_back_pic,
-    required String vehicle_reg_pic,
-    required String vehicle_plate_no,
-    required String vehicle_root_pic,
-    required String vehicle_fitness_pic,
-    required String vehicle_tax_pic,
-    required String vehicle_insurance_pic,
-    required String vehicle_driving_front,
-    required String vehicle_driving_back,
+    required String? vehicle_front_pic,
+    required String? vehicle_back_pic,
+    required String? vehicle_reg_pic,
+    required String? vehicle_plate_no,
+    required String? vehicle_root_pic,
+    required String? vehicle_fitness_pic,
+    required String? vehicle_tax_pic,
+    required String? vehicle_insurance_pic,
+    required String? vehicle_driving_front,
+    required String? vehicle_driving_back,
 
 
   }) async {
@@ -71,27 +73,56 @@ class VehiclesSaveController extends GetxController{
 
 
 
-      // Convert XFile to File
-      File? imageFile;
-      if (image != null) {
-        imageFile = File(image);
+      File? vehicle_front_picFile;
+      if (vehicle_front_pic != null) {
+        vehicle_front_picFile = File(vehicle_front_pic);
       }
-      File? nidBackFile;
-      if (nidBack != null) {
-        nidBackFile = File(nidBack);
+      File? vehicle_back_picFile;
+      if (vehicle_back_pic != null) {
+        vehicle_back_picFile = File(vehicle_back_pic);
       }
-      File? nidFrontFile;
-      if (nidFront != null) {
-        nidFrontFile = File(nidFront);
+      File? vehicle_reg_picFile;
+      if (vehicle_reg_pic != null) {
+        vehicle_reg_picFile = File(vehicle_reg_pic);
       }
-      File? drivingImageFile;
-      if (drivingImage != null) {
-        drivingImageFile = File(drivingImage);
+      File? vehicle_plate_noFile;
+      if (vehicle_plate_no != null) {
+        vehicle_plate_noFile = File(vehicle_plate_no);
       }
+      File? vehicle_root_picFile;
+      if (vehicle_root_pic != null) {
+        vehicle_root_picFile = File(vehicle_root_pic);
+      }
+
+      File? vehicle_fitness_picFile;
+      if (vehicle_fitness_pic != null) {
+        vehicle_fitness_picFile = File(vehicle_fitness_pic);
+      }
+
+      File? vehicle_tax_picFile;
+      if (vehicle_tax_pic != null) {
+        vehicle_tax_picFile = File(vehicle_tax_pic);
+      }
+
+      File? vehicle_insurance_picFile;
+      if (vehicle_insurance_pic != null) {
+        vehicle_insurance_picFile = File(vehicle_insurance_pic);
+      }
+
+      File? vehicle_driving_frontFile;
+      if (vehicle_driving_front != null) {
+        vehicle_driving_frontFile = File(vehicle_driving_front);
+      }
+
+      File? vehicle_driving_backFile;
+      if (vehicle_driving_back != null) {
+        vehicle_driving_backFile = File(vehicle_driving_back);
+      }
+
       // Create a multipart request
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse(Api.driverAdd),
+        Uri.parse(Api.vehicleAdd),
       );
       request.headers['Accept'] = 'multipart/form-data;';
       request.headers['Authorization'] = "Bearer ${LocalStorage.getData(key: AppTexts.token)}";
@@ -100,75 +131,168 @@ class VehiclesSaveController extends GetxController{
         request.fields[key] = value.toString();
       });
 
-      ///profile image
-      if (imageFile != null) {
-        var fileStream = http.ByteStream(imageFile.openRead());
-        var length = await imageFile.length();
+      ///vehicle_front_pic
+      if (vehicle_front_picFile != null) {
+        var fileStream = http.ByteStream(vehicle_front_picFile.openRead());
+        var length = await vehicle_front_picFile.length();
         var multipartFile = http.MultipartFile(
-          'image',
+          'vehicle_front_pic',
           fileStream,
           length,
-          filename: p.basename(imageFile.path),
+          filename: p.basename(vehicle_front_picFile.path),
           contentType: MediaType(
-              'image', 'jpg'),
+              'vehicle_front_pic', 'jpg'),
         );
         request.files.add(multipartFile);
       }
-      /// nidBack
-      if (nidBackFile != null) {
-        var fileStream = http.ByteStream(nidBackFile.openRead());
-        var length = await nidBackFile.length();
+      /// vehicle_back_picFile
+      if (vehicle_back_picFile != null) {
+        var fileStream = http.ByteStream(vehicle_back_picFile.openRead());
+        var length = await vehicle_back_picFile.length();
         var multipartFile = http.MultipartFile(
-          'nid_back',
+          'vehicle_back_pic',
           fileStream,
           length,
-          filename: p.basename(nidBackFile.path),
+          filename: p.basename(vehicle_back_picFile.path),
           contentType: MediaType(
-              'nid_back', 'jpg'),
+              'vehicle_back_pic', 'jpg'),
         );
         request.files.add(multipartFile);
       }
-      /// nidFront
-      if (nidFrontFile != null) {
-        var fileStream = http.ByteStream(nidFrontFile.openRead());
-        var length = await nidFrontFile.length();
+      /// vehicle_reg_picFile
+      if (vehicle_reg_picFile != null) {
+        var fileStream = http.ByteStream(vehicle_reg_picFile.openRead());
+        var length = await vehicle_reg_picFile.length();
         var multipartFile = http.MultipartFile(
-          'nid_front',
+          'vehicle_reg_pic',
           fileStream,
           length,
-          filename: p.basename(nidFrontFile.path),
+          filename: p.basename(vehicle_reg_picFile.path),
           contentType: MediaType(
-              'nid_front', 'jpg'),
+              'vehicle_reg_pic', 'jpg'),
         );
         request.files.add(multipartFile);
       }
-      /// drivingImageFile
-      if (drivingImageFile != null) {
-        var fileStream = http.ByteStream(drivingImageFile.openRead());
-        var length = await drivingImageFile.length();
+      /// vehicle_plate_noFile
+      if (vehicle_plate_noFile != null) {
+        var fileStream = http.ByteStream(vehicle_plate_noFile.openRead());
+        var length = await vehicle_plate_noFile.length();
         var multipartFile = http.MultipartFile(
-          'driving_image',
+          'vehicle_plate_no',
           fileStream,
           length,
-          filename: p.basename(drivingImageFile.path),
+          filename: p.basename(vehicle_plate_noFile.path),
           contentType: MediaType(
-              'driving_image', 'jpg'),
+              'vehicle_plate_no', 'jpg'),
+        );
+        request.files.add(multipartFile);
+      }
+
+      /// vehicle_root_picFile
+      if (vehicle_root_picFile != null) {
+        var fileStream = http.ByteStream(vehicle_root_picFile.openRead());
+        var length = await vehicle_root_picFile.length();
+        var multipartFile = http.MultipartFile(
+          'vehicle_root_pic',
+          fileStream,
+          length,
+          filename: p.basename(vehicle_root_picFile.path),
+          contentType: MediaType(
+              'vehicle_root_pic', 'jpg'),
+        );
+        request.files.add(multipartFile);
+      }
+
+      /// vehicle_fitness_picFile
+      if (vehicle_fitness_picFile != null) {
+        var fileStream = http.ByteStream(vehicle_fitness_picFile.openRead());
+        var length = await vehicle_fitness_picFile.length();
+        var multipartFile = http.MultipartFile(
+          'vehicle_fitness_pic',
+          fileStream,
+          length,
+          filename: p.basename(vehicle_fitness_picFile.path),
+          contentType: MediaType(
+              'vehicle_fitness_pic', 'jpg'),
+        );
+        request.files.add(multipartFile);
+      }
+
+      /// vehicle_tax_picFile
+      if (vehicle_tax_picFile != null) {
+        var fileStream = http.ByteStream(vehicle_tax_picFile.openRead());
+        var length = await vehicle_tax_picFile.length();
+        var multipartFile = http.MultipartFile(
+          'vehicle_tax_pic',
+          fileStream,
+          length,
+          filename: p.basename(vehicle_tax_picFile.path),
+          contentType: MediaType(
+              'vehicle_tax_pic', 'jpg'),
+        );
+        request.files.add(multipartFile);
+      }
+
+      /// vehicle_insurance_picFile
+      if (vehicle_insurance_picFile != null) {
+        var fileStream = http.ByteStream(vehicle_insurance_picFile.openRead());
+        var length = await vehicle_insurance_picFile.length();
+        var multipartFile = http.MultipartFile(
+          'vehicle_insurance_pic',
+          fileStream,
+          length,
+          filename: p.basename(vehicle_insurance_picFile.path),
+          contentType: MediaType(
+              'vehicle_insurance_pic', 'jpg'),
+        );
+        request.files.add(multipartFile);
+      }
+
+      /// vehicle_driving_frontFile
+      if (vehicle_driving_frontFile != null) {
+        var fileStream = http.ByteStream(vehicle_driving_frontFile.openRead());
+        var length = await vehicle_driving_frontFile.length();
+        var multipartFile = http.MultipartFile(
+          'vehicle_driving_front',
+          fileStream,
+          length,
+          filename: p.basename(vehicle_driving_frontFile.path),
+          contentType: MediaType(
+              'vehicle_driving_front', 'jpg'),
+        );
+        request.files.add(multipartFile);
+      }
+
+      /// vehicle_driving_backFile
+      if (vehicle_driving_backFile != null) {
+        var fileStream = http.ByteStream(vehicle_driving_backFile.openRead());
+        var length = await vehicle_driving_backFile.length();
+        var multipartFile = http.MultipartFile(
+          'vehicle_driving_back',
+          fileStream,
+          length,
+          filename: p.basename(vehicle_driving_backFile.path),
+          contentType: MediaType(
+              'vehicle_driving_back', 'jpg'),
         );
         request.files.add(multipartFile);
       }
 
       //send request
       var response = await request.send();
-      dynamic responseBody =
+      print("Api hit: " + Api.vehicleAdd.toString());
+      print(await response.stream.bytesToString());
+     dynamic responseBody =
       json.decode(await response.stream.bytesToString());
 
       log(responseBody.toString());
+      print(response.statusCode);
 
       if (response.statusCode == 200) {
         if(responseBody['status'] == "success"){
-          getDriver();
-          Get.off(() => DriverPage(),transition: Transition.circularReveal);
-          //kSnackBar(message: responseBody['message'], bgColor: Colors.green);
+          vehiclesController.getVehicles();
+          Get.to(() => DashboardView(),transition: Transition.circularReveal);
+          kSnackBar(message: responseBody['message'], bgColor: Colors.green);
         }else{
           kSnackBar(message: "Failed", bgColor: Colors.red);
         }
@@ -178,7 +302,8 @@ class VehiclesSaveController extends GetxController{
         throw 'Failed!';
       }
     } catch (e) {
-      // kSnackBar(message: e.toString(), bgColor: failedColor);
+      print(e);
+      kSnackBar(message: e.toString(), bgColor: Colors.red);
     } finally {
       isLoading(false);
     }
