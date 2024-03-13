@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../components/trip/tripRequestComponent.dart';
 import 'completedTripPage.dart';
+import 'controller/trip_request_controller.dart';
 
 class TripRequestPage extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class TripRequestPage extends StatefulWidget {
 }
 
 class _TripRequestPageState extends State<TripRequestPage> {
+  final TripRequestController tripRequestController = Get.put(TripRequestController());
   // Future<void> _refresh() {
   //   _resetList();
   //   return _getList();
@@ -36,7 +38,9 @@ class _TripRequestPageState extends State<TripRequestPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              tripRequestController.getTripResqust();
+            },
             splashRadius: 20,
             icon: Icon(
               Icons.refresh,

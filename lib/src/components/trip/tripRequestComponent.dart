@@ -1,5 +1,8 @@
 
+import 'package:druto_seba_driver/src/modules/trip/controller/trip_request_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/tripDetailsPage.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -16,6 +19,7 @@ class TripRequestComponent extends StatefulWidget {
 
 class _TripRequestComponentState extends State<TripRequestComponent> {
   late FlutterTts flutterTts;
+  final TripRequestController tripRequestController = Get.put(TripRequestController());
 
   @override
   void initState() {
@@ -37,10 +41,10 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
   Widget build(BuildContext context) {
     return Padding(
       padding: paddingH10,
-      child: ListView.builder(
+      child: Obx(() => tripRequestController.isLoading.value == true? CustomLoader(color: black, size: 30) : ListView.builder(
         shrinkWrap: true,
         primary: false,
-        itemCount: 4,
+        itemCount: tripRequestController.tripRequestList.length,
         itemBuilder: ((context, index) {
           return GestureDetector(
             onTap: () => Get.to(() => TripDetailsPage(),transition: Transition.circularReveal),
@@ -61,15 +65,15 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                             height: 40,
                             child: Row(
                               children: [
-                                Image.asset(
-                                  'assets/img/car5.png',
+                                Image.network(
+                                  Api.getImageURL(tripRequestController.tripRequestList[index].vehicle?.image),
                                   width: 30,
                                   height: 40,
                                   fit: BoxFit.cover,
                                 ),
                                 sizeW5,
                                 KText(
-                                  text: 'Mini Microbus | 7 Seats',
+                                  text: '${tripRequestController.tripRequestList[index].vehicle?.name} | ${tripRequestController.tripRequestList[index].vehicle?.capacity} Seats',
                                   fontSize: 13,
                                   color: white,
                                 ),
@@ -157,7 +161,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                     Container(
                                       width: Get.width / 1.3,
                                       child: KText(
-                                        text: 'Panthapath,ঢাকা,বাংলাদেশ',
+                                        text: tripRequestController.tripRequestList[index].pickupLocation,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
                                         maxLines: 2,
@@ -206,7 +210,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                       // color: primaryColor,
                                       child: KText(
                                         text:
-                                            'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
+                                        tripRequestController.tripRequestList[index].dropoffLocation,
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         maxLines: 2,
@@ -229,7 +233,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                         child: Center(
                           child: InkWell(
                               onTap: (){
-                                _speak("পিকআপ লোকেশন,Panthapath,ঢাকা,বাংলাদেশ,ড্রপ লোকেশন, Balipara Bridge,Balipara Bridge,বাংলাদেশ ");
+                                _speak("পিকআপ লোকেশন,${tripRequestController.tripRequestList[index].pickupLocation},ড্রপ লোকেশন, ${tripRequestController.tripRequestList[index].dropoffLocation}");
                               },
                               child: Icon(Icons.volume_up_outlined,color: Colors.red,)),
                         ),
@@ -240,12 +244,12 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                       sizeH10,
                       rawText(
                         title: 'ট্রিপের সময়',
-                        content: '02 Jun 2022 12:59 PM',
+                        content: tripRequestController.tripRequestList[index].datetime,
                       ),
                       Divider(),
                       rawText(
                         title: 'ফিরতি তারিখ',
-                        content: '03 Jun 2022 12:59 PM',
+                        content: tripRequestController.tripRequestList[index].roundDatetime,
                       ),
                       sizeH5,
                     ],
@@ -255,7 +259,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
             ),
           );
         }),
-      ),
+      ),)
     );
   }
 
