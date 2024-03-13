@@ -6,6 +6,7 @@ import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../configs/appColors.dart';
 import '../../widgets/text/kText.dart';
 import 'paymentTypePage.dart';
@@ -274,51 +275,54 @@ class _CreditPageState extends State<CreditPage> {
                           color: black,
                         ),
                         sizeH20,
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: List<Widget>.generate(
-                            3,
-                                (index) => Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: CustomCardWidget(
-                                radius: 10,
-                                color: greyBackgroundColor,
-                                elevation: 0,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    KText(
-                                      text: 'Registration bonus credit',
-                                      fontSize: 16,
-                                      color: black,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    sizeH10,
-                                    Row(
-                                      children: [
-                                        KText(
-                                          text: '05:20 PM, 26 May 2022',
-                                          color: black45,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        Spacer(),
-                                        KText(
-                                          text: '+500',
-                                          color: Colors.green,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                        ListView.builder(
+                          itemCount: creditDataController.creditHistoryList.length,
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index){
+                              String dateTimeString = creditDataController.creditHistoryList[index].createdAt.toString();
+                              DateTime dateTime = DateTime.parse(dateTimeString);
+                              String formattedDateTime = DateFormat('hh:mm a, dd MMM yyyy').format(dateTime);
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: CustomCardWidget(
+                                  radius: 10,
+                                  color: greyBackgroundColor,
+                                  elevation: 0,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      KText(
+                                        text: creditDataController.creditHistoryList[index].name,
+                                        fontSize: 16,
+                                        color: black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      sizeH10,
+                                      Row(
+                                        children: [
+                                          KText(
+                                            text: formattedDateTime,
+                                            color: black45,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          Spacer(),
+                                          KText(
+                                            text: '+${creditDataController.creditHistoryList[index].amount}',
+                                            color: Colors.green,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
+                              );
+                            }
+                        )
                       ],
                     ),
                   ),
