@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../widgets/bottomSheet/customBottomSheet.dart';
-import '../../widgets/card/customCardWidget.dart';
-import '../../widgets/text/kText.dart';
+import '../../../configs/appColors.dart';
+import '../../../configs/appUtils.dart';
+import '../../../widgets/bottomSheet/customBottomSheet.dart';
+import '../../../widgets/card/customCardWidget.dart';
+import '../../../widgets/text/kText.dart';
 
 class OfferPage extends StatelessWidget {
   @override

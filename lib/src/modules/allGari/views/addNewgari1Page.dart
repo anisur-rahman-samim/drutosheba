@@ -332,7 +332,7 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
               fontSize: 14,
               onTap: () {
                 vehiclesSaveController.vehiclesAdd(
-                    brand: widget.brandName,
+                    brand: widget.carName,
                     metro: widget.metroName,
                     metroType: widget.subMetroName,
                     metroNo: widget.metroNumber,
@@ -340,6 +340,8 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
                     modelYear: widget.modelYear,
                     vehicleColor: widget.colorName,
                     aircondition: widget.airCondition,
+                    fuel_type: widget.fualName,
+                    brand_name: widget.brandName,
 
 
                     vehicle_front_pic: carFrontImage,

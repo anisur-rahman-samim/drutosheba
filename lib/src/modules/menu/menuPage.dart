@@ -17,7 +17,7 @@ import '../drawerPage/dashboardPage.dart';
 import '../drawerPage/helpPage.dart';
 import '../drawerPage/leaderBoardPage.dart';
 import '../drawerPage/notificationsPage.dart';
-import '../drawerPage/offerPage.dart';
+import '../drawerPage/view/offerPage.dart';
 import '../drawerPage/settingsPage.dart';
 import '../driver/driverPage.dart';
 import '../penalty/views/penalty_view.dart';

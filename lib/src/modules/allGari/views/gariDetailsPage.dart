@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/modules/allGari/controller/metro_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/model/vehicles_model.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,10 @@ import 'addNewGariPage.dart';
 
 class GariDetailsPage extends StatelessWidget {
   final Vehicles vehicles;
-  const GariDetailsPage({Key? key, required this.vehicles}) : super(key: key);
+   GariDetailsPage({Key? key, required this.vehicles}) : super(key: key);
+  
+  final MetroController metroController = Get.put(MetroController());
+  
   @override
   Widget build(BuildContext context) {
     String dateTimeString = vehicles.createdAt.toString();
@@ -164,7 +168,7 @@ class GariDetailsPage extends StatelessWidget {
                   ),
                   rawText(
                     title: 'রেজিস্ট্রেশন নম্বর',
-                    content: '${vehicles.metro}-${vehicles.metroType}-${vehicles.metroNo}',
+                    content: '${vehicles.metro}-${metroController.metroSubList[int.parse(vehicles.metroType.toString()) - 1].metroSubName}-${vehicles.metroNo}',
                   ),
                   rawText(
                     title: 'আসন',

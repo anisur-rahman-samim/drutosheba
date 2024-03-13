@@ -5,7 +5,7 @@ import 'package:druto_seba_driver/src/modules/drawerPage/dashboardPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/helpPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/leaderBoardPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/notificationsPage.dart';
-import 'package:druto_seba_driver/src/modules/drawerPage/offerPage.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/view/offerPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/settingsPage.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/tikaPage.dart';
 import 'package:druto_seba_driver/src/modules/driver/driverPage.dart';

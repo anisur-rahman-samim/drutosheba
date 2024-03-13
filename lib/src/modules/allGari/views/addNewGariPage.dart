@@ -45,6 +45,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
   var selectedCar = RxString('');
   var selectedCarId = RxString('');
   var selectedMetro = RxString('');
+  var selectedMetroSubId = RxString('');
   var selectedMetroSub = RxString('');
   bool? isNextButton = false;
   var isCarInfo = true;
@@ -205,7 +206,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
         fualName: fualName,
         brandName: brandNameController.text,
         metroName: selectedMetro.value,
-        subMetroName: selectedMetroSub.value,
+        subMetroName: selectedMetroSubId.value,
         metroNumber: carNoController.text,
         modelName: modelController.text,
         modelYear: modelYearController.text,
@@ -511,6 +512,8 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                               BorderRadius.circular(5),
                                               onTap: () {
                                                 setState(() {
+                                                  selectedMetroSubId.value =
+                                                      item.id.toString();
                                                   selectedMetroSub.value =
                                                       item.metroSubName.toString();
                                                   Get.back();

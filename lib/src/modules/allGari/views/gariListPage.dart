@@ -116,7 +116,7 @@ class GariListPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              InkWell(
+                             /* InkWell(
                                 onTap: () => Get.to(() => AddNewGariPage(
                                   isEditPage: true,
                                 ),transition: Transition.circularReveal),
@@ -129,7 +129,7 @@ class GariListPage extends StatelessWidget {
                                     size: 20,
                                   ),
                                 ),
-                              ),
+                              ),*/
                             ],
                           ),
                           Row(

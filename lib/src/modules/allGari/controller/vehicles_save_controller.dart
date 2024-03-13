@@ -33,6 +33,8 @@ class VehiclesSaveController extends GetxController{
     required String modelYear,
     required String vehicleColor,
     required String aircondition,
+    required String brand_name,
+    required String fuel_type,
 
     required String? vehicle_front_pic,
     required String? vehicle_back_pic,
@@ -59,6 +61,8 @@ class VehiclesSaveController extends GetxController{
       map['model_year'] = modelYear;
       map['vehicle_color'] = vehicleColor;
       map['aircondition'] = aircondition;
+      map['brand_name'] = brand_name;
+      map['fuel_type'] = fuel_type;
 
       map['vehicle_front_pic'] = vehicle_front_pic;
       map['vehicle_back_pic'] = vehicle_back_pic;
@@ -281,7 +285,7 @@ class VehiclesSaveController extends GetxController{
       //send request
       var response = await request.send();
       print("Api hit: " + Api.vehicleAdd.toString());
-      print(await response.stream.bytesToString());
+     // print(await response.stream.bytesToString());
      dynamic responseBody =
       json.decode(await response.stream.bytesToString());
 
@@ -303,7 +307,7 @@ class VehiclesSaveController extends GetxController{
       }
     } catch (e) {
       print(e);
-      kSnackBar(message: e.toString(), bgColor: Colors.red);
+    //  kSnackBar(message: e.toString(), bgColor: Colors.red);
     } finally {
       isLoading(false);
     }
