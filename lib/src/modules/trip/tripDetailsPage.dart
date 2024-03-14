@@ -376,17 +376,17 @@ class TripDetailsPage extends StatelessWidget {
                   sizeH5,
                   Divider(),
                   sizeH5,
-                  rawText(
+                  tripRequest.roundDatetime == null? SizedBox():  rawText(
                     title: 'যাওয়া-আসা',
-                    content: tripRequest.roundDatetime!.isNotEmpty? 'হাঁ': "না",
+                    content: tripRequest.roundDatetime== null ? "না" : 'হাঁ',
                   ),
                   sizeH5,
                   Divider(),
                   sizeH5,
-                  tripRequest.roundDatetime!.isNotEmpty?  rawText(
+                  tripRequest.roundDatetime == null? SizedBox():  rawText(
                     title: 'ফিরতি তারিখ',
                     content: tripRequest.roundDatetime,
-                  ): SizedBox(),
+                  ),
                 ],
               ),
             ),

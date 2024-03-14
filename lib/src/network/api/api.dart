@@ -31,13 +31,13 @@ class Api{
   static const driverAdd = "$baseUrl/partner/driver-add"; // done 11
 
   ///Penalty and Balance ////////// problems
-  static const credit = "$baseUrl/partner/credit";
-  static const creditHistory = "$baseUrl/partner/credit-history";
+  static const credit = "$baseUrl/partner/credit"; // done
+  static const creditHistory = "$baseUrl/partner/credit-history"; // done
   static const dashboard = "$baseUrl/partner/dashboard"; // done, but ui change need
   static const leaderboard = "$baseUrl/partner/leaderboard"; // done
-  static const withdrawalSubmit = "$baseUrl/partner/withdrawal-submit";
-  static const creditBuy = "$baseUrl/partner/credit-buy";
-  static const penaltyHistory = "$baseUrl/partner/penalty-history";
+  static const withdrawalSubmit = "$baseUrl/partner/withdrawal-submit"; // pending
+  static const creditBuy = "$baseUrl/partner/credit-buy"; // pending
+  static const penaltyHistory = "$baseUrl/partner/penalty-history"; // working
 
   ///Return Trip
   static const returnTripSubmit = "$baseUrl/partner/return-trip-submit"; //done
