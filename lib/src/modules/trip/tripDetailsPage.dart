@@ -1,6 +1,8 @@
+import 'package:druto_seba_driver/src/modules/trip/controller/bid_submit_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
+import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,8 @@ class TripDetailsPage extends StatelessWidget {
    TripDetailsPage({super.key, required this.tripRequest});
 
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
+  final BidSubmitController bidSubmitController = Get.put(BidSubmitController());
+  final TextEditingController amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     String pickUpCoordinates =  tripRequest.map.toString();
@@ -63,7 +67,7 @@ class TripDetailsPage extends StatelessWidget {
                             child: KText(
                               text: 'অন্য পার্টনারদের বিড',
                               fontWeight: FontWeight.bold,
-                              color: white,
+                              color: black,
                             ),
                           ),
                           Divider(),
@@ -127,7 +131,13 @@ class TripDetailsPage extends StatelessWidget {
                               sizeW20,
                               Expanded(
                                 child: CustomCardWidget(
-                                  onTap: () {},
+                                  onTap: () {
+                                    bidSubmitController.submitBid(
+                                        customer_id: tripRequest.customerId.toString(),
+                                        vehicle_id: tripRequest.vehicleId.toString(),
+                                        amount: amountController.text, 
+                                        trip_id: tripRequest.id.toString());
+                                  },
                                   radius: 30,
                                   color: primaryColor,
                                   elevation: 0,
@@ -135,7 +145,7 @@ class TripDetailsPage extends StatelessWidget {
                                     child: KText(
                                       text: 'নিশ্চিত করুন এবং বিড দেখুন',
                                       color: white,
-                                      fontSize: 13,
+                                      fontSize: 12,
                                     ),
                                   ),
                                 ),
@@ -180,7 +190,7 @@ class TripDetailsPage extends StatelessWidget {
                   elevation: 0,
                   child: Center(
                     child: KText(
-                      text: 'সকল বিড দেখুন',
+                      text: 'বিড করুন',
                       color: primaryColor,
                       fontSize: 14,
                     ),
@@ -450,6 +460,39 @@ class TripDetailsPage extends StatelessWidget {
               ),
             ),
           ),
+          sizeH10,
+          CustomCardWidget( radius: 0,
+              elevation: 0,
+              height: 75,
+              isPaddingHide: true,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("বিড পরিমাণ",style: h2,),
+                    Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: black.withOpacity(0.3))
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                        child: TextField(
+                          controller: amountController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+          ),
+          sizeH80,
         ],
       ),)
     );

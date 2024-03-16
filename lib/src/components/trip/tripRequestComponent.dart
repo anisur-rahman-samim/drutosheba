@@ -82,7 +82,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                           ),
                           // sizeW10,
                           Spacer(),
-                          CustomCardWidget(
+                          /*CustomCardWidget(
                             radius: 30,
                             borderColor: greyBackgroundColor,
                             isPaddingHide: true,
@@ -107,7 +107,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                 sizeW10,
                               ],
                             ),
-                          ),
+                          ),*/
                         ],
                       ),
                       sizeH10,
@@ -206,6 +206,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                     ),
                                     // sizeW5,
                                     Container(
+                                      height: 20,
                                       width: Get.width / 1.3,
                                       // color: primaryColor,
                                       child: KText(
@@ -247,10 +248,10 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                         content: tripRequestController.tripRequestList[index].datetime,
                       ),
                       Divider(),
-                      rawText(
+                      tripRequestController.tripRequestList[index].roundTrip == 1 ?   rawText(
                         title: 'ফিরতি তারিখ',
                         content: tripRequestController.tripRequestList[index].roundDatetime,
-                      ),
+                      ):SizedBox.shrink(),
                       sizeH5,
                     ],
                   ),
