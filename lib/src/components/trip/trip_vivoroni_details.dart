@@ -291,18 +291,23 @@ class TripVivoroniDetails extends StatelessWidget {
                        ),
                      )
                    ],
-                 )): Container(
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(30),
-                        shape: BoxShape.circle,
-                        color: Colors.blue
+                 )): InkWell(
+                    onTap: (){
+                      tripStartEndController.completeTrip(tripId: confirmedTrips.tripId.toString(),);
+                    },
+                   child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(30),
+                          shape: BoxShape.circle,
+                          color: Colors.blue
+                      ),
+                      child: Center(
+                        child: tripStartEndController.isLoading.value == true? CustomLoader(color: white, size: 40) :  Text("COMPLETED \nTRIP",style: h2.copyWith(color: white),textAlign: TextAlign.center,),
+                      ),
                     ),
-                    child: Center(
-                      child: tripStartEndController.isLoading.value == true? CustomLoader(color: white, size: 40) :  Text("COMPLETED \nTRIP",style: h2.copyWith(color: white),textAlign: TextAlign.center,),
-                    ),
-                  )
+                 )
                 ],
               ),
             ),

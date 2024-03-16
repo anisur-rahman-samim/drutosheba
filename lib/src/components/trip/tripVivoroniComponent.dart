@@ -4,6 +4,7 @@ import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_contro
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +30,7 @@ class TripVivoroniComponent extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 60),
       child: Padding(
         padding: paddingH10,
-        child: Obx(() => ListView.builder(
+        child: Obx(() => confirmTripController.isLoading.value == true? CustomLoader(color: black, size: 30): confirmTripController.confirmTripList.isEmpty? Center(child: Text("No Trip",style: h1,)) : ListView.builder(
             shrinkWrap: true,
             primary: false,
             itemCount: confirmTripController.confirmTripList.length,
