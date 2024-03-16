@@ -15,7 +15,8 @@ class Api{
   static const resendForgot = "$baseUrl/partner/resend-forgot";//done
   static const forgotVerify = "$baseUrl/partner/forgot-verify";//done
   static const profile = "$baseUrl/partner/profile"; //done
-  static const profileUpdate = "$baseUrl/partner/profile-update";
+  static const profileUpdate = "$baseUrl/partner/profile-update"; // done
+  static const reviews = "$baseUrl/partner/partner-reviews"; // done
 
   ///Rental Trip
   static const tripRequest = "$baseUrl/partner/trip-request"; // done
@@ -25,10 +26,12 @@ class Api{
   static const tripBidSubmit = "$baseUrl/partner/trip-bid/submit"; 
   static const waitingBid = "$baseUrl/partner/waiting-bid"; // working
   static const tripDetails = "$baseUrl/partner/trip-details";
+  static const tripConfirmList = "$baseUrl/partner/trip-confirm-list";
+  static const tripCompletedList = "$baseUrl/partner/trip-completed-list";
 
   ///Driver
-  static const driverManage = "$baseUrl/partner/driver-manage";//done 11
-  static const driverAdd = "$baseUrl/partner/driver-add"; // done 11
+  static const driverManage = "$baseUrl/partner/driver-manage";//done
+  static const driverAdd = "$baseUrl/partner/driver-add"; // done 
 
   ///Penalty and Balance
   static const credit = "$baseUrl/partner/credit"; // done

@@ -1,4 +1,5 @@
 import 'package:druto_seba_driver/src/configs/app_texts.dart';
+import 'package:druto_seba_driver/src/modules/auth/controller/reviews_controller.dart';
 import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
@@ -24,10 +25,25 @@ import '../driver/driverPage.dart';
 import '../penalty/views/penalty_view.dart';
 import '../userAccount/views/profilePage.dart';
 
-class MenuPage extends StatelessWidget {
+class MenuPage extends StatefulWidget {
    MenuPage({Key? key}) : super(key: key);
+
+  @override
+  State<MenuPage> createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
   final ProfileController profileController = Get.put(ProfileController());
+
    final LeaderboardController leaderboardController = Get.put(LeaderboardController());
+
+   final ReviewsController reviewsController = Get.put(ReviewsController());
+
+   @override
+  void initState() {
+     reviewsController.getReviews(partnerId: profileController.profileModel.value.data?.id);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +84,7 @@ class MenuPage extends StatelessWidget {
                           child: Row(
                             children: [
                               KText(
-                                text: '5.0 ',
+                                text: '${reviewsController.reviewsModel.value.data?.averageStar} ',
                                 fontSize: 12,
                               ),
                               Icon(

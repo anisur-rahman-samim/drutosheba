@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/requiredForm.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,6 +24,26 @@ class ProfileEditPage extends StatefulWidget {
 class _ProfileEditPageState extends State<ProfileEditPage> {
   final ProfileEditController profileEditController =
       Get.put(ProfileEditController());
+  final ProfileController profileController = Get.put(ProfileController());
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController nidController = TextEditingController();
+  final TextEditingController divisionController = TextEditingController();
+
+  @override
+  void initState() {
+    nameController.text = profileController.profileModel.value.data!.name.toString();
+    emailController.text = profileController.profileModel.value.data!.email.toString();
+    addressController.text = profileController.profileModel.value.data!.address.toString();
+    nidController.text = profileController.profileModel.value.data!.docNumber.toString();
+    divisionController.text = profileController.profileModel.value.data!.division.toString();
+    setState(() {
+      gender = profileController.profileModel.value.data!.gender.toString();
+      selectedValidation = profileController.profileModel.value.data!.docType.toString();
+    });
+    super.initState();
+  }
 
   String selectedValidation = 'এনআইডি';
   String gender = 'পুরুষ';
@@ -60,14 +83,15 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage(
-                        'assets/img/profile.png',
-                      ),
+                      image: NetworkImage(
+                        Api.getImageURL(profileController.profileModel.value.data!.image.toString(),)
+                     ),
                       fit: BoxFit.cover,
                     ),
                   ),
                 )
-                    : Container(
+                    :
+                Container(
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
@@ -106,6 +130,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             ),
             sizeH10,
             requiredForm(
+              controller: nameController,
               title: 'সম্পূর্ণ নাম (এনআইডি এর মতো)',
               labelText: 'সম্পূর্ণ নাম (এনআইডি এর মতো)',
               requiredText: '*',
@@ -155,24 +180,28 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             ),
             sizeH10,
             requiredForm(
+              controller: nidController,
               title: '$selectedValidation নম্বর',
               labelText: '$selectedValidation নম্বর',
               requiredText: '',
             ),
             sizeH10,
             requiredForm(
+              controller: emailController,
               title: 'ইমেইল',
               labelText: 'ইমেইল',
               requiredText: '*',
             ),
             sizeH10,
             requiredForm(
+              controller: divisionController,
               title: 'বিভাগ',
               labelText: 'বিভাগ',
               requiredText: '*',
             ),
             sizeH10,
             requiredForm(
+              controller: addressController,
               title: 'ঠিকানা',
               labelText: 'ঠিকানা',
               requiredText: '*',
@@ -209,9 +238,21 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               ],
             ),
             sizeH20,
-            primaryButton(
+            profileEditController.isLoading.value == true? primaryButton(
+                child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+            ) : primaryButton(
               buttonName: 'আপডেট করুন',
-              onTap: () => Get.to(() => DashboardView(),transition: Transition.circularReveal),
+              onTap: () {
+                profileEditController.profileUpdate(
+                    name: nameController.text,
+                    email: emailController.text,
+                    gender: gender,
+                    address: addressController.text,
+                    doc_type: selectedValidation,
+                    doc_number: nidController.text,
+                    image: profileEditController.imagePath.value.isEmpty? null: profileEditController.imagePath.value,
+                    division: divisionController.text);
+              }
             ),
             sizeH20,
           ],

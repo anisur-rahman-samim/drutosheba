@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/modules/auth/controller/reviews_controller.dart';
 import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'profileEditPage.dart';
 
 class ProfilePage extends StatelessWidget {
   final ProfileController profileController = Get.put(ProfileController());
+  final ReviewsController reviewsController = Get.put(ReviewsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +114,7 @@ class ProfilePage extends StatelessWidget {
                         child: Row(
                           children: [
                             KText(
-                              text: '5.0 ',
+                              text: '${reviewsController.reviewsModel.value.data?.averageStar} ',
                               fontWeight: FontWeight.bold,
                               fontSize: 13,
                             ),
