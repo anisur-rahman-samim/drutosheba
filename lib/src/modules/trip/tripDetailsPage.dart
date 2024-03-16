@@ -255,12 +255,12 @@ class TripDetailsPage extends StatelessWidget {
                       ),
                       // sizeW10,
                       Spacer(),
-                      KText(
+                     /* KText(
                         text: 'ট্রিপ MS${tripRequest.id}',
                         color: primaryColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                      ),
+                      ),*/
                     ],
                   ),
                   sizeH10,
@@ -364,6 +364,7 @@ class TripDetailsPage extends StatelessWidget {
                                 ),
                                 // sizeW5,
                                 Container(
+                                  height: 20,
                                   width: Get.width / 1.3,
                                   // color: primaryColor,
                                   child: KText(
@@ -479,11 +480,11 @@ class TripDetailsPage extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
                         child: TextField(
                           controller: amountController,
                           decoration: InputDecoration(
-                            border: InputBorder.none
+                            border: InputBorder.none,
+                            hintText: "বিড পরিমাণ"
                           ),
                         ),
                       ),

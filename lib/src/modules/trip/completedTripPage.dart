@@ -41,6 +41,19 @@ class CompletedTripPage extends StatelessWidget {
                     padding: paddingV10,
                     child: Column(
                       children: [
+                        Row(
+                          children: [
+                            KText(
+                              text: 'ট্রিপ: ',
+                              color: black54,
+                            ),
+                            KText(
+                              text: '${completedTripController.completedTripList[i].trackingId}',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ],
+                        ),
+                        sizeH10,
                         SizedBox(
                           height: 115,
                           child: Row(

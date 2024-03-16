@@ -21,12 +21,12 @@ class Api{
   ///Rental Trip
   static const tripRequest = "$baseUrl/partner/trip-request"; // done
   static const tripCancel = "$baseUrl/partner/trip-cancel"; // working
-  static const tripStarted = "$baseUrl/partner/trip-started";
+  static const tripStarted = "$baseUrl/partner/trip-started"; // done
   static const tripCompleted = "$baseUrl/partner/trip-completed";
   static const tripBidSubmit = "$baseUrl/partner/trip-bid/submit";  // done
   static const waitingBid = "$baseUrl/partner/waiting-bid"; // done
   static const tripDetails = "$baseUrl/partner/trip-details";
-  static const tripConfirmList = "$baseUrl/partner/trip-confirm-list";
+  static const tripConfirmList = "$baseUrl/partner/trip-confirm-list"; // done
   static const tripCompletedList = "$baseUrl/partner/trip-completed-list"; // done
 
   ///Driver
@@ -63,4 +63,5 @@ class Api{
   static const shareReferKey = "$baseUrl/partner/share-referkey";
   static const offer = "$baseUrl/partner/offer";
   static const help = "$baseUrl/partner/help";
+
 }

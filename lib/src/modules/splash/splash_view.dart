@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/confirmed_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/welcome/views/welcome_views.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
@@ -17,6 +19,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final VehiclesController vehiclesController = Get.put(VehiclesController());
+  final ConfirmedTripController confirmTripController = Get.put(ConfirmedTripController());
+
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
