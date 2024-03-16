@@ -1,4 +1,9 @@
 
+import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
+import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,15 +16,32 @@ import '../../widgets/dottedDivider/dotDivider.dart';
 import '../../widgets/text/kText.dart';
 
 class OpekhomanBidComponent extends StatelessWidget {
+  final WaitingTripController waitingTripController = Get.put(WaitingTripController());
+  final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: paddingH10,
-      child: ListView.builder(
+      child: Obx(() => waitingTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : ListView.builder(
           shrinkWrap: true,
           primary: false,
-          itemCount: 4,
+          itemCount: waitingTripController.waitingTripList.length,
           itemBuilder: ((context, index) {
+            String pickUpCoordinates = waitingTripController.waitingTripList[index].getTripDetails!.map.toString();
+            List<String> pickUpParts = pickUpCoordinates.split(' ');
+
+            double upLat = double.parse(pickUpParts[0]);
+            double upLng = double.parse(pickUpParts[1]);
+
+            String downCoordinates = waitingTripController.waitingTripList[index].getTripDetails!.dropoffMap.toString();
+            List<String> downUpParts = downCoordinates.split(' ');
+
+            double downLat = double.parse(downUpParts[0]);
+            double downLng = double.parse(downUpParts[1]);
+            print("${ waitingTripController.waitingTripList[index].getTripDetails!.map.toString()} ${ waitingTripController.waitingTripList[index].getTripDetails!.dropoffMap.toString()}");
+
+            distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
             return Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: CustomCardWidget(
@@ -36,7 +58,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                             color: black54,
                           ),
                           KText(
-                            text: 'JR1653890179ZF',
+                            text: 'N/A',
                             fontWeight: FontWeight.bold,
                           ),
                           Spacer(),
@@ -53,7 +75,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                                     vertical: 5,
                                   ),
                                   child: KText(
-                                    text: 'MicroBus',
+                                    text: waitingTripController.waitingTripList[index].getBrand?.name,
                                     fontSize: 14,
                                     color: white,
                                   ),
@@ -61,7 +83,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                               ),
                               SizedBox(height: 3),
                               KText(
-                                text: '11 Seats',
+                                text: '${waitingTripController.waitingTripList[index].getBrand?.capacity} Seats',
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -80,8 +102,8 @@ class OpekhomanBidComponent extends StatelessWidget {
                           children: [
                             SizedBox(
                               width: 60,
-                              child: Image.asset(
-                                'assets/img/car5.png',
+                              child: Image.network(
+                                Api.getImageURL(waitingTripController.waitingTripList[index].getBrand?.image),
                                 height: 60,
                                 width: 60,
                               ),
@@ -129,7 +151,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                                     Container(
                                       width: Get.width / 3.5,
                                       child: KText(
-                                        text: 'Panthapath,ঢাকা,বাংলাদেশ',
+                                        text: waitingTripController.waitingTripList[index].getTripDetails?.pickupLocation,
                                         fontSize: 14,
                                         maxLines: 2,
                                         color: black54,
@@ -153,7 +175,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                                       // color: primaryColor,
                                       child: KText(
                                         text:
-                                            'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
+                                        waitingTripController.waitingTripList[index].getTripDetails?.dropoffLocation,
                                         fontSize: 14,
                                         maxLines: 2,
                                         color: black54,
@@ -175,7 +197,9 @@ class OpekhomanBidComponent extends StatelessWidget {
                         height: 35,
                         width: 120,
                         fontSize: 14,
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
+                        },
                       ),
                       sizeH10,
                       DotDividerWidget(
@@ -184,17 +208,17 @@ class OpekhomanBidComponent extends StatelessWidget {
                       sizeH10,
                       rawText(
                         title: 'যাত্রার সময়',
-                        content: '02 Jun 2022 12:59 PM',
+                        content: waitingTripController.waitingTripList[index].getTripDetails?.datetime
                       ),
                       sizeH5,
                       rawText(
                         title: 'ফিরতি তারিখ',
-                        content: '03 Jun 2022 12:59 PM',
+                        content: waitingTripController.waitingTripList[index].getTripDetails?.roundDatetime,
                       ),
                       sizeH5,
                       rawText(
                         title: 'রাউন্ড ট্রিপ',
-                        content: 'হ্যাঁ',
+                        content: waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
                       ),
                       sizeH5,
                       rawText(
@@ -204,7 +228,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                       sizeH5,
                       rawText(
                         title: 'এয়ার কন্ডিশন',
-                        content: 'Any',
+                        content: waitingTripController.waitingTripList[index].getvehicle?.aircondition == "yes"?'হ্যাঁ': "না",
                       ),
                       sizeH5,
                       Row(
@@ -232,7 +256,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                 ),
               ),
             );
-          })),
+          })),)
     );
   }
 

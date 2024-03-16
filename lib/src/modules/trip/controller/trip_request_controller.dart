@@ -24,6 +24,8 @@ class TripRequestController extends GetxController{
         await BaseClient.getRequest(api: Api.tripRequest),
       );
       if (responseBody != null) {
+        tripRequestList.clear();
+
         tripRequest.value = TripRequestModel.fromJson(responseBody);
         tripRequestList.addAll(tripRequest.value.data);
 

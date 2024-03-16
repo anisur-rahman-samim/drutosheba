@@ -11,6 +11,7 @@ import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../credit/controller/credit_controller.dart';
 import '../drawerPage/notificationsPage.dart';
 import '../trip/views/return/returnTripPage.dart';
 import '../trip/tripRequestPage.dart';
@@ -23,6 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ProfileController profileController = Get.put(ProfileController());
+  final CreditController creditDataController = Get.put(CreditController());
   final isShowCreadit = RxBool(false);
   bool _isAnimation = false;
   bool _isBalanceShown = false;
@@ -89,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                               opacity: _isBalanceShown ? 1 : 0,
                               duration: Duration(milliseconds: 500),
                               child: Text(
-                                  "500 TK",
+                                  "${creditDataController.credit.value.data?.currentCredit} TK",
                                   style: TextStyle(
                                       color: black,
                                       fontSize: 14,

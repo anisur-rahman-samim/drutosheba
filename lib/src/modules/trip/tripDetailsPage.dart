@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
@@ -13,11 +14,24 @@ import 'model/trip_request_model.dart';
 
 class TripDetailsPage extends StatelessWidget {
   final TripRequest tripRequest;
+   TripDetailsPage({super.key, required this.tripRequest});
 
-
-  const TripDetailsPage({super.key, required this.tripRequest});
+  final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
   @override
   Widget build(BuildContext context) {
+    String pickUpCoordinates =  tripRequest.map.toString();
+    List<String> pickUpParts = pickUpCoordinates.split(' ');
+
+    double upLat = double.parse(pickUpParts[0]);
+    double upLng = double.parse(pickUpParts[1]);
+
+    String downCoordinates =  tripRequest.dropoffMap.toString();
+    List<String> downUpParts = downCoordinates.split(' ');
+
+    double downLat = double.parse(downUpParts[0]);
+    double downLng = double.parse(downUpParts[1]);
+
+    distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
     return Scaffold(
       appBar: AppBar(
         title: KText(
@@ -194,7 +208,7 @@ class TripDetailsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
+      body: Obx(() => ListView(
         children: [
           sizeH10,
           CustomCardWidget(
@@ -311,7 +325,7 @@ class TripDetailsPage extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: (){
-                                    //  Get.to(() => MapWithDirections(),transition: Transition.circularReveal);
+                                      //  Get.to(() => MapWithDirections(),transition: Transition.circularReveal);
                                     },
                                     child: CircleAvatar(
                                       radius: 15,
@@ -378,7 +392,7 @@ class TripDetailsPage extends StatelessWidget {
                   sizeH5,
                   tripRequest.roundDatetime == null? SizedBox():  rawText(
                     title: 'যাওয়া-আসা',
-                    content: tripRequest.roundDatetime== null ? "না" : 'হাঁ',
+                    content: tripRequest.roundTrip == 0 ? "না" : 'হাঁ',
                   ),
                   sizeH5,
                   Divider(),
@@ -415,9 +429,9 @@ class TripDetailsPage extends StatelessWidget {
                     width: .5,
                   ),*/
                   sizeW10,
-                  columnText(
+                  tripRequest.dropoffMap == null? SizedBox() : columnText(
                     title: 'সম্ভাব্য সময়',
-                    content: '1 ঘ. 40 মি. ',
+                    content: distanceTimeController.totalDuration.value,
                     isReplaceObject: true,
                   ),
                   Container(
@@ -426,9 +440,9 @@ class TripDetailsPage extends StatelessWidget {
                     width: .5,
                   ),
                   sizeW10,
-                  columnText(
+                  tripRequest.dropoffMap == null? SizedBox() :  columnText(
                     title: 'সম্ভাব্য দুরুত্ব',
-                    content: '47.2 কিঃমিঃ',
+                    content: '${distanceTimeController.totalDistance.value} কিঃমিঃ',
                     isReplaceObject: true,
                   ),
                   sizeW20,
@@ -437,7 +451,7 @@ class TripDetailsPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),)
     );
   }
 

@@ -1,4 +1,5 @@
 
+import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,7 @@ import '../../widgets/dottedDivider/dotDivider.dart';
 import '../../widgets/text/kText.dart';
 
 class TripVivoroniComponent extends StatelessWidget {
+  final WaitingTripController waitingTripController = Get.put(WaitingTripController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,7 +42,7 @@ class TripVivoroniComponent extends StatelessWidget {
                               color: black54,
                             ),
                             KText(
-                              text: 'JR1653890179ZF',
+                              text: 'N/A',
                               fontWeight: FontWeight.bold,
                             ),
                             Spacer(),
@@ -55,7 +57,7 @@ class TripVivoroniComponent extends StatelessWidget {
                                   vertical: 5,
                                 ),
                                 child: KText(
-                                  text: 'MicroBus',
+                                  text: waitingTripController.waitingTripList[index].getBrand?.name,
                                   fontSize: 14,
                                   color: white,
                                 ),
@@ -119,7 +121,7 @@ class TripVivoroniComponent extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       KText(
                                         text: 'শুরু: ',
@@ -142,7 +144,7 @@ class TripVivoroniComponent extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       KText(
                                         text: 'শেষ: ',
@@ -155,7 +157,7 @@ class TripVivoroniComponent extends StatelessWidget {
                                         // color: primaryColor,
                                         child: KText(
                                           text:
-                                              'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
+                                          'Balipara Bridge,Balipara Bridge,বাংলাদেশ',
                                           fontSize: 14,
                                           maxLines: 2,
                                           color: black54,

@@ -19,18 +19,18 @@ class Api{
 
   ///Rental Trip
   static const tripRequest = "$baseUrl/partner/trip-request"; // done
-  static const tripCancel = "$baseUrl/partner/trip-cancel";
+  static const tripCancel = "$baseUrl/partner/trip-cancel"; // working
   static const tripStarted = "$baseUrl/partner/trip-started";
   static const tripCompleted = "$baseUrl/partner/trip-completed";
-  static const tripBidSubmit = "$baseUrl/partner/trip-bid/submit";
-  static const waitingBid = "$baseUrl/partner/waiting-bid";
+  static const tripBidSubmit = "$baseUrl/partner/trip-bid/submit"; 
+  static const waitingBid = "$baseUrl/partner/waiting-bid"; // working
   static const tripDetails = "$baseUrl/partner/trip-details";
 
   ///Driver
   static const driverManage = "$baseUrl/partner/driver-manage";//done 11
   static const driverAdd = "$baseUrl/partner/driver-add"; // done 11
 
-  ///Penalty and Balance ////////// problems
+  ///Penalty and Balance
   static const credit = "$baseUrl/partner/credit"; // done
   static const creditHistory = "$baseUrl/partner/credit-history"; // done
   static const dashboard = "$baseUrl/partner/dashboard"; // done, but ui change need
