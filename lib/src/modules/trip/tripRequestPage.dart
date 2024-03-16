@@ -1,6 +1,7 @@
 import 'package:druto_seba_driver/src/components/trip/filterTripComponent.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class TripRequestPage extends StatefulWidget {
 
 class _TripRequestPageState extends State<TripRequestPage> {
   final TripRequestController tripRequestController = Get.put(TripRequestController());
+  final VehiclesController vehiclesController = Get.put(VehiclesController());
   // Future<void> _refresh() {
   //   _resetList();
   //   return _getList();

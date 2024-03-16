@@ -23,15 +23,15 @@ class Api{
   static const tripCancel = "$baseUrl/partner/trip-cancel"; // working
   static const tripStarted = "$baseUrl/partner/trip-started";
   static const tripCompleted = "$baseUrl/partner/trip-completed";
-  static const tripBidSubmit = "$baseUrl/partner/trip-bid/submit"; 
-  static const waitingBid = "$baseUrl/partner/waiting-bid"; // working
+  static const tripBidSubmit = "$baseUrl/partner/trip-bid/submit";  // done
+  static const waitingBid = "$baseUrl/partner/waiting-bid"; // done
   static const tripDetails = "$baseUrl/partner/trip-details";
   static const tripConfirmList = "$baseUrl/partner/trip-confirm-list";
-  static const tripCompletedList = "$baseUrl/partner/trip-completed-list";
+  static const tripCompletedList = "$baseUrl/partner/trip-completed-list"; // done
 
   ///Driver
   static const driverManage = "$baseUrl/partner/driver-manage";//done
-  static const driverAdd = "$baseUrl/partner/driver-add"; // done 
+  static const driverAdd = "$baseUrl/partner/driver-add"; // done
 
   ///Penalty and Balance
   static const credit = "$baseUrl/partner/credit"; // done
