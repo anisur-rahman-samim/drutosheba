@@ -57,6 +57,28 @@ class TripDetailsPage extends StatelessWidget {
               Expanded(
                 child: CustomCardWidget(
                   onTap: () {
+                    bidSubmitController.submitBid(
+                        customer_id: tripRequest.customerId.toString(),
+                        vehicle_id: tripRequest.vehicleId.toString(),
+                        amount: amountController.text,
+                        trip_id: tripRequest.id.toString());
+                  },
+                  radius: 30,
+                  borderColor: grey,
+                  elevation: 0,
+                  child: Center(
+                    child: KText(
+                      text: 'বিড করুন',
+                      color: primaryColor,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+              sizeW20,
+              Expanded(
+                child: CustomCardWidget(
+                  onTap: () {
                     customBottomSheet(
                       context: context,
                       height: Get.height / 2,
@@ -78,7 +100,7 @@ class TripDetailsPage extends StatelessWidget {
                           sizeH5,
                           KText(
                             text:
-                                'নির্দিষ্ট পরিমানে চার্জ প্রদান করে অন্য পার্টনারদের বিড এবং এর বিস্তারিত দেখতে পাবেন',
+                            'নির্দিষ্ট পরিমানে চার্জ প্রদান করে অন্য পার্টনারদের বিড এবং এর বিস্তারিত দেখতে পাবেন',
                             fontSize: 14,
                           ),
                           sizeH20,
@@ -104,7 +126,7 @@ class TripDetailsPage extends StatelessWidget {
                                 ),
                                 KText(
                                   text:
-                                      '*প্রতিবার বিড দেখার জন্য আলাদা চার্জ প্রযোজ্য',
+                                  '*প্রতিবার বিড দেখার জন্য আলাদা চার্জ প্রযোজ্য',
                                   fontSize: 12,
                                 ),
                               ],
@@ -132,18 +154,14 @@ class TripDetailsPage extends StatelessWidget {
                               Expanded(
                                 child: CustomCardWidget(
                                   onTap: () {
-                                    bidSubmitController.submitBid(
-                                        customer_id: tripRequest.customerId.toString(),
-                                        vehicle_id: tripRequest.vehicleId.toString(),
-                                        amount: amountController.text, 
-                                        trip_id: tripRequest.id.toString());
+                                  print("bid page will be show");
                                   },
                                   radius: 30,
                                   color: primaryColor,
                                   elevation: 0,
                                   child: Center(
                                     child: KText(
-                                      text: 'নিশ্চিত করুন এবং বিড দেখুন',
+                                      text: 'বিড দেখুন',
                                       color: white,
                                       fontSize: 12,
                                     ),
@@ -185,22 +203,6 @@ class TripDetailsPage extends StatelessWidget {
                       ),
                     );
                   },
-                  radius: 30,
-                  borderColor: grey,
-                  elevation: 0,
-                  child: Center(
-                    child: KText(
-                      text: 'বিড করুন',
-                      color: primaryColor,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ),
-              sizeW20,
-              Expanded(
-                child: CustomCardWidget(
-                  onTap: () {},
                   radius: 30,
                   color: primaryColor,
                   elevation: 0,
@@ -269,7 +271,7 @@ class TripDetailsPage extends StatelessWidget {
                   ),
                   sizeH10,
                   SizedBox(
-                    height: 115,
+                    height: 150,
                     child: Row(
                       children: [
                         Column(
@@ -281,7 +283,7 @@ class TripDetailsPage extends StatelessWidget {
                             ),
                             sizeH5,
                             Container(
-                              height: 50,
+                              height: 80,
                               width: .7,
                               color: grey,
                             ),
@@ -401,14 +403,14 @@ class TripDetailsPage extends StatelessWidget {
                   sizeH5,
                   Divider(),
                   sizeH5,
-                  tripRequest.roundDatetime == null? SizedBox():  rawText(
+                   rawText(
                     title: 'যাওয়া-আসা',
                     content: tripRequest.roundTrip == 0 ? "না" : 'হাঁ',
                   ),
                   sizeH5,
                   Divider(),
                   sizeH5,
-                  tripRequest.roundDatetime == null? SizedBox():  rawText(
+                  tripRequest.roundTrip == 0 ? SizedBox():  rawText(
                     title: 'ফিরতি তারিখ',
                     content: tripRequest.roundDatetime,
                   ),

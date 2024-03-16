@@ -20,6 +20,12 @@ class _CreditPageState extends State<CreditPage> {
   TextEditingController creditController = TextEditingController();
   final CreditController creditDataController = Get.put(CreditController());
   @override
+  void initState() {
+    creditDataController.getCredit();
+    creditDataController.getCreditHistory();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: greyBackgroundColor,

@@ -211,7 +211,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                         content: waitingTripController.waitingTripList[index].getTripDetails?.datetime
                       ),
                       sizeH5,
-                      rawText(
+                      waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 1?  SizedBox() : rawText(
                         title: 'ফিরতি তারিখ',
                         content: waitingTripController.waitingTripList[index].getTripDetails?.roundDatetime,
                       ),

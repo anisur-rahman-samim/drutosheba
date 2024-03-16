@@ -116,7 +116,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                       ),
                       sizeH10,
                       SizedBox(
-                        height: 115,
+                        height: 150,
                         child: Row(
                           children: [
                             Column(
@@ -128,7 +128,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                 ),
                                 sizeH5,
                                 Container(
-                                  height: 50,
+                                  height: 80,
                                   width: .7,
                                   color: grey,
                                 ),
@@ -206,7 +206,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                     ),
                                     // sizeW5,
                                     Container(
-                                      height: 20,
+                                      height: 35,
                                       width: Get.width / 1.3,
                                       // color: primaryColor,
                                       child: KText(
@@ -224,7 +224,7 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                           ],
                         ),
                       ),
-                      sizeH10,
+                      sizeH30,
                       DotDividerWidget(
                         fillRate: .5,
                       ),

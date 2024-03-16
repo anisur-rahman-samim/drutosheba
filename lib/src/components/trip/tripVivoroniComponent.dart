@@ -5,6 +5,7 @@ import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_cont
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
+import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,22 +21,37 @@ import '../../widgets/card/customCardWidget.dart';
 import '../../widgets/dottedDivider/dotDivider.dart';
 import '../../widgets/text/kText.dart';
 
-class TripVivoroniComponent extends StatelessWidget {
+class TripVivoroniComponent extends StatefulWidget {
+  @override
+  State<TripVivoroniComponent> createState() => _TripVivoroniComponentState();
+}
+
+class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
   final ConfirmedTripController confirmTripController = Get.put(ConfirmedTripController());
+
   final VehiclesController vehiclesController = Get.put(VehiclesController());
+
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
+
+  @override
+  void initState() {
+    confirmTripController.getConfirmedTrip();
+    vehiclesController.getVehicles();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 60),
       child: Padding(
         padding: paddingH10,
-        child: Obx(() => confirmTripController.isLoading.value == true? CustomLoader(color: black, size: 30): confirmTripController.confirmTripList.isEmpty? Center(child: Text("No Trip",style: h1,)) : ListView.builder(
+        child: Obx(() => confirmTripController.isLoading.value == true? CustomLoader(color: black, size: 30): confirmTripController.confirmTripList.isEmpty? Center(child: NoDataView()) : ListView.builder(
             shrinkWrap: true,
             primary: false,
             itemCount: confirmTripController.confirmTripList.length,
             itemBuilder: ((context, index) {
-           /*   String pickUpCoordinates =  confirmTripController.confirmTripList[index].getTripDetails!.map.toString();
+              String pickUpCoordinates =  confirmTripController.confirmTripList[index].getTripDetails!.map.toString();
               List<String> pickUpParts = pickUpCoordinates.split(' ');
 
               double upLat = double.parse(pickUpParts[0]);
@@ -47,7 +63,7 @@ class TripVivoroniComponent extends StatelessWidget {
               double downLat = double.parse(downUpParts[0]);
               double downLng = double.parse(downUpParts[1]);
 
-              distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);*/
+              distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
               return Padding(
                 padding: EdgeInsets.only(bottom: 10),
                 child: InkWell(
@@ -232,10 +248,10 @@ class TripVivoroniComponent extends StatelessWidget {
                             content: confirmTripController.confirmTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
                           ),
                           sizeH5,
-                          /*rawText(
+                          rawText(
                             title: 'দুরুত্ব',
                             content: '${distanceTimeController.totalDistance} কি:মি',
-                          ),*/
+                          ),
                           sizeH5,
                           rawText(
                             title: 'এয়ার কন্ডিশন',
