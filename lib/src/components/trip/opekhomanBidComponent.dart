@@ -1,5 +1,6 @@
 
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/trip_request_countdown.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
@@ -18,9 +19,10 @@ import '../../widgets/text/kText.dart';
 class OpekhomanBidComponent extends StatelessWidget {
   final WaitingTripController waitingTripController = Get.put(WaitingTripController());
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
+  final TripCountdownController tripCountdownController = Get.put(TripCountdownController());
   @override
   Widget build(BuildContext context) {
-
+    tripCountdownController.updateCountdown(targetTime: "2023-05-03T05:32:05.000000Z");
     return Padding(
       padding: paddingH10,
       child: Obx(() => waitingTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : ListView.builder(
@@ -211,7 +213,7 @@ class OpekhomanBidComponent extends StatelessWidget {
                         content: waitingTripController.waitingTripList[index].getTripDetails?.datetime
                       ),
                       sizeH5,
-                      waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 1?  SizedBox() : rawText(
+                      waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 0?  SizedBox() : rawText(
                         title: 'ফিরতি তারিখ',
                         content: waitingTripController.waitingTripList[index].getTripDetails?.roundDatetime,
                       ),
@@ -221,10 +223,10 @@ class OpekhomanBidComponent extends StatelessWidget {
                         content: waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
                       ),
                       sizeH5,
-                      rawText(
+                    /*  rawText(
                         title: 'দুরুত্ব',
-                        content: '50.44 কি:মি',
-                      ),
+                        content: '${distanceTimeController.totalDistance} কি:মি',
+                      ),*/
                       sizeH5,
                       rawText(
                         title: 'এয়ার কন্ডিশন',
@@ -233,10 +235,10 @@ class OpekhomanBidComponent extends StatelessWidget {
                       sizeH5,
                       Row(
                         children: [
-                          rawText(
+                          Obx(() => rawText(
                             title: null,
-                            content: '166 মিনিট আছে',
-                          ),
+                            content: tripCountdownController.countdown.value,
+                          ),),
                           Spacer(),
                           outlineButton(
                             buttonName: 'Pending',
