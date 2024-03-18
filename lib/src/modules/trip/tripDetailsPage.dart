@@ -600,7 +600,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: Text("গাড়ি",style: h3,),
+                  child: Text("গাড়ি",style: h3.copyWith(fontWeight: FontWeight.bold),),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(2.0),
@@ -619,7 +619,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("বিড পরিমাণ",style: h2,),
+                    Text("বিড পরিমাণ",style: h3.copyWith(fontWeight: FontWeight.bold),),
                     Container(
                       height: 40,
                       decoration: BoxDecoration(

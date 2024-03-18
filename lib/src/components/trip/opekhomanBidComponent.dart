@@ -5,6 +5,7 @@ import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_c
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
+import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,7 +42,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
     return Scaffold(
       body: Padding(
           padding: paddingH10,
-          child: Obx(() => waitingTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : RefreshIndicator(
+          child: Obx(() => waitingTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : waitingTripController.waitingTripList.isEmpty? NoDataView() : RefreshIndicator(
             onRefresh: ()async{
               await waitingTripController.waitingTripRequest();
             },
