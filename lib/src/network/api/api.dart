@@ -63,5 +63,6 @@ class Api{
   static const shareReferKey = "$baseUrl/partner/share-referkey";
   static const offer = "$baseUrl/partner/offer";
   static const help = "$baseUrl/partner/help";
+  static const passwordChange = "$baseUrl/partner/password-change";
 
 }

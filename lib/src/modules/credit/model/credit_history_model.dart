@@ -1,6 +1,6 @@
 class CreditHistoryModel {
   CreditHistoryModel({
-    this.status,
+     this.status,
     required this.data,
   });
 
@@ -34,7 +34,7 @@ class CreditHistory {
   final int? partnerId;
   final int? amount;
   final String? type;
-  final dynamic debitType;
+  final String? debitType;
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;

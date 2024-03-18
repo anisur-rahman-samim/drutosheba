@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/configs/app_texts.dart';
 import 'package:druto_seba_driver/src/modules/auth/controller/reviews_controller.dart';
+import 'package:druto_seba_driver/src/modules/drawerPage/view/trams_and_condition.dart';
 import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
@@ -21,6 +22,7 @@ import '../drawerPage/view/leaderBoardPage.dart';
 import '../drawerPage/notificationsPage.dart';
 import '../drawerPage/view/offerPage.dart';
 import '../drawerPage/settingsPage.dart';
+import '../drawerPage/view/privecy_policy.dart';
 import '../driver/driverPage.dart';
 import '../penalty/views/penalty_view.dart';
 import '../userAccount/views/profilePage.dart';
@@ -261,6 +263,26 @@ class _MenuPageState extends State<MenuPage> {
                   leadingIcon: Icons.help_outline,
                   title: 'সাহায্য',
                   textColor: blue,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 45),
+                  child: Divider(),
+                ),
+                _listTile(
+                  onTap: () => Get.to(() => TramsAndCondition(),transition: Transition.circularReveal),
+                  leadingIcon: Icons.contact_page_outlined,
+                  title: 'ট্রামস এন্ড কন্ডিশন',
+                  textColor: primaryColor,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 45),
+                  child: Divider(),
+                ),
+                _listTile(
+                  onTap: () => Get.to(() => PrivacyPolicy(),transition: Transition.circularReveal),
+                  leadingIcon: Icons.policy,
+                  title: 'প্রাইভেসি পলিসি ',
+                  textColor: primaryColor,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 45),

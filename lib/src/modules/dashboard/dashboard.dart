@@ -1,3 +1,5 @@
+import 'package:druto_seba_driver/src/components/trip/opekhomanBidComponent.dart';
+import 'package:druto_seba_driver/src/components/trip/tripVivoroniComponent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
@@ -74,9 +76,9 @@ class _DashboardViewState
       case 0:
         return HomePage();
       case 1:
-        return TripHistoryPage();
+        return TripVivoroniComponent();
       case 2:
-        return OpekhomanBidPage();
+        return OpekhomanBidComponent();
       case 3:
         return MenuPage();
       default:

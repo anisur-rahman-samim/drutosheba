@@ -262,4 +262,38 @@ class AuthController extends GetxController {
     }
   }
 
+  ///password change
+  Future passwordChange({
+    required String password,
+  }) async {
+    try {
+      isLoading(true);
+      var map = <String, dynamic>{};
+      map['password'] = password;
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.passwordChange,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          kSnackBar(message: "Password Change Successfully", bgColor: Colors.green);
+          Get.to(() => DashboardView(),transition: Transition.circularReveal);
+        }else{
+          kSnackBar(message: "Failed", bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
+
 }

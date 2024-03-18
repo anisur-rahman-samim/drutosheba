@@ -31,6 +31,12 @@ class _HomePageState extends State<HomePage> {
   bool _isBalance = true;
 
   @override
+  void initState() {
+    profileController.getProfile();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,

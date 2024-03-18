@@ -316,8 +316,8 @@ class _CreditPageState extends State<CreditPage> {
                                           ),
                                           Spacer(),
                                           KText(
-                                            text: '+${creditDataController.creditHistoryList[index].amount}',
-                                            color: Colors.green,
+                                            text: '${creditDataController.creditHistoryList[index].type == "credit" || creditDataController.creditHistoryList[index].type == "bonus"? "+": "-" } ${creditDataController.creditHistoryList[index].amount}',
+                                            color: creditDataController.creditHistoryList[index].type == "credit" || creditDataController.creditHistoryList[index].type == "bonus"?  Colors.green : Colors.red,
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),

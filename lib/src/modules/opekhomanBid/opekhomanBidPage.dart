@@ -7,12 +7,7 @@ class OpekhomanBidPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: [
-        sizeH10,
-        OpekhomanBidComponent(),
-        sizeH40,
-        sizeH20,
-      ]),
+      body: OpekhomanBidComponent(),
       // body: Center(
       //   child: KText(
       //     text: 'আপনার কোনো অপেক্ষমান বিড পাওয়া যায় নি',
