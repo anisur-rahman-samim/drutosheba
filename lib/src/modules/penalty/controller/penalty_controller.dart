@@ -11,6 +11,7 @@ class PenaltyController extends GetxController{
 
   var penalty = PenaltyModel().obs;
   var penaltyData = Data(penaltyChart: [], cancelledTrips: []).obs;
+  var penaltyChart = <PenaltyChart>[].obs;
 
   ///penaltyDetails
   Future getPenaltyDetails({
@@ -33,6 +34,8 @@ class PenaltyController extends GetxController{
         if(responseBody['status'] == "success"){
           penalty.value = PenaltyModel.fromJson(responseBody);
           penaltyData.value = penalty.value.data!;
+          penaltyChart.addAll(penalty.value.data!.penaltyChart);
+          print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + penaltyChart.length.toString());
 
         }else{
           // kSnackBar(message: "Failed", bgColor: Colors.red);

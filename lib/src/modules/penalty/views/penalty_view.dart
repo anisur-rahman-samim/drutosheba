@@ -24,6 +24,7 @@ class _PenaltyViewState extends State<PenaltyView> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("জরিমানা",style: h2.copyWith(color: white),),
@@ -103,7 +104,7 @@ class _PenaltyViewState extends State<PenaltyView> {
                       SizedBox(
                         height: Get.height / 1.7,
                         child: ListView.builder(
-                            itemCount: penaltyController.penaltyData.value.penaltyChart.length,
+                            itemCount: penaltyController.penaltyChart.length,
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context,index){
                               return Column(
@@ -112,7 +113,7 @@ class _PenaltyViewState extends State<PenaltyView> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("${index + 1} টি ট্রিপ ক্যান্সেলে",style: h3,),
-                                      Text("-${penaltyController.penaltyData.value.penaltyChart[index].amount} টাকা",style: h3.copyWith(color: Colors.red),),
+                                      Text("-${penaltyController.penaltyChart[index].amount} টাকা",style: h3.copyWith(color: Colors.red),),
                                     ],
                                   ),
                                   Container(

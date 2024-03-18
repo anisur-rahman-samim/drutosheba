@@ -6,6 +6,7 @@ import 'package:druto_seba_driver/src/modules/allGari/views/addNewGariPage.dart'
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
+import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class GariListPage extends StatelessWidget {
       ),
 
       backgroundColor: grey.shade100,
-      body: Obx(() => vehiclesController.isLoading.value == true? CustomLoader(color: black, size: 30): Padding(
+      body: Obx(() => vehiclesController.isLoading.value == true? CustomLoader(color: black, size: 30): vehiclesController.vehiclesList.isEmpty? NoDataView() : Padding(
         padding: EdgeInsets.all(10),
         child:ListView.builder(
           shrinkWrap: true,

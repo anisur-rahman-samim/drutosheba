@@ -32,6 +32,8 @@ class Api{
   ///Driver
   static const driverManage = "$baseUrl/partner/driver-manage";//done
   static const driverAdd = "$baseUrl/partner/driver-add"; // done
+  static const driverUpdate = "$baseUrl/partner/driver-update";
+  static const driverDelete = "$baseUrl/partner/driver-delete"; // working
 
   ///Penalty and Balance
   static const credit = "$baseUrl/partner/credit"; // done
