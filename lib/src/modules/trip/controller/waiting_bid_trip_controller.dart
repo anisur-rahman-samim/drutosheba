@@ -44,7 +44,7 @@ class WaitingTripController extends GetxController{
           waitingTripList.addAll(waitingTrip.value.data);
 
         }else{
-          kSnackBar(message: "Failed", bgColor: Colors.red);
+        //  kSnackBar(message: "Failed", bgColor: Colors.red);
         }
 
         isLoading(false);
@@ -52,7 +52,7 @@ class WaitingTripController extends GetxController{
         throw 'Failed!';
       }
     } catch (e) {
-      kSnackBar(message: e.toString(), bgColor: Colors.red);
+   //   kSnackBar(message: e.toString(), bgColor: Colors.red);
     } finally {
       isLoading(false);
     }

@@ -168,7 +168,7 @@ class GariDetailsPage extends StatelessWidget {
                   ),
                   rawText(
                     title: 'রেজিস্ট্রেশন নম্বর',
-                    content: '${vehicles.metro}-${metroController.metroSubList[int.parse(vehicles.metroType.toString()) - 1].metroSubName}-${vehicles.metroNo}',
+                    content: '${vehicles.metro}-${vehicles.metroType}-${vehicles.metroNo}',
                   ),
                   rawText(
                     title: 'আসন',

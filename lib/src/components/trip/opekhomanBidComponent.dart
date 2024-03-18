@@ -81,8 +81,9 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                   color: black54,
                                 ),
                                 KText(
-                                  text: 'N/A',
+                                  text: waitingTripController.waitingTripList[index].getTripDetails?.trackingId.toString(),
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 14,
                                 ),
                                 Spacer(),
                                 Column(

@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             sizeH10,
-            Row(
+            /*Row(
               children: [
                 Spacer(),
                 Container(
@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-            ),
+            ),*/
            /* sizeH10,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -259,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),*/
-            sizeH10,
+          /*  sizeH10,
             Container(
               decoration: BoxDecoration(
                 color: primaryColor50,
@@ -290,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            ),
+            ),*/
             sizeH40,
           ],
         ),

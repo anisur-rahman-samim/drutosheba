@@ -129,6 +129,7 @@ class GetTripDetails {
     required this.note,
     required this.status,
     required this.biding,
+    required this.trackingId,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -141,6 +142,7 @@ class GetTripDetails {
   final String? dropoffLocation;
   final dynamic addressId;
   final String? map;
+  final String? trackingId;
   final dynamic dropoffMap;
   final dynamic districtId;
   final dynamic portId;
@@ -169,6 +171,7 @@ class GetTripDetails {
       portId: json["port_id"],
       datetime: json["datetime"],
       roundTrip: json["round_trip"],
+      trackingId: json["tracking_id"],
       promoKey: json["promo_key"],
       roundDatetime: json["round_datetime"],
       note: json["note"],

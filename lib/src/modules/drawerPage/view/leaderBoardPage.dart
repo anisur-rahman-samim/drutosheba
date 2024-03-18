@@ -3,6 +3,7 @@ import 'package:druto_seba_driver/src/modules/drawerPage/controller/leaderboard_
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
+import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../configs/appColors.dart';
@@ -104,7 +105,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
           ),
         ),
 
-        body: Obx(() => leaderboardController.isLoading.value == true? CustomLoader(color: black, size: 30) : ListView(
+        body: Obx(() => leaderboardController.isLoading.value == true? CustomLoader(color: black, size: 30) :leaderboardController.leaderboardList.isEmpty? NoDataView() :ListView(
           children: [
             sizeH10,
             CustomCardWidget(

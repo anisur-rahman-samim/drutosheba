@@ -16,6 +16,7 @@ class BidSubmitController extends GetxController{
     required String vehicle_id,
     required String amount,
     required String trip_id,
+    required String car_id,
 
 
   }) async {
@@ -27,6 +28,7 @@ class BidSubmitController extends GetxController{
       map['vehicle_id'] = vehicle_id;
       map['amount'] = amount;
       map['trip_id'] = trip_id;
+      map['car_id'] = car_id;
 
 
       dynamic responseBody = await BaseClient.handleResponse(

@@ -154,7 +154,7 @@ class _HelpPageState extends State<HelpPage> {
              // _launchInBrowserView(Uri(host: helpController.return_video_link.toString()));
 
               setState(() {
-                _launchInBrowserView(Uri(host: "www.cylog.org",path: 'headers/'));
+                _launchInBrowserView(Uri(host: helpController.return_video_link.toString(),path: 'headers/'));
               });
             },
             child: CustomCardWidget(

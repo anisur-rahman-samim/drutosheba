@@ -8,6 +8,7 @@ class VehiclesController extends GetxController{
   var isLoading = false.obs;
   var vehicles = VehiclesModel(data: []).obs;
   var vehiclesList = <Vehicles>[].obs;
+  var approvedVehiclesList = <Vehicles>[].obs;
 
   @override
   void onInit() {
@@ -24,8 +25,14 @@ class VehiclesController extends GetxController{
       );
       if (responseBody != null) {
         vehiclesList.clear();
+        approvedVehiclesList.clear();
+
         vehicles.value = VehiclesModel.fromJson(responseBody);
         vehiclesList.addAll(vehicles.value.data);
+
+        approvedVehiclesList.addAll(vehicles.value.data.where((element) => element.status == "approved"));
+
+
         isLoading(false);
 
       } else {

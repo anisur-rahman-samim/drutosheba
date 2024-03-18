@@ -291,7 +291,7 @@ class TripVivoroniDetails extends StatelessWidget {
                        ),
                      )
                    ],
-                 )): InkWell(
+                 )): confirmedTrips.tripStarted == 1 && confirmedTrips.status == 0?  InkWell(
                     onTap: (){
                       tripStartEndController.completeTrip(tripId: confirmedTrips.tripId.toString(),);
                     },
@@ -304,10 +304,26 @@ class TripVivoroniDetails extends StatelessWidget {
                           color: Colors.blue
                       ),
                       child: Center(
+                        child: tripStartEndController.isLoading.value == true? CustomLoader(color: white, size: 40) :  Text("TRIP \n Ongoing",style: h2.copyWith(color: white),textAlign: TextAlign.center,),
+                      ),
+                    ),
+                 ):InkWell(
+                    onTap: (){
+                     //  tripStartEndController.completeTrip(tripId: confirmedTrips.tripId.toString(),);
+                    },
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(30),
+                          shape: BoxShape.circle,
+                          color: Colors.blue
+                      ),
+                      child: Center(
                         child: tripStartEndController.isLoading.value == true? CustomLoader(color: white, size: 40) :  Text("COMPLETED \nTRIP",style: h2.copyWith(color: white),textAlign: TextAlign.center,),
                       ),
                     ),
-                 )
+                  )
                 ],
               ),
             ),

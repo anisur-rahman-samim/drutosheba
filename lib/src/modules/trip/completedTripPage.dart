@@ -3,6 +3,8 @@ import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/completed_controller.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
+import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +27,7 @@ class CompletedTripPage extends StatelessWidget {
       backgroundColor: greyBackgroundColor,
       body: Padding(
         padding: paddingH10,
-        child: Obx(() => ListView.builder(
+        child: Obx(() => completedTripController.isLoading.value == true? CustomLoader(color: black, size: 30):completedTripController.completedTripList.isEmpty? NoDataView() : ListView.builder(
             shrinkWrap: true,
             primary: false,
             itemCount: completedTripController.completedTripList.length,

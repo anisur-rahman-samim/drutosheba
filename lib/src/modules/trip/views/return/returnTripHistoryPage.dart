@@ -5,6 +5,7 @@ import 'package:druto_seba_driver/src/modules/trip/controller/return_trip_contro
 import 'package:druto_seba_driver/src/modules/trip/views/return/fares_view.dart';
 import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
+import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class ReturnTripHistoryPage extends StatelessWidget {
 
       ),
       backgroundColor: bgColor,
-      body: Obx(() => returnTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : Padding(
+      body: Obx(() => returnTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : returnTripController.returnTripList.isEmpty? NoDataView() :Padding(
         padding: EdgeInsets.all(10),
         child: RefreshIndicator(
           onRefresh: () async{

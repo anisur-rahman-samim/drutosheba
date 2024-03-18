@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_brand_controller.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/bid_submit_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
@@ -14,22 +18,37 @@ import '../../widgets/dottedDivider/dotDivider.dart';
 import '../../widgets/text/kText.dart';
 import 'model/trip_request_model.dart';
 
-class TripDetailsPage extends StatelessWidget {
+class TripDetailsPage extends StatefulWidget {
   final TripRequest tripRequest;
    TripDetailsPage({super.key, required this.tripRequest});
 
+  @override
+  State<TripDetailsPage> createState() => _TripDetailsPageState();
+}
+
+class _TripDetailsPageState extends State<TripDetailsPage> {
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
+
   final BidSubmitController bidSubmitController = Get.put(BidSubmitController());
+  final VehiclesController vehiclesController = Get.put(VehiclesController());
+
   final TextEditingController amountController = TextEditingController();
+
+  final VehiclesBrandController vehiclesBrandController =
+  Get.put(VehiclesBrandController());
+
+  var selectedCar = RxString('গাড়ি নির্বাচন করুন');
+  var selectedCarId = RxString('');
+
   @override
   Widget build(BuildContext context) {
-    String pickUpCoordinates =  tripRequest.map.toString();
+    String pickUpCoordinates =  widget.tripRequest.map.toString();
     List<String> pickUpParts = pickUpCoordinates.split(' ');
 
     double upLat = double.parse(pickUpParts[0]);
     double upLng = double.parse(pickUpParts[1]);
 
-    String downCoordinates =  tripRequest.dropoffMap.toString();
+    String downCoordinates =  widget.tripRequest.dropoffMap.toString();
     List<String> downUpParts = downCoordinates.split(' ');
 
     double downLat = double.parse(downUpParts[0]);
@@ -58,10 +77,11 @@ class TripDetailsPage extends StatelessWidget {
                 child: CustomCardWidget(
                   onTap: () {
                     bidSubmitController.submitBid(
-                        customer_id: tripRequest.customerId.toString(),
-                        vehicle_id: tripRequest.vehicleId.toString(),
+                        customer_id: widget.tripRequest.customerId.toString(),
+                        vehicle_id: widget.tripRequest.vehicleId.toString(),
+                        car_id: selectedCarId.value,
                         amount: amountController.text,
-                        trip_id: tripRequest.id.toString());
+                        trip_id: widget.tripRequest.id.toString());
                   },
                   radius: 30,
                   borderColor: grey,
@@ -241,14 +261,14 @@ class TripDetailsPage extends StatelessWidget {
                         child: Row(
                           children: [
                             Image.network(
-                              Api.getImageURL(tripRequest.vehicle?.image),
+                              Api.getImageURL(widget.tripRequest.vehicle?.image),
                               width: 30,
                               height: 40,
                               fit: BoxFit.cover,
                             ),
                             sizeW5,
                             KText(
-                              text: '${tripRequest.vehicle?.name} | ${tripRequest.vehicle?.capacity} Seats',
+                              text: '${widget.tripRequest.vehicle?.name} | ${widget.tripRequest.vehicle?.capacity} Seats',
                               fontSize: 13,
                               color: white,
                             ),
@@ -316,7 +336,7 @@ class TripDetailsPage extends StatelessWidget {
                                 Container(
                                   width: Get.width / 1.3,
                                   child: KText(
-                                    text: tripRequest.pickupLocation,
+                                    text: widget.tripRequest.pickupLocation,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                     maxLines: 2,
@@ -371,7 +391,7 @@ class TripDetailsPage extends StatelessWidget {
                                   // color: primaryColor,
                                   child: KText(
                                     text:
-                                    tripRequest.dropoffLocation,
+                                    widget.tripRequest.dropoffLocation,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     maxLines: 2,
@@ -398,21 +418,21 @@ class TripDetailsPage extends StatelessWidget {
                 children: [
                   rawText(
                     title: 'ট্রিপের সময়',
-                    content: tripRequest.datetime,
+                    content: widget.tripRequest.datetime,
                   ),
                   sizeH5,
                   Divider(),
                   sizeH5,
                    rawText(
                     title: 'যাওয়া-আসা',
-                    content: tripRequest.roundTrip == 0 ? "না" : 'হাঁ',
+                    content: widget.tripRequest.roundTrip == 0 ? "না" : 'হাঁ',
                   ),
                   sizeH5,
                   Divider(),
                   sizeH5,
-                  tripRequest.roundTrip == 0 ? SizedBox():  rawText(
+                  widget.tripRequest.roundTrip == 0 ? SizedBox():  rawText(
                     title: 'ফিরতি তারিখ',
-                    content: tripRequest.roundDatetime,
+                    content: widget.tripRequest.roundDatetime,
                   ),
                 ],
               ),
@@ -442,7 +462,7 @@ class TripDetailsPage extends StatelessWidget {
                     width: .5,
                   ),*/
                   sizeW10,
-                  tripRequest.dropoffMap == null? SizedBox() : columnText(
+                  widget.tripRequest.dropoffMap == null? SizedBox() : columnText(
                     title: 'সম্ভাব্য সময়',
                     content: distanceTimeController.totalDuration.value,
                     isReplaceObject: true,
@@ -453,7 +473,7 @@ class TripDetailsPage extends StatelessWidget {
                     width: .5,
                   ),
                   sizeW10,
-                  tripRequest.dropoffMap == null? SizedBox() :  columnText(
+                  widget.tripRequest.dropoffMap == null? SizedBox() :  columnText(
                     title: 'সম্ভাব্য দুরুত্ব',
                     content: '${distanceTimeController.totalDistance.value} কিঃমিঃ',
                     isReplaceObject: true,
@@ -462,6 +482,132 @@ class TripDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          sizeH10,
+          InkWell(
+            onTap: () {
+              customBottomSheet(
+                context: context,
+                height: Get.height / 1.4,
+                child: ListView(
+                  shrinkWrap: true,
+                  primary: false,
+                  children: [
+                    Center(
+                      child: KText(
+                        text: 'গাড়ি নির্বাচন করুন',
+                        fontSize: 18,
+                      ),
+                    ),
+                    Divider(),
+                    sizeH10,
+                    Container(
+                      height: Get.height / 1.7,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: vehiclesController
+                              .approvedVehiclesList.length,
+                          itemBuilder: (c, i) {
+                            final item = vehiclesController
+                                .approvedVehiclesList[i];
+                            return InkWell(
+                              borderRadius: BorderRadius.circular(5),
+                              onTap: () {
+                                setState(() {
+                                  selectedCar.value =
+                                      item.model.toString();
+                                  selectedCarId.value =
+                                      item.id.toString();
+                                 Navigator.pop(context);
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                                  children: [
+                                    /* Image.asset(
+                                                  Api.getImageURL(item.image.toString(),),
+                                                  width: 50,
+                                                  // width: Get.width / 6,
+                                                ),*/
+                                    sizeW20,
+                                    SizedBox(
+                                      width: Get.width / 1.5,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          KText(
+                                            text: item.model,
+                                            fontSize: 14,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                          SizedBox(width: 3),
+                                         /* KText(
+                                            text: item.capacity,
+                                            fontSize: 12,
+                                            color: black45,
+                                          ),*/
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor:
+                                      selectedCar.value ==
+                                          item.model
+                                          ? primaryColor
+                                          : grey,
+                                      child: CircleAvatar(
+                                        backgroundColor:
+                                        selectedCar.value ==
+                                            item.model
+                                            ? primaryColor
+                                            : white,
+                                        radius: 9,
+                                        child: selectedCar.value ==
+                                            item.model
+                                            ? Icon(
+                                          Icons.done,
+                                          size: 15,
+                                          color: white,
+                                        )
+                                            : null,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: CustomCardWidget(radius: 3, child: Column(
+
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text("গাড়ি",style: h3,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text(selectedCar.value,style: h4,),
+                ),
+              ],
+            ),)
           ),
           sizeH10,
           CustomCardWidget( radius: 0,
