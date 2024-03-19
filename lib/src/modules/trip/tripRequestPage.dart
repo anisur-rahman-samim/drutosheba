@@ -22,7 +22,11 @@ class _TripRequestPageState extends State<TripRequestPage> {
   //   _resetList();
   //   return _getList();
   // }
-
+@override
+  void initState() {
+  vehiclesController.getVehicles();
+    super.initState();
+  }
   // void _resetList() {}
 
   // Future _getList() {
