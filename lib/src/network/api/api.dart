@@ -59,6 +59,7 @@ class Api{
   static const returnTripCompleted = "$baseUrl/partner/return-trip-completed"; // done
   static const metroList = "$baseUrl/partner/metro-list"; // done
   static const metroSubList = "$baseUrl/partner/metro-sub-list"; // done
+  static const vehicleDelete = "$baseUrl/partner/vehicle-delete"; // working
 
   ///common
   static const districts = "$baseUrl/partner/districts";
