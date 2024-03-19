@@ -42,7 +42,8 @@ class Api{
   static const leaderboard = "$baseUrl/partner/leaderboard"; // done
   static const withdrawalSubmit = "$baseUrl/partner/withdrawal-submit"; // pending
   static const creditBuy = "$baseUrl/partner/credit-buy"; // pending
-  static const penaltyHistory = "$baseUrl/partner/penalty-history"; // working
+  static const penaltyHistory = "$baseUrl/partner/penalty-history"; // done
+  static const tripBidShow = "$baseUrl/partner/bid-view-fees"; // working
 
   ///Return Trip
   static const returnTripSubmit = "$baseUrl/partner/return-trip-submit"; //done

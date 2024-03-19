@@ -2,9 +2,11 @@ import 'dart:ffi';
 
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_brand_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/bid_show_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/bid_submit_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
+import 'package:druto_seba_driver/src/modules/trip/views/trip_bid_show_view.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
@@ -31,7 +33,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
 
   final BidSubmitController bidSubmitController = Get.put(BidSubmitController());
   final VehiclesController vehiclesController = Get.put(VehiclesController());
-
+  final BidShowController bidShowController = Get.put(BidShowController());
   final TextEditingController amountController = TextEditingController();
 
   final VehiclesBrandController vehiclesBrandController =
@@ -174,7 +176,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                               Expanded(
                                 child: CustomCardWidget(
                                   onTap: () {
-                                  print("bid page will be show");
+                                    bidShowController.getBidShowRequest(tripId: widget.tripRequest.id.toString());
                                   },
                                   radius: 30,
                                   color: primaryColor,

@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/configs/app_texts.dart';
 import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
+import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/network/base_client/base_client.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
@@ -13,6 +14,7 @@ import '../views/otpPage.dart';
 import '../views/registerUserInfoPage.dart';
 
 class AuthController extends GetxController {
+  final ProfileController profileController = Get.put(ProfileController());
   var isLoading = false.obs;
 
   ///login Controller
@@ -36,6 +38,7 @@ class AuthController extends GetxController {
         if(responseBody['status'] == "success"){
           LocalStorage.saveData(key: AppTexts.token, data: responseBody['token']);
           kSnackBar(message: "Login Successfully Done", bgColor: Colors.green);
+           profileController.getProfile();
           Get.to(() => DashboardView(),transition: Transition.circularReveal);
         }else{
           kSnackBar(message: "Login Failed", bgColor: Colors.red);

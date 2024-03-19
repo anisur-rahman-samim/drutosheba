@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
+import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/confirmed_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/welcome/views/welcome_views.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
@@ -36,7 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
     if (userId != null) {
       Get.offAll(() => const DashboardView(),transition: Transition.circularReveal);
     } else {
-      Get.offAll(() => WelcomeView(),transition: Transition.circularReveal);
+     // Get.offAll(() => WelcomeView(),transition: Transition.circularReveal);
+      Get.offAll(() => LoginPage(),transition: Transition.circularReveal);
     }
   }
 
