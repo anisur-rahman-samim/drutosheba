@@ -85,7 +85,7 @@ class _UpdateNewGariPageState extends State<UpdateNewGariPage> {
         backgroundColor: white,
         iconTheme: IconThemeData(color: black),
         title: KText(
-          text: 'নতুন গাড়ি যুক্ত করুন',
+          text: 'গাড়ি আপডেট করুন',
           fontSize: 18,
         ),
         bottom: PreferredSize(

@@ -381,7 +381,7 @@ class _UpdateNewGari1PageState extends State<UpdateNewGari1Page> {
                 child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
             ): primaryButton(
               height: 45,
-              buttonName: 'গাড়ির তথ্য সেভ করুন',
+              buttonName: 'গাড়ির তথ্য আপডেট করুন',
               fontSize: 14,
               onTap: () {
                 vehiclesSaveController.vehiclesUpdate(

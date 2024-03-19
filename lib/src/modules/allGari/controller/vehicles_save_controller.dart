@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:http_parser/http_parser.dart';
 import '../../../network/api/api.dart';
+import '../views/gariListPage.dart';
 
 
 class VehiclesSaveController extends GetxController{
@@ -578,24 +579,24 @@ class VehiclesSaveController extends GetxController{
 
       //send request
       var response = await request.send();
-      print(response.statusCode);
 
       print("Api hit: " + Api.vehicleUpdate.toString());
-       print(await response.stream.bytesToString());
-      dynamic responseBody =
+      //log(response.statusCode.toString());
+     /* dynamic responseBody =
       json.decode(await response.stream.bytesToString());
-      print(responseBody);
+
       log(responseBody);
+      log(response.statusCode.toString());*/
 
 
       if (response.statusCode == 200) {
-        if(responseBody['status'] == "success"){
+      //  if(responseBody['status'] == "success"){
           vehiclesController.getVehicles();
-          Get.to(() => DashboardView(),transition: Transition.circularReveal);
+          Get.to(() => GariListPage(),transition: Transition.circularReveal);
           kSnackBar(message: "Vehicles update successfully", bgColor: Colors.green);
-        }else{
-          kSnackBar(message: "Failed", bgColor: Colors.red);
-        }
+       // }else{
+        //  kSnackBar(message: "Failed", bgColor: Colors.red);
+      //  }
 
         isLoading(false);
       } else {
