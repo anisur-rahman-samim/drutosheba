@@ -1,9 +1,11 @@
 
 import 'package:druto_seba_driver/src/components/trip/trip_vivoroni_details.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
+import 'package:druto_seba_driver/src/modules/driver/controller/driver_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
+import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
   final ConfirmedTripController confirmTripController = Get.put(ConfirmedTripController());
 
   final VehiclesController vehiclesController = Get.put(VehiclesController());
+  final DriverController driverController = Get.put(DriverController());
 
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
 
@@ -39,6 +42,9 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
     vehiclesController.getVehicles();
     super.initState();
   }
+
+  var selectedDriver = RxString('ড্রাইভার নির্বাচন করুন');
+  var selectedDriverId = RxString('');
 
   @override
   Widget build(BuildContext context) {
@@ -295,18 +301,134 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                       onTap: () {},
                                     ),
 
-                                    CircleAvatar(
-                                      radius: 12,
-                                      backgroundColor: black54,
-                                      child: CircleAvatar(
-                                        radius: 11,
-                                        backgroundColor: white,
-                                        child: Icon(
-                                          Ionicons.person_add_outline,
-                                          color: black45,
-                                          size: 15,
+                                    confirmTripController.confirmTripList[index].assignedDriverId != null ?   Text("Driver: ${confirmTripController.confirmTripList[index].getDriver!.name.toString()}",style: h4,):   Row(
+                                      children: [
+                                        Text(selectedDriver.value.toString(),style: h4,),
+                                        sizeW10,
+                                        InkWell(
+                                          onTap: (){
+                                            customBottomSheet(
+                                              context: context,
+                                              height: Get.height / 1.4,
+                                              child: ListView(
+                                                shrinkWrap: true,
+                                                primary: false,
+                                                children: [
+                                                  Center(
+                                                    child: KText(
+                                                      text: 'ড্রাইভার নির্বাচন করুন',
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  Divider(),
+                                                  sizeH10,
+                                                  Container(
+                                                    height: Get.height / 1.7,
+                                                    child: ListView.builder(
+                                                        shrinkWrap: true,
+                                                        primary: false,
+                                                        itemCount: driverController.approvedDriverList.length,
+                                                        itemBuilder: (c, i) {
+                                                          final item = driverController.approvedDriverList[i];
+                                                          return InkWell(
+                                                            borderRadius: BorderRadius.circular(5),
+                                                            onTap: () {
+                                                              setState(() {
+                                                                selectedDriver.value =
+                                                                    item.name.toString();
+                                                                selectedDriverId.value =
+                                                                    item.id.toString();
+
+                                                                Navigator.pop(context);
+                                                              });
+                                                            },
+                                                            child: Padding(
+                                                              padding: EdgeInsets.all(10),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment.start,
+                                                                crossAxisAlignment:
+                                                                CrossAxisAlignment.center,
+                                                                children: [
+                                                                  /* Image.asset(
+                                                      Api.getImageURL(item.image.toString(),),
+                                                      width: 50,
+                                                      // width: Get.width / 6,
+                                                    ),*/
+                                                                  sizeW20,
+                                                                  SizedBox(
+                                                                    width: Get.width / 1.5,
+                                                                    child: Column(
+                                                                      mainAxisAlignment:
+                                                                      MainAxisAlignment.start,
+                                                                      crossAxisAlignment:
+                                                                      CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        KText(
+                                                                          text: item.name,
+                                                                          fontSize: 14,
+                                                                          fontWeight:
+                                                                          FontWeight.bold,
+                                                                        ),
+                                                                        SizedBox(width: 3),
+                                                                        /* KText(
+                                                text: item.capacity,
+                                                fontSize: 12,
+                                                color: black45,
+                                              ),*/
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Spacer(),
+                                                                  CircleAvatar(
+                                                                    radius: 10,
+                                                                    backgroundColor:
+                                                                    selectedDriver.value ==
+                                                                        item.name
+                                                                        ? primaryColor
+                                                                        : grey,
+                                                                    child: CircleAvatar(
+                                                                      backgroundColor:
+                                                                      selectedDriver.value ==
+                                                                          item.name
+                                                                          ? primaryColor
+                                                                          : white,
+                                                                      radius: 9,
+                                                                      child: selectedDriver.value ==
+                                                                          item.name
+                                                                          ? Icon(
+                                                                        Icons.done,
+                                                                        size: 15,
+                                                                        color: white,
+                                                                      )
+                                                                          : null,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          child: CircleAvatar(
+                                            radius: 12,
+                                            backgroundColor: black54,
+                                            child: CircleAvatar(
+                                              radius: 11,
+                                              backgroundColor: white,
+                                              child: Icon(
+                                                Ionicons.person_add_outline,
+                                                color: black45,
+                                                size: 15,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ],
                                 ),

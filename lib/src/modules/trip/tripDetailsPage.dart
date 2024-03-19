@@ -10,6 +10,7 @@ import 'package:druto_seba_driver/src/modules/trip/views/trip_bid_show_view.dart
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
+import 'package:druto_seba_driver/src/widgets/snack_bar/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,6 +42,15 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
 
   var selectedCar = RxString('গাড়ি নির্বাচন করুন');
   var selectedCarId = RxString('');
+  var selectedCarBrandId = RxString('');
+  List tripCar = [];
+  @override
+  void initState() {
+
+    tripCar.addAll(vehiclesController
+        .approvedVehiclesList.where((p) => p.getbrand?.id.toString() == widget.tripRequest.vehicleId.toString()).toList());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +67,11 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     double downLng = double.parse(downUpParts[1]);
 
     distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
+
+  //  widget.tripRequest.vehicleId.toString() == selectedCarBrandId.value
+
     return Scaffold(
+
       appBar: AppBar(
         title: KText(
           text: 'ট্রিপ এর বিস্তারিত',
@@ -78,12 +92,17 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
               Expanded(
                 child: CustomCardWidget(
                   onTap: () {
+                  if(widget.tripRequest.vehicleId.toString() == selectedCarBrandId.value){
                     bidSubmitController.submitBid(
                         customer_id: widget.tripRequest.customerId.toString(),
                         vehicle_id: widget.tripRequest.vehicleId.toString(),
                         car_id: selectedCarId.value,
                         amount: amountController.text,
                         trip_id: widget.tripRequest.id.toString());
+                  }else{
+                    kSnackBar(message: "Vehicle not match", bgColor: Colors.red);
+                  }
+
                   },
                   radius: 30,
                   borderColor: grey,
@@ -508,11 +527,9 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           primary: false,
-                          itemCount: vehiclesController
-                              .approvedVehiclesList.length,
+                          itemCount: tripCar.length,
                           itemBuilder: (c, i) {
-                            final item = vehiclesController
-                                .approvedVehiclesList[i];
+                            final item = tripCar[i];
                             return InkWell(
                               borderRadius: BorderRadius.circular(5),
                               onTap: () {
@@ -521,6 +538,8 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                       item.model.toString();
                                   selectedCarId.value =
                                       item.id.toString();
+                                  selectedCarBrandId.value =
+                                      item.getbrand!.id.toString();
                                  Navigator.pop(context);
                                 });
                               },

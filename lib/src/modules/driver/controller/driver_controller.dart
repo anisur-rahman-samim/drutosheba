@@ -20,6 +20,7 @@ class DriverController extends GetxController{
   var isLoading = false.obs;
   var drivers = DriversModel(data: []).obs;
   var driverList = <Datum>[].obs;
+  var approvedDriverList = <Datum>[].obs;
 
   @override
   void onInit() {
@@ -333,9 +334,11 @@ class DriverController extends GetxController{
 
       if (responseBody != null) {
         driverList.clear();
+        approvedDriverList.clear();
 
         drivers.value = DriversModel.fromJson(responseBody);
         driverList.addAll(drivers.value.data);
+        approvedDriverList.addAll(drivers.value.data.where((element) => element.status == "approved").toList());
 
         isLoading(false);
 

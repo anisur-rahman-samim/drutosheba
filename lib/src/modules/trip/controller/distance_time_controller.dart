@@ -19,17 +19,28 @@ class DistanceTimeController extends GetxController {
       final durationText = data['rows'][0]['elements'][0]['duration']['text'];
       print(distanceText);
       print(durationText);
-      int totalMinutes = convertToMinutes(durationText);
-      totalDistance.value = double.parse(distanceText.split(' ')[0]); // Extract distance in kilometers
-      print(totalMinutes);
+     // String timeString = "1 hour 5 minutes";
 
-        /*List<String> parts = totalSeconds.split(' ');
-        int min = int.parse(parts[0]);*/
+     /* List<String> parts = durationText.split(" ");
+      int hours = int.parse(parts[0]);
+      int minutes = int.parse(parts[2]);
+
+      int totalMinutes = hours * 60 + minutes;
+
+      print(totalMinutes);*/
+      totalDistance.value = double.parse(distanceText.split(' ')[0]);
+      /*int totalMinutes = convertToMinutes(durationText);
+     // Extract distance in kilometers
+      print("total min: "+totalMinutes.toString());
+
+        *//*List<String> parts = totalSeconds.split(' ');
+        int min = int.parse(parts[0]);*//*
        // int minutes = int.parse(parts[1]);
 
       int hours = totalMinutes ~/ 60;
-      int minutes = totalMinutes % 60;
-      totalDuration.value =  '$hours ঘ. $minutes মি' ;
+      int minutes = totalMinutes % 60;*/
+    //  totalDuration.value =  '$hours ঘ. $minutes মি' ;
+      totalDuration.value =  durationText ;
 
   }}
   int convertToMinutes(String timeString) {

@@ -236,19 +236,25 @@ class TripVivoroniDetails extends StatelessWidget {
                         fontSize: 14,
                         onTap: () {},
                       ),
-              
-                      CircleAvatar(
-                        radius: 12,
-                        backgroundColor: black54,
-                        child: CircleAvatar(
-                          radius: 11,
-                          backgroundColor: white,
-                          child: Icon(
-                            Ionicons.person_add_outline,
-                            color: black45,
-                            size: 15,
+
+                      Row(
+                        children: [
+                          Text(confirmedTrips.getDriver!.name.toString()),
+                          sizeW10,
+                          CircleAvatar(
+                            radius: 12,
+                            backgroundColor: black54,
+                            child: CircleAvatar(
+                              radius: 11,
+                              backgroundColor: white,
+                              child: Icon(
+                                Ionicons.person_add_outline,
+                                color: black45,
+                                size: 15,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
@@ -271,7 +277,7 @@ class TripVivoroniDetails extends StatelessWidget {
                      OtpForm(controller: otpController,),
                      sizeH10,
                      InkWell(
-                       onTap: (){
+                       onLongPress: (){
                          tripStartEndController.startTrip(
                              tripId: confirmedTrips.tripId.toString(),
                              otp: otpController.text
