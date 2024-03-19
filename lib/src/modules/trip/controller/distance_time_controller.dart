@@ -43,20 +43,4 @@ class DistanceTimeController extends GetxController {
       totalDuration.value =  durationText ;
 
   }}
-  int convertToMinutes(String timeString) {
-    List<String> parts = timeString.split(' ');
-
-    int hours = 0;
-    int minutes = 0;
-
-    for (int i = 0; i < parts.length; i += 2) {
-      if (parts[i + 1] == 'hours') {
-        hours = int.tryParse(parts[i]) ?? 0;
-      } else if (parts[i + 1] == 'mins') {
-        minutes = int.tryParse(parts[i]) ?? 0;
-      }
-    }
-
-    return hours * 60 + minutes;
-  }
 }

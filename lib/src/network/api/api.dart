@@ -33,7 +33,8 @@ class Api{
   static const driverManage = "$baseUrl/partner/driver-manage";//done
   static const driverAdd = "$baseUrl/partner/driver-add"; // done
   static const driverUpdate = "$baseUrl/partner/driver-update";
-  static const driverDelete = "$baseUrl/partner/driver-delete"; // working
+  static const driverDelete = "$baseUrl/partner/driver-delete"; // done
+  static const driverAssaign = "$baseUrl/partner/assign"; // working
 
   ///Penalty and Balance
   static const credit = "$baseUrl/partner/credit"; // done
@@ -59,7 +60,8 @@ class Api{
   static const returnTripCompleted = "$baseUrl/partner/return-trip-completed"; // done
   static const metroList = "$baseUrl/partner/metro-list"; // done
   static const metroSubList = "$baseUrl/partner/metro-sub-list"; // done
-  static const vehicleDelete = "$baseUrl/partner/vehicle-delete"; // working
+  static const vehicleDelete = "$baseUrl/partner/vehicle-delete"; // done
+  static const vehicleUpdate = "$baseUrl/partner/vehicle-update"; // working
 
   ///common
   static const districts = "$baseUrl/partner/districts";

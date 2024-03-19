@@ -239,7 +239,7 @@ class TripVivoroniDetails extends StatelessWidget {
 
                       Row(
                         children: [
-                          Text(confirmedTrips.getDriver!.name.toString()),
+                          confirmedTrips.getDriver != null?  Text(confirmedTrips.getDriver!.name.toString()):SizedBox(),
                           sizeW10,
                           CircleAvatar(
                             radius: 12,

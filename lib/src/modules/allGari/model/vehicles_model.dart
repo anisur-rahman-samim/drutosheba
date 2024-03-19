@@ -29,6 +29,8 @@ class Vehicles {
     required this.modelYear,
     required this.vehicleColor,
     required this.aircondition,
+    required this.brandName,
+    required this.fuelType,
     required this.vehicleFrontPic,
     required this.vehicleBackPic,
     required this.vehiclePlateNo,
@@ -58,6 +60,8 @@ class Vehicles {
   final String? modelYear;
   final String? vehicleColor;
   final String? aircondition;
+  final String? brandName;
+  final String? fuelType;
   final String? vehicleFrontPic;
   final String? vehicleBackPic;
   final String? vehiclePlateNo;
@@ -88,6 +92,8 @@ class Vehicles {
       modelYear: json["model_year"],
       vehicleColor: json["vehicle_color"],
       aircondition: json["aircondition"],
+      brandName: json["brand_name"],
+      fuelType: json["fuel_type"],
       vehicleFrontPic: json["vehicle_front_pic"],
       vehicleBackPic: json["vehicle_back_pic"],
       vehiclePlateNo: json["vehicle_plate_no"],
@@ -185,7 +191,7 @@ class Partnerinfo {
   final String? docNumber;
   final String? docFront;
   final String? docBack;
-  final dynamic division;
+  final String? division;
   final String? address;
   final String? gender;
   final dynamic referCode;

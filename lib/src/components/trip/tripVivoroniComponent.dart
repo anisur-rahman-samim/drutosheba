@@ -43,7 +43,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
     super.initState();
   }
 
-  var selectedDriver = RxString('ড্রাইভার নির্বাচন করুন');
+  var selectedDriver = RxString('');
   var selectedDriverId = RxString('');
 
   @override
@@ -303,7 +303,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
 
                                     confirmTripController.confirmTripList[index].assignedDriverId != null ?   Text("Driver: ${confirmTripController.confirmTripList[index].getDriver!.name.toString()}",style: h4,):   Row(
                                       children: [
-                                        Text(selectedDriver.value.toString(),style: h4,),
+                                        Text(confirmTripController.confirmTripList[index].getDriver?.name != null? confirmTripController.confirmTripList[index].getDriver!.name.toString():"",style: h4,),
                                         sizeW10,
                                         InkWell(
                                           onTap: (){
@@ -338,8 +338,11 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                                                     item.name.toString();
                                                                 selectedDriverId.value =
                                                                     item.id.toString();
-
+                                                                driverController.driverAssign(driverId: item.id.toString(), tripId: confirmTripController.confirmTripList[index].getTripDetails?.id.toString());
                                                                 Navigator.pop(context);
+                                                                setState(() {
+
+                                                                });
                                                               });
                                                             },
                                                             child: Padding(

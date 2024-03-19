@@ -1,5 +1,6 @@
 import 'package:druto_seba_driver/src/modules/allGari/controller/metro_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/model/vehicles_model.dart';
+import 'package:druto_seba_driver/src/modules/allGari/views/updateNewGariPage.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -113,7 +114,8 @@ class GariDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               InkWell(
-                                onTap: () => Get.to(() => AddNewGariPage(
+                                onTap: () => Get.to(() => UpdateNewGariPage(
+                                  vehicles: vehicles,
                                   isEditPage: true,
                                 ),transition: Transition.circularReveal),
                                 borderRadius: BorderRadius.circular(30),

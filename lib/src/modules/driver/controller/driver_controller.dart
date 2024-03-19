@@ -378,4 +378,32 @@ class DriverController extends GetxController{
       isLoading(false);
     }
   }
+  void driverAssign({required driverId, required tripId}) async {
+    try {
+      isLoading(true);
+
+      var map = <String, dynamic>{};
+
+      map['driver_id'] = driverId;
+      map['trip_id'] = tripId;
+
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(api: Api.driverAssaign,body: map),
+      );
+
+      if (responseBody != null) {
+        getDriver();
+        kSnackBar(message: responseBody["massage"], bgColor: Colors.red);
+        isLoading(false);
+
+      } else {
+        throw 'Unable to load data!';
+      }
+    } catch (e) {
+      print(e);
+      //  kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
 }
