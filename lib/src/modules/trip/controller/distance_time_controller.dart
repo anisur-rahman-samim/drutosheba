@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/configs/app_texts.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -7,7 +8,7 @@ class DistanceTimeController extends GetxController {
   var totalDuration = ''.obs;
 
   Future<void> calculateDistanceAndDuration(double startLat, double startLng, double endLat, double endLng) async {
-    final apiKey = 'AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g';
+    final apiKey = AppTexts.googleMapKey;
     final url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
         'origins=$startLat,$startLng&destinations=$endLat,$endLng&key=$apiKey';
 
@@ -19,27 +20,8 @@ class DistanceTimeController extends GetxController {
       final durationText = data['rows'][0]['elements'][0]['duration']['text'];
       print(distanceText);
       print(durationText);
-     // String timeString = "1 hour 5 minutes";
 
-     /* List<String> parts = durationText.split(" ");
-      int hours = int.parse(parts[0]);
-      int minutes = int.parse(parts[2]);
-
-      int totalMinutes = hours * 60 + minutes;
-
-      print(totalMinutes);*/
       totalDistance.value = double.parse(distanceText.split(' ')[0]);
-      /*int totalMinutes = convertToMinutes(durationText);
-     // Extract distance in kilometers
-      print("total min: "+totalMinutes.toString());
-
-        *//*List<String> parts = totalSeconds.split(' ');
-        int min = int.parse(parts[0]);*//*
-       // int minutes = int.parse(parts[1]);
-
-      int hours = totalMinutes ~/ 60;
-      int minutes = totalMinutes % 60;*/
-    //  totalDuration.value =  '$hours ঘ. $minutes মি' ;
       totalDuration.value =  durationText ;
 
   }}

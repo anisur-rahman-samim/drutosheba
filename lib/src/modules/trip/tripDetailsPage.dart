@@ -422,34 +422,40 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            height: 30,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: primaryColor,
-                            ),
-                            child: Icon(
-                              Icons.location_on,
-                              color: white,
+                          InkWell(
+                            onTap: (){
+                              Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: primaryColor,
+                              ),
+                              child: Icon(
+                                Icons.location_on,
+                                color: white,
+                              ),
                             ),
                           ),
-                          Container(
-                            height: 30,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: primaryColor,
-                            ),
+                          InkWell(
+                            onTap: (){
+                              _speak("পিকআপ লোকেশন,${widget.tripRequest.pickupLocation},ড্রপ লোকেশন, ${widget.tripRequest.dropoffLocation}");
+                            },
                             child: Container(
-                              width: Get.width,
-                              height: 25,
-                              child: Center(
-                                child: InkWell(
-                                    onTap: (){
-                                      _speak("পিকআপ লোকেশন,${widget.tripRequest.pickupLocation},ড্রপ লোকেশন, ${widget.tripRequest.dropoffLocation}");
-                                    },
-                                    child: Icon(Icons.volume_up_outlined,color: white,)),
+                              height: 30,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: primaryColor,
+                              ),
+                              child: Container(
+                                width: Get.width,
+                                height: 25,
+                                child: Center(
+                                  child: Icon(Icons.volume_up_outlined,color: white,),
+                                ),
                               ),
                             ),
                           ),
@@ -494,7 +500,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
             CustomCardWidget(
               radius: 0,
               elevation: 0,
-              height: 75,
+              height: 85,
               isPaddingHide: true,
               child: Padding(
                 padding: paddingV10,
@@ -518,6 +524,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       title: 'সম্ভাব্য সময়',
                       content: distanceTimeController.totalDuration.value,
                       isReplaceObject: true,
+                      child: Image.asset("assets/icon/hourglass.png",scale: 20,)
                     ),
                     Container(
                       color: grey,
@@ -529,6 +536,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       title: 'সম্ভাব্য দুরুত্ব',
                       content: '${distanceTimeController.totalDistance.value} কিঃমিঃ',
                       isReplaceObject: true,
+                        child: Image.asset("assets/icon/measure-distance.png",scale: 20,)
                     ),
                     sizeW20,
                   ],
@@ -725,18 +733,25 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
   columnText({
     required title,
     required content,
+    required child,
     bool? isReplaceObject = false,
   }) =>
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          KText(
-            text: isReplaceObject == true ? title : title + ':' ?? '',
-            fontSize: 14,
-            // color: black45,
+          Row(
+            children: [
+              KText(
+                text: isReplaceObject == true ? title : title + ':' ?? '',
+                fontSize: 14,
+                // color: black45,
+              ),
+              sizeW5,
+              child
+            ],
           ),
-          sizeH5,
+         // sizeH5,
           KText(
             text: content,
             fontWeight: FontWeight.bold,

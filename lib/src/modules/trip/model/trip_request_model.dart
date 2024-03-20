@@ -1,4 +1,10 @@
+import 'dart:ffi';
+
+import 'package:druto_seba_driver/src/widgets/division_find/division_find.dart';
+import 'package:get/get.dart';
+
 class TripRequestModel {
+
   TripRequestModel({
      this.status,
     required this.data,
@@ -17,6 +23,7 @@ class TripRequestModel {
 }
 
 class TripRequest {
+  //final DivisionController divisionController = Get.put(DivisionController());
   TripRequest({
     required this.id,
     required this.customerId,
@@ -39,6 +46,7 @@ class TripRequest {
     required this.createdAt,
     required this.updatedAt,
     required this.vehicle,
+    required this.division,
   });
 
   final int? id;
@@ -62,6 +70,7 @@ class TripRequest {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final Vehicle? vehicle;
+  final String? division;
 
   factory TripRequest.fromJson(Map<String, dynamic> json){
     return TripRequest(
@@ -83,6 +92,7 @@ class TripRequest {
       note: json["note"],
       status: json["status"],
       biding: json["biding"],
+      division: "dhaka",
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
       vehicle: json["vehicle"] == null ? null : Vehicle.fromJson(json["vehicle"]),

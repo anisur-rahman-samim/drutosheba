@@ -24,6 +24,14 @@ class ReturnTripHistoryPage extends StatelessWidget {
           color: white,
           fontSize: 18,
         ),
+        actions: [
+          InkWell(
+              onTap: (){
+                returnTripController.getRetrunTripHistory();
+              },
+              child: Icon(Icons.refresh)),
+          sizeW10
+        ],
 
       ),
       backgroundColor: bgColor,

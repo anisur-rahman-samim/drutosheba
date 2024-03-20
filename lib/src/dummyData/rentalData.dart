@@ -81,27 +81,27 @@ final vivagList = [
     vivagName: 'All',
   ),
   VivagData(
-    vivagName: 'Dhaka Division',
+    vivagName: 'Dhaka',
   ),
   VivagData(
-    vivagName: 'Chattogram Division',
+    vivagName: 'Chittagong',
   ),
   VivagData(
-    vivagName: 'Mymensingh Division',
+    vivagName: 'Mymensingh',
   ),
   VivagData(
-    vivagName: 'Rajshahi Division',
+    vivagName: 'Rajshahi',
   ),
   VivagData(
-    vivagName: 'Rangpur Division',
+    vivagName: 'Rangpur',
   ),
   VivagData(
-    vivagName: 'Sylhet Division',
+    vivagName: 'Sylhet',
   ),
   VivagData(
-    vivagName: 'Khulna Division',
+    vivagName: 'Khulna',
   ),
   VivagData(
-    vivagName: 'Barisal Division',
+    vivagName: 'Barisal',
   ),
 ];

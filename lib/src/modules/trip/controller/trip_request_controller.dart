@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 class TripRequestController extends GetxController{
   var isLoading = false.obs;
 
+  var tripFilter = ''.obs;
+  var tripFilterCar = ''.obs;
+
   var tripRequest = TripRequestModel(data: []).obs;
   var tripRequestList = <TripRequest>[].obs;
 
@@ -16,7 +19,7 @@ class TripRequestController extends GetxController{
     super.onInit();
   }
 
-  ///getCredit
+  ///getTrip
   void getTripResqust() async {
     try {
       isLoading(true);
