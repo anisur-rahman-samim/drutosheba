@@ -52,6 +52,7 @@ class KText extends StatelessWidget {
       maxLines: maxLines,
       textAlign: textAlign,
       textDirection: textDirection,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

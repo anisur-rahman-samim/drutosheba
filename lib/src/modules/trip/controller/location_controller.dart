@@ -12,6 +12,7 @@ class LocationController extends GetxController{
   var pickUpLocation = 'পিকআপ'.obs;
   var dropLocation = 'গন্তব্য'.obs;
 
+
   RxList suggestionsPickUp = <Suggestion>[].obs;
   RxList suggestionsDrop = <Suggestion>[].obs;
 

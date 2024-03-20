@@ -219,6 +219,9 @@ class _OtpFormState extends State<OtpForm> {
     return SizedBox(
       height: 68,
       child: Pinput(
+        androidSmsAutofillMethod:
+        AndroidSmsAutofillMethod.smsUserConsentApi,
+        listenForMultipleSmsOnAndroid: true,
         length: length,
         controller: widget.controller,
         focusNode: focusNode,

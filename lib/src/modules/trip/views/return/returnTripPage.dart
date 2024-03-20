@@ -7,6 +7,7 @@ import 'package:druto_seba_driver/src/modules/trip/views/return/return_trip_loca
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
+import 'package:druto_seba_driver/src/widgets/time/time_and_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,6 +45,11 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
   var selectedDropDivisionId = RxString('');
   var selectedCarImage = '';
   var selectedCarCapacity = '';
+
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,15 +110,12 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                       ),
                       sizeH20,
                       SizedBox(
-                        height: 100,
+                        height: 150,
                         child: Row(
                           children: [
                             Column(
                               children: [
-                                Icon(
-                                  Icons.location_pin,
-                                  size: 15,
-                                ),
+                                Image.asset("assets/img/pick.png",scale: 12,),
                                 sizeH5,
                                 Container(
                                   height: 50,
@@ -120,10 +123,7 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                   color: grey,
                                 ),
                                 sizeH5,
-                                Icon(
-                                  Icons.location_pin,
-                                  size: 15,
-                                ),
+                                Image.asset("assets/img/map.png",scale: 12,),
                               ],
                             ),
                             sizeW20,
@@ -140,7 +140,7 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                 isHideBorder: true,
                               ),*/
                                   Container(
-                                    height: 45,
+                                    height: 65,
                                     width: Get.width,
                                     decoration: BoxDecoration(
                                       color: greyBackgroundColor,
@@ -164,7 +164,7 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                   ),
                                   sizeH10,
                                   Container(
-                                    height: 45,
+                                    height: 65,
                                     width: Get.width,
                                     decoration: BoxDecoration(
                                       color: greyBackgroundColor,
@@ -196,13 +196,20 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                   ),
                 ),
               ),
+              sizeH5,
+              DateAndTime(
+                onDateTimeSelected: (date, time) {
+                  selectedDate = date;
+                  selectedTime = time;
+                },
+              ),
               sizeH10,
               CustomCardWidget(
                 radius: 0,
                 elevation: 0,
                 child: Column(
                   children: [
-                    _button(
+                    /*_button(
                       onTap: () {
                         BottomPicker.date(
                           title: 'তারিখ সিলেক্ট করুন',
@@ -300,14 +307,14 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                             hours: DateTime.now().hour,
                             minutes: DateTime.now().minute,
                           ),
-                          /* maxTime: Time(
+                          *//* maxTime: Time(
                         hours: 17,
-                      ),*/
+                      ),*//*
                         ).show(context);
                       },
                       title: returnTripController.timeSelected.value,
                       icon: Icons.access_time_outlined,
-                    ),
+                    ),*/
                     Divider(),
                     _button(
                       onTap: () {
@@ -650,13 +657,24 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                     sizeH20,
                     InkWell(
                       onTap: (){
+                        String hour = selectedTime.hourOfPeriod == 0
+                            ? '12'
+                            : '${selectedTime.hourOfPeriod}';
+                        String minute =
+                        '${selectedTime.minute}'.padLeft(2, '0');
+                        String period =
+                        selectedTime.period == DayPeriod.am ? 'AM' : 'PM';
+
+                        String journeyTimeAndDate =
+                        '${selectedDate.year}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')} ${hour}:${minute} $period'
+                            .toString();
                         returnTripController.returnTripRequest(
                             pickupDivision: selectedDivisionId.value,
                             dropoffDivision: selectedDropDivisionId.value,
                             location: locationController.pickUpLocation.value,
                             destination: locationController.dropLocation.value,
                             amount: amountController.text,
-                            timedate: "${returnTripController.timeSelected.value} ${returnTripController.dateSelected.value}",
+                            timedate: journeyTimeAndDate,
                             vehicleId: selectedCarId.value
                         );
                         locationController.pickUpLocation.value = "পিকআপ";

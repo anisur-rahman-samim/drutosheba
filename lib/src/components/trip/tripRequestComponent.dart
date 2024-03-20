@@ -57,58 +57,9 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                   padding: paddingH10V10,
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          CustomCardWidget(
-                            radius: 30,
-                            color: black,
-                            height: 40,
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  Api.getImageURL(tripRequestController.tripRequestList[index].vehicle?.image),
-                                  width: 30,
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                sizeW5,
-                                KText(
-                                  text: '${tripRequestController.tripRequestList[index].vehicle?.name} | ${tripRequestController.tripRequestList[index].vehicle?.capacity} Seats',
-                                  fontSize: 13,
-                                  color: white,
-                                ),
-                              ],
-                            ),
-                          ),
-                          // sizeW10,
-                          Spacer(),
-                          /*CustomCardWidget(
-                            radius: 30,
-                            borderColor: greyBackgroundColor,
-                            isPaddingHide: true,
-                            elevation: 0,
-                            height: 40,
-                            borderWidth: 2,
-                            child: Row(
-                              children: [
-                                sizeW10,
-                                Icon(
-                                  Icons.access_time_filled_outlined,
-                                  size: 20,
-                                  color: primaryColor,
-                                ),
-                                sizeW5,
-                                KText(
-                                  text: '180 মি.',
-                                  color: primaryColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                sizeW10,
-                              ],
-                            ),
-                          ),*/
-                        ],
+                      rawText(
+                        title: 'ট্রিপের সময়',
+                        content: tripRequestController.tripRequestList[index].datetime,
                       ),
                       sizeH10,
                       DotDividerWidget(
@@ -116,34 +67,29 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                       ),
                       sizeH10,
                       SizedBox(
-                        height: 150,
+                        height: 110,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Column(
                               children: [
                                 sizeH5,
-                                CircleAvatar(
-                                  radius: 6,
-                                  backgroundColor: primaryColor,
-                                ),
+                                Image.asset("assets/img/pick.png",scale: 20,),
                                 sizeH5,
                                 Container(
-                                  height: 80,
+                                  height: 30,
                                   width: .7,
                                   color: grey,
                                 ),
                                 sizeH5,
-                                Container(
-                                  color: blue,
-                                  padding: EdgeInsets.all(7),
-                                ),
+                                Image.asset("assets/img/map.png",scale: 20,),
                                 // CircleAvatar(
                                 //   radius: 6,
                                 //   backgroundColor: primaryColor,
                                 // ),
                               ],
                             ),
-                            sizeW10,
+                            sizeW5,
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,42 +105,20 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                     ),
                                     // sizeW5,
                                     Container(
-                                      width: Get.width / 1.3,
+                                      width: Get.width / 2,
                                       child: KText(
                                         text: tripRequestController.tripRequestList[index].pickupLocation,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        maxLines: 2,
+                                        maxLines: 1,
+
                                       ),
                                     ),
                                   ],
                                 ),
-                                Spacer(),
-                                SizedBox(
-                                  width: Get.width / 1.3,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: .2,
-                                          color: grey,
-                                        ),
-                                      ),
-                                      CircleAvatar(
-                                        radius: 15,
-                                        backgroundColor: grey,
-                                        child: CircleAvatar(
-                                          radius: 14,
-                                          backgroundColor: white,
-                                          child: Icon(
-                                            Icons.location_on,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Spacer(),
+                              //  Spacer(),
+
+                             sizeH10,
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,52 +131,101 @@ class _TripRequestComponentState extends State<TripRequestComponent> {
                                     // sizeW5,
                                     Container(
                                       height: 35,
-                                      width: Get.width / 1.3,
+                                      width: Get.width / 2,
                                       // color: primaryColor,
                                       child: KText(
                                         text:
                                         tripRequestController.tripRequestList[index].dropoffLocation,
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
-                                        maxLines: 2,
+                                        maxLines: 1,
                                       ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
+                            sizeW10,
+                            Column(
+                              children: [
+                                Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      shape: BoxShape.circle
+                                  ),
+                                  child: Image.network(
+                                    Api.getImageURL(tripRequestController.tripRequestList[index].vehicle?.image),
+                                    width: 30,
+                                    height: 40,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                sizeW5,
+                                KText(
+                                  text: '${tripRequestController.tripRequestList[index].vehicle?.name} | \n${tripRequestController.tripRequestList[index].vehicle?.capacity} Seats',
+                                  fontSize: 13,
+                                  color: black,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
-                      sizeH30,
+
+                      /*DotDividerWidget(
+                        fillRate: .5,
+                      ),*/
+
                       DotDividerWidget(
                         fillRate: .5,
                       ),
-                      Container(
-                        width: Get.width,
-                        height: 25,
-                        child: Center(
-                          child: InkWell(
-                              onTap: (){
-                                _speak("পিকআপ লোকেশন,${tripRequestController.tripRequestList[index].pickupLocation},ড্রপ লোকেশন, ${tripRequestController.tripRequestList[index].dropoffLocation}");
-                              },
-                              child: Icon(Icons.volume_up_outlined,color: Colors.red,)),
-                        ),
-                      ),
-                      DotDividerWidget(
-                        fillRate: .5,
-                      ),
+
                       sizeH10,
-                      rawText(
-                        title: 'ট্রিপের সময়',
-                        content: tripRequestController.tripRequestList[index].datetime,
-                      ),
-                      Divider(),
+                      //Divider(),
                       tripRequestController.tripRequestList[index].roundTrip == 1 ?   rawText(
                         title: 'ফিরতি তারিখ',
                         content: tripRequestController.tripRequestList[index].roundDatetime,
                       ):SizedBox.shrink(),
                       sizeH5,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: primaryColor,
+                            ),
+                            child: Icon(
+                              Icons.location_on,
+                              color: white,
+                            ),
+                          ),
+                          Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: primaryColor,
+                            ),
+                            child: Container(
+                              width: Get.width,
+                              height: 25,
+                              child: Center(
+                                child: InkWell(
+                                    onTap: (){
+                                      _speak("পিকআপ লোকেশন,${tripRequestController.tripRequestList[index].pickupLocation},ড্রপ লোকেশন, ${tripRequestController.tripRequestList[index].dropoffLocation}");
+                                    },
+                                    child: Icon(Icons.volume_up_outlined,color: white,)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),

@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                               opacity: _isBalanceShown ? 1 : 0,
                               duration: Duration(milliseconds: 500),
                               child: Text(
-                                  "${creditDataController.credit.value.data?.currentCredit} TK",
+                                  "${creditDataController.credit.value.data?.currentBalance} TK",
                                   style: TextStyle(
                                       color: black,
                                       fontSize: 14,

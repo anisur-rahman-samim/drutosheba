@@ -27,8 +27,8 @@ class _ReturnTripLocationSelectState extends State<ReturnTripLocationSelect> {
   void initState() {
 /*    locationController.pickUpLocation.value = '';
     locationController.dropLocation.value = '';*/
-    pickUpTextController.text = locationController.pickUpLocation.toString();
-    dropTextController.text = locationController.dropLocation.toString();
+    pickUpTextController.text = locationController.pickUpLocation.value == "পিকআপ" ? "" :locationController.pickUpLocation.toString();
+    dropTextController.text = locationController.dropLocation.value == "গন্তব্য"?"": locationController.dropLocation.toString();
     super.initState();
   }
 
@@ -56,26 +56,20 @@ class _ReturnTripLocationSelectState extends State<ReturnTripLocationSelect> {
                 ),
                 sizeH20,
                 SizedBox(
-                  height: 130,
+                  height: 150,
                   child: Row(
                     children: [
                       Column(
                         children: [
-                          Icon(
-                            Icons.location_pin,
-                            size: 15,
-                          ),
+                          Image.asset("assets/img/pick.png",scale: 12,),
                           sizeH5,
                           Container(
-                            height: 80,
+                            height: 50,
                             width: .5,
                             color: grey,
                           ),
                           sizeH5,
-                          Icon(
-                            Icons.location_pin,
-                            size: 15,
-                          ),
+                          Image.asset("assets/img/map.png",scale: 12,),
                         ],
                       ),
                       sizeW20,
@@ -83,7 +77,7 @@ class _ReturnTripLocationSelectState extends State<ReturnTripLocationSelect> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 60,
+                              height: 65,
                               child: TextField(
                                 controller: pickUpTextController,
                                 onChanged: (value){
@@ -121,7 +115,7 @@ class _ReturnTripLocationSelectState extends State<ReturnTripLocationSelect> {
                             ),
                             sizeH10,
                             SizedBox(
-                              height: 60,
+                              height: 65,
                               child: TextField(
                                 controller: dropTextController,
                                 onChanged: (value){

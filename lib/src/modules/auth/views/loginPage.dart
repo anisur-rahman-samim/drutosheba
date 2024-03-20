@@ -83,6 +83,7 @@ class LoginPage extends StatelessWidget {
                       controller: phoneController,
                       hintText: 'মোবাইল নাম্বার লিখুন',
                       isNumberField: true,
+                      keyboardType: TextInputType.number
                     ),
                     sizeH20,
                     customFormField(
