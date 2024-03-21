@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TripCountdownController extends GetxController {
+class CountdownController extends GetxController {
+  RxString countdown = ''.obs;
 
-  var countdown = ''.obs;
-
-
-  void updateCountdown({required String targetTime}) {
-    DateTime issueTime = DateTime.parse(targetTime);
+  void updateCountdown() {
+    DateTime issueTime = DateTime.now().add(Duration(minutes: 30)); // Example target time
     Duration difference = issueTime.difference(DateTime.now());
     if (difference.isNegative) {
       countdown.value = "Task finished";
@@ -26,7 +24,5 @@ class TripCountdownController extends GetxController {
       print("Task finished");
       return;
     }
-
-
   }
 }

@@ -383,7 +383,6 @@ class _TripRequestPageState extends State<TripRequestPage> {
                     }
                     else if( tripRequestController.tripRequestList[index].pickupLocation!.toLowerCase().contains( tripRequestController.tripFilter.value.toLowerCase()) &&
                         tripRequestController.tripRequestList[index].vehicle!.name!.toLowerCase().contains( tripRequestController.tripFilterCar.value.toLowerCase()) ){
-                      print("ddddddddddd${tripRequestController.tripRequestList[index].vehicle!.name!.toLowerCase()}");
                       return GestureDetector(
                         onTap: () => Get.to(
                                 () => TripDetailsPage(
@@ -621,7 +620,7 @@ class _TripRequestPageState extends State<TripRequestPage> {
                         ),
                       );
                     }else{
-                      print("ssssssssssss${tripRequestController.tripFilter.value}");
+
                       return Container();
 
                     }}),

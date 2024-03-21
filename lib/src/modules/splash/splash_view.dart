@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:druto_seba_driver/src/components/trip/trip_time_count.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
 import 'package:druto_seba_driver/src/modules/auth/views/loginPage.dart';
@@ -22,6 +23,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   final VehiclesController vehiclesController = Get.put(VehiclesController());
   final ConfirmedTripController confirmTripController = Get.put(ConfirmedTripController());
+  final CountdownsController countdownsController = Get.put(CountdownsController());
 
   @override
   void initState() {

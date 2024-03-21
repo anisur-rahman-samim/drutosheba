@@ -1,7 +1,10 @@
 import 'package:druto_seba_driver/src/components/trip/opekhomanBidComponent.dart';
 import 'package:druto_seba_driver/src/components/trip/tripVivoroniComponent.dart';
+import 'package:druto_seba_driver/src/components/trip/trip_time_count.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:get/get.dart';
 
 import '../home/homePage.dart';
 import '../trip/tripHistoryPage.dart';
@@ -22,8 +25,15 @@ class _DashboardViewState
     topLeft: Radius.circular(25),
     topRight: Radius.circular(25),
   );*/
-
+ // final WaitingTripController waitingTripController = Get.put(WaitingTripController());
+ //final CountdownsController countdownsController = Get.put(CountdownsController());
   int _selectedItemPosition = 0;
+
+/*  @override
+  void initState() {
+    countdownsController.onInit();
+    super.initState();
+  }*/
 
   @override
   Widget build(BuildContext context) {

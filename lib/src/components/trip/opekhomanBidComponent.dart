@@ -1,9 +1,11 @@
 
+import 'package:druto_seba_driver/src/components/trip/trip_time_count.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/trip_request_countdown.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
+import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +29,13 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
 
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
 
-  final TripCountdownController tripCountdownController = Get.put(TripCountdownController());
+  final CountdownsController countdownsController = Get.put(CountdownsController());
+
 
   @override
   void initState() {
+    countdownsController.onInit();
     waitingTripController.waitingTripRequest();
-    tripCountdownController.updateCountdown(targetTime: "2023-05-03T05:32:05.000000Z");
     super.initState();
   }
 
@@ -44,7 +47,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
           padding: paddingH10,
           child: Obx(() => waitingTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : waitingTripController.waitingTripList.isEmpty? NoDataView() : RefreshIndicator(
             onRefresh: ()async{
-              await waitingTripController.waitingTripRequest();
+            //  await waitingTripController.waitingTripRequest();
             },
             child: ListView.builder(
                 shrinkWrap: true,
@@ -66,6 +69,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                   print("${ waitingTripController.waitingTripList[index].getTripDetails!.map.toString()} ${ waitingTripController.waitingTripList[index].getTripDetails!.dropoffMap.toString()}");
 
                   distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
+                  var itemT = countdownsController.countdownItems[index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: 10),
                     child: CustomCardWidget(
@@ -258,10 +262,10 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                             sizeH5,
                             Row(
                               children: [
-                                Obx(() => rawText(
-                                  title: null,
-                                  content: tripCountdownController.countdown.value,
-                                ),),
+
+                             //   Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[4]}m',style: h2.copyWith(color: black),),)),
+                             //   sizeW10,
+                              //  Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[6]}s',style: h2.copyWith(color: black),),)),
                                 Spacer(),
                                 outlineButton(
                                   buttonName: 'Pending',

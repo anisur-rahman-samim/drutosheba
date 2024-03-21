@@ -39,9 +39,9 @@ class DateAndTimeState extends State<DateAndTime> {
 
   void _selectTime() async {
     final TimeOfDay? newTime = await showTimePicker(
-      helpText: 'enterTime1hourFromNow'.tr,
-      cancelText: 'cancel'.tr,
-      confirmText: 'submit'.tr,
+     // helpText: 'enterTime1hourFromNow'.tr,
+      cancelText: 'Cancel',
+      confirmText: 'Submit',
       context: context,
       initialTime: selectedTime,
     );
@@ -73,7 +73,10 @@ class DateAndTimeState extends State<DateAndTime> {
             children: [
               Expanded(
                 child: GestureDetector(
-                  onTap: () => _selectDate(context),
+                  onTap: () {
+                    _selectDate(context);
+                    print("${_selectDate(context)}");
+                  },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 6,
@@ -89,7 +92,8 @@ class DateAndTimeState extends State<DateAndTime> {
                         KText(
                           text: selectedDate == null
                               ? 'selectDate'
-                              : '${dateTime.format(selectedDate)}'.toString(),
+                              : DateFormat('h:mm a').format(DateTime(
+                              2024, 1, 1, selectedDate.hour, selectedDate.minute)).toString(),
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),

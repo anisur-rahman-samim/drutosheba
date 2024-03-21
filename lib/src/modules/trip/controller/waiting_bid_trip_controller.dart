@@ -13,6 +13,7 @@ class WaitingTripController extends GetxController{
 
   var waitingTrip = WaitingBidModel(data: []).obs;
   var waitingTripList = <WaitingBid>[].obs;
+  var waitingTripStartTimeList = <String>[].obs;
 
 
   @override
@@ -40,8 +41,11 @@ class WaitingTripController extends GetxController{
         if(responseBody['status'] == "success"){
 
           waitingTripList.clear();
+          waitingTripStartTimeList.clear();
+
           waitingTrip.value = WaitingBidModel.fromJson(responseBody);
           waitingTripList.addAll(waitingTrip.value.data);
+          waitingTripStartTimeList.addAll(waitingTrip.value.data.map((element) => element.createdAt.toString()).toList());
 
         }else{
         //  kSnackBar(message: "Failed", bgColor: Colors.red);
