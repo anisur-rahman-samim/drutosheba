@@ -10,6 +10,7 @@ import '../home/homePage.dart';
 import '../trip/tripHistoryPage.dart';
 import '../opekhomanBid/opekhomanBidPage.dart';
 import '../menu/menuPage.dart';
+import '../trip/views/allTrips.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -21,19 +22,9 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState
     extends State<DashboardView> {
-/*  final BorderRadius _borderRadius = const BorderRadius.only(
-    topLeft: Radius.circular(25),
-    topRight: Radius.circular(25),
-  );*/
- // final WaitingTripController waitingTripController = Get.put(WaitingTripController());
- //final CountdownsController countdownsController = Get.put(CountdownsController());
+
   int _selectedItemPosition = 0;
 
-/*  @override
-  void initState() {
-    countdownsController.onInit();
-    super.initState();
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +54,17 @@ class _DashboardViewState
             label: 'হোম',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.mode_of_travel_outlined),
+            label: 'Trips',
+          ),
+         /* BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'চলমান ট্রিপ',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.mode_of_travel_outlined),
             label: 'অপেক্ষমান বিড',
-          ),
+          ),*/
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
             label: 'মেনু',
@@ -86,10 +81,12 @@ class _DashboardViewState
       case 0:
         return HomePage();
       case 1:
+        return AllTripsView();
+      /*case 1:
         return TripVivoroniComponent();
       case 2:
-        return OpekhomanBidComponent();
-      case 3:
+        return OpekhomanBidComponent();*/
+      case 2:
         return MenuPage();
       default:
         return HomePage();
