@@ -69,7 +69,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                   print("${ waitingTripController.waitingTripList[index].getTripDetails!.map.toString()} ${ waitingTripController.waitingTripList[index].getTripDetails!.dropoffMap.toString()}");
 
                   distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
-                  var itemT = countdownsController.countdownItems[index];
+               //   var itemT = countdownsController.countdownItems[index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: 10),
                     child: CustomCardWidget(
