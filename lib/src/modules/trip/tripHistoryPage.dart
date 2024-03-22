@@ -12,11 +12,6 @@ class TripHistoryPage extends StatelessWidget {
           TripVivoroniComponent(),
         ],
       ),
-      // body: Center(
-      //   child: KText(
-      //     text: 'আপনার কোনো ট্রিপ হিস্ট্রি পাওয়া যায় নি',
-      //   ),
-      // ),
     );
   }
 }

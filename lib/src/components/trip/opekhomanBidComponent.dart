@@ -141,24 +141,20 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                   Column(
                                     children: [
                                       sizeH5,
-                                      CircleAvatar(
-                                        radius: 6,
-                                        backgroundColor: black,
-                                        child: CircleAvatar(
-                                          backgroundColor: white,
-                                          radius: 5,
-                                        ),
+                                      Image.asset(
+                                        "assets/img/pick.png",
+                                        scale: 20,
                                       ),
                                       sizeH5,
                                       Container(
-                                        height: 50,
+                                        height: 20,
                                         width: .7,
                                         color: grey,
                                       ),
                                       sizeH5,
-                                      CircleAvatar(
-                                        radius: 6,
-                                        backgroundColor: primaryColor,
+                                      Image.asset(
+                                        "assets/img/map.png",
+                                        scale: 20,
                                       ),
                                     ],
                                   ),
@@ -217,19 +213,6 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                 ],
                               ),
                             ),
-                            sizeH20,
-                            outlineButton(
-                              buttonName: 'ম্যাপ দেখুন',
-                              textColor: black,
-                              outlineColor: grey.shade300,
-                              radius: 5,
-                              height: 35,
-                              width: 120,
-                              fontSize: 14,
-                              onTap: () {
-                                Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
-                              },
-                            ),
                             sizeH10,
                             DotDividerWidget(
                               fillRate: .5,
@@ -245,28 +228,41 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                               content: waitingTripController.waitingTripList[index].getTripDetails?.roundDatetime,
                             ),
                             sizeH5,
-                            rawText(
-                              title: 'রাউন্ড ট্রিপ',
-                              content: waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
-                            ),
-                            sizeH5,
-                            /*  rawText(
-                          title: 'দুরুত্ব',
-                          content: '${distanceTimeController.totalDistance} কি:মি',
-                        ),*/
-                            sizeH5,
-                            rawText(
-                              title: 'এয়ার কন্ডিশন',
-                              content: waitingTripController.waitingTripList[index].getvehicle?.aircondition == "yes"?'হ্যাঁ': "না",
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                rawText(
+                                  title: 'রাউন্ড ট্রিপ',
+                                  content: waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
+                                ),
+                                sizeH5,
+                                sizeH5,
+                                rawText(
+                                  title: 'এয়ার কন্ডিশন',
+                                  content: waitingTripController.waitingTripList[index].getvehicle?.aircondition == "yes"?'হ্যাঁ': "না",
+                                ),
+                              ],
                             ),
                             sizeH5,
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
 
                              //   Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[4]}m',style: h2.copyWith(color: black),),)),
                              //   sizeW10,
                               //  Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[6]}s',style: h2.copyWith(color: black),),)),
-                                Spacer(),
+                                outlineButton(
+                                  buttonName: 'ম্যাপ দেখুন',
+                                  textColor: black,
+                                  outlineColor: grey.shade300,
+                                  radius: 5,
+                                  height: 35,
+                                  width: 120,
+                                  fontSize: 14,
+                                  onTap: () {
+                                    Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
+                                  },
+                                ),
                                 outlineButton(
                                   buttonName: 'Pending',
                                   textColor: white,

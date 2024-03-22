@@ -65,13 +65,13 @@ class ReturnTripHistoryPage extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    size: 15,
+                                  Image.asset(
+                                    "assets/img/pick.png",
+                                    scale: 20,
                                   ),
                                   sizeW10,
                                   SizedBox(
-                                    width: 230,
+                                    width: 210,
                                     child: KText(
                                       text: item.location,
                                       fontWeight: FontWeight.bold,
@@ -112,9 +112,9 @@ class ReturnTripHistoryPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Icon(
-                                Icons.location_pin,
-                                size: 15,
+                              Image.asset(
+                                "assets/img/map.png",
+                                scale: 20,
                               ),
                               sizeW10,
                               SizedBox(

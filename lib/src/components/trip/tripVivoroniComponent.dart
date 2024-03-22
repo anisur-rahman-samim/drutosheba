@@ -4,6 +4,7 @@ import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_contro
 import 'package:druto_seba_driver/src/modules/driver/controller/driver_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
+import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
@@ -143,27 +144,47 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                 SizedBox(
                                   height: 90,
                                   child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      CircleAvatar(
-                                        radius: 15,
-                                        backgroundColor: primaryColor50,
-                                        child: Icon(
-                                          Ionicons.car,
-                                          color: primaryColor,
-                                          size: 15,
-                                        ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                                color: primaryColor,
+                                                shape: BoxShape.circle),
+                                            child: ClipOval(
+                                              child: Image.network(
+                                                Api.getImageURL(
+                                                    confirmTripController
+                                                        .confirmTripList[index]
+                                                        .getCar
+                                                        ?.vehicleDrivingFront),
+                                                width: 30,
+                                                height: 40,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          ),
+                                          sizeW5,
+                                          KText(
+                                            text:
+                                            '${confirmTripController.confirmTripList[index].getCar?.brandName}',
+                                            fontSize: 13,
+                                            color: black,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
                                       ),
                                       sizeW20,
                                       Column(
                                         children: [
                                           sizeH5,
-                                          CircleAvatar(
-                                            radius: 6,
-                                            backgroundColor: black,
-                                            child: CircleAvatar(
-                                              backgroundColor: white,
-                                              radius: 5,
-                                            ),
+                                          Image.asset(
+                                            "assets/img/pick.png",
+                                            scale: 20,
                                           ),
                                           // sizeH5,
                                           Expanded(
@@ -174,12 +195,9 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                             ),
                                           ),
                                           sizeH5,
-                                          Padding(
-                                            padding: EdgeInsets.only(bottom: 5),
-                                            child: CircleAvatar(
-                                              radius: 6,
-                                              backgroundColor: primaryColor,
-                                            ),
+                                          Image.asset(
+                                            "assets/img/map.png",
+                                            scale: 20,
                                           ),
                                         ],
                                       ),
@@ -259,11 +277,11 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                   title: 'রাউন্ড ট্রিপ',
                                   content: confirmTripController.confirmTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
                                 ),
-                                sizeH5,
+                                /*sizeH5,
                                 rawText(
                                   title: 'দুরুত্ব',
                                   content: '${distanceTimeController.totalDistance} কি:মি',
-                                ),
+                                ),*/
                                 sizeH5,
                                 rawText(
                                   title: 'এয়ার কন্ডিশন',

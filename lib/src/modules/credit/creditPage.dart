@@ -180,53 +180,56 @@ class _CreditPageState extends State<CreditPage> {
                           color: black,
                         ),
                         sizeH20,
-                        ListView.builder(
-                          itemCount: creditDataController.creditHistoryList.length,
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index){
-                              String dateTimeString = creditDataController.creditHistoryList[index].createdAt.toString();
-                              DateTime dateTime = DateTime.parse(dateTimeString);
-                              String formattedDateTime = DateFormat('hh:mm a, dd MMM yyyy').format(dateTime);
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 10),
-                                child: CustomCardWidget(
-                                  radius: 10,
-                                  color: greyBackgroundColor,
-                                  elevation: 0,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      KText(
-                                        text: creditDataController.creditHistoryList[index].name,
-                                        fontSize: 16,
-                                        color: black,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      sizeH10,
-                                      Row(
-                                        children: [
-                                          KText(
-                                            text: formattedDateTime,
-                                            color: black45,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          Spacer(),
-                                          KText(
-                                            text: '${creditDataController.creditHistoryList[index].type == "credit" || creditDataController.creditHistoryList[index].type == "bonus"? "+": "-" } ${creditDataController.creditHistoryList[index].amount}',
-                                            color: creditDataController.creditHistoryList[index].type == "credit" || creditDataController.creditHistoryList[index].type == "bonus"?  Colors.green : Colors.red,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                        SizedBox(
+                          height: Get.height / 2,
+                          child: ListView.builder(
+                            itemCount: creditDataController.creditHistoryList.length,
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index){
+                                String dateTimeString = creditDataController.creditHistoryList[index].createdAt.toString();
+                                DateTime dateTime = DateTime.parse(dateTimeString);
+                                String formattedDateTime = DateFormat('hh:mm a, dd MMM yyyy').format(dateTime);
+                                return Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: CustomCardWidget(
+                                    radius: 10,
+                                    color: greyBackgroundColor,
+                                    elevation: 0,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        KText(
+                                          text: creditDataController.creditHistoryList[index].name,
+                                          fontSize: 16,
+                                          color: black,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        sizeH10,
+                                        Row(
+                                          children: [
+                                            KText(
+                                              text: formattedDateTime,
+                                              color: black45,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            Spacer(),
+                                            KText(
+                                              text: '${creditDataController.creditHistoryList[index].type == "credit" || creditDataController.creditHistoryList[index].type == "bonus"? "+": "-" } ${creditDataController.creditHistoryList[index].amount}',
+                                              color: creditDataController.creditHistoryList[index].type == "credit" || creditDataController.creditHistoryList[index].type == "bonus"?  Colors.green : Colors.red,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
+                                );
+                              }
+                          ),
                         )
                       ],
                     ),

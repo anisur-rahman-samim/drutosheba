@@ -90,9 +90,9 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.location_pin,
-                          size: 15,
+                        Image.asset(
+                          "assets/img/pick.png",
+                          scale: 20,
                         ),
                         sizeW10,
                         KText(
@@ -108,9 +108,9 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                 ),
                 Row(
                   children: [
-                    Icon(
-                      Icons.location_pin,
-                      size: 15,
+                    Image.asset(
+                      "assets/img/map.png",
+                      scale: 20,
                     ),
                     sizeW10,
                     KText(

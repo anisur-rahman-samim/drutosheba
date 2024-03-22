@@ -56,9 +56,9 @@ final FareTripController fareTripController = Get.put(FareTripController());
                           children: [
                             Row(
                               children: [
-                                Icon(
-                                  Icons.location_pin,
-                                  size: 15,
+                                Image.asset(
+                                  "assets/img/pick.png",
+                                  scale: 20,
                                 ),
                                 sizeW10,
                                 KText(
@@ -74,9 +74,9 @@ final FareTripController fareTripController = Get.put(FareTripController());
                         ),
                         Row(
                           children: [
-                            Icon(
-                              Icons.location_pin,
-                              size: 15,
+                            Image.asset(
+                              "assets/img/map.png",
+                              scale: 20,
                             ),
                             sizeW10,
                             KText(

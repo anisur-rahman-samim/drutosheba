@@ -34,8 +34,8 @@ class _AllTripsViewState extends State<AllTripsView> with SingleTickerProviderSt
           labelColor: white,
           tabs: [
             Tab(text: 'Start Trip'),
+            Tab(text: 'Confirm Trip'),
             Tab(text: 'Waiting Trip'),
-            Tab(text: 'Complete Trip'),
           ],
         ),
       ),
