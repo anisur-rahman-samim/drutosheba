@@ -53,7 +53,7 @@ class _AllTripScreenState extends State<AllTripScreen> {
                 // physics: BouncingScrollPhysics(),
                 itemCount: allTripController.allTripList.length,
                 itemBuilder: ((context, index) {
-                 /* String pickUpCoordinates = allTripController.allTripList[index].map.toString();
+                  String pickUpCoordinates = allTripController.allTripList[index].map.toString();
                   List<String> pickUpParts = pickUpCoordinates.split(' ');
 
                   double upLat = double.parse(pickUpParts[0]);
@@ -66,8 +66,8 @@ class _AllTripScreenState extends State<AllTripScreen> {
                   double downLng = double.parse(downUpParts[1]);
                   print("${ allTripController.allTripList[index].map.toString()} ${ allTripController.allTripList[index].dropoffMap.toString()}");
 
-                  distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);*/
-                  //   var itemT = countdownsController.countdownItems[index];
+                  distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
+
                   return Padding(
                     padding: EdgeInsets.only(bottom: 10),
                     child: CustomCardWidget(
@@ -258,10 +258,10 @@ class _AllTripScreenState extends State<AllTripScreen> {
                                   width: 120,
                                   fontSize: 14,
                                   onTap: () {
-                                //    Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
+                                   Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
                                   },
                                 ),
-                                outlineButton(
+                                /*outlineButton(
                                   buttonName: 'Pending',
                                   textColor: white,
                                   backgroundColor: primaryColor,
@@ -271,7 +271,7 @@ class _AllTripScreenState extends State<AllTripScreen> {
                                   width: 80,
                                   fontSize: 14,
                                   onTap: () {},
-                                ),
+                                ),*/
                               ],
                             ),
                           ],
