@@ -8,6 +8,7 @@ class ConfirmedTripController extends GetxController{
   var isLoading = false.obs;
   var confirmTrip = ConfirmedTripsModel(data: []).obs;
   var confirmTripList = <ConfirmedTrips>[].obs;
+  var startTripList = <ConfirmedTrips>[].obs;
 
   @override
   void onInit() {
@@ -23,8 +24,10 @@ class ConfirmedTripController extends GetxController{
       );
       if (responseBody != null) {
         confirmTripList.clear();
+        startTripList.clear();
         confirmTrip.value = ConfirmedTripsModel.fromJson(responseBody);
         confirmTripList.addAll(confirmTrip.value.data);
+        startTripList.addAll(confirmTrip.value.data.where((element) => element.tripStarted == 1).toList());
         isLoading(false);
 
       } else {

@@ -58,16 +58,14 @@ class _MenuPageState extends State<MenuPage> {
             radius: 0,
             elevation: .5,
             onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Column(
               children: [
                 Stack(
                   alignment: Alignment.center,
                   clipBehavior: Clip.none,
                   children: [
                     CircleAvatar(
-                      radius: 30,
+                      radius: 60,
                       backgroundImage: NetworkImage(
                         Api.getImageURL(profileController.profileModel.value.data?.image),
                       ),
@@ -102,28 +100,35 @@ class _MenuPageState extends State<MenuPage> {
                   ],
                 ),
                 sizeW10,
-                Column(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    KText(
-                      text: profileController.profileModel.value.data?.name,
-                      color: black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 22,
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        KText(
+                          text: profileController.profileModel.value.data?.name,
+                          color: black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22,
+                        ),
+                        KText(
+                          text: profileController.profileModel.value.data?.phone,
+                          color: black54,
+                          fontSize: 16,
+                        ),
+                      ],
                     ),
-                    KText(
-                      text: profileController.profileModel.value.data?.phone,
-                      color: black54,
-                      fontSize: 16,
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 20,
+                      color: black.withOpacity(.5),
                     ),
                   ],
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 20,
-                  color: black.withOpacity(.5),
                 ),
               ],
             ),

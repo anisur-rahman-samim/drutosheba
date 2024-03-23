@@ -16,7 +16,7 @@ class GariDetailsPage extends StatelessWidget {
    GariDetailsPage({Key? key, required this.vehicles}) : super(key: key);
   
   final MetroController metroController = Get.put(MetroController());
-  
+
   @override
   Widget build(BuildContext context) {
     String dateTimeString = vehicles.createdAt.toString();
@@ -32,7 +32,7 @@ class GariDetailsPage extends StatelessWidget {
         ),
       ),
       backgroundColor: grey.shade100,
-      body: ListView(
+      body: Obx(() => ListView(
         children: [
           sizeH10,
           CustomCardWidget(
@@ -43,13 +43,16 @@ class GariDetailsPage extends StatelessWidget {
               padding: paddingH10,
               child: Column(
                 children: [
+                  Image.network(
+                    Api.getImageURL(vehicles.vehicleFrontPic),
+                    height: 200,
+                    width: Get.width,
+                    fit: BoxFit.fill,
+                  ),
+                  sizeH10,
                   Row(
                     children: [
-                      Image.asset(
-                        'assets/img/car1.png',
-                        height: 50,
-                        width: 40,
-                      ),
+
                       sizeW10,
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -170,7 +173,8 @@ class GariDetailsPage extends StatelessWidget {
                   ),
                   rawText(
                     title: 'রেজিস্ট্রেশন নম্বর',
-                    content: '${vehicles.metro}-${vehicles.metroType}-${vehicles.metroNo}',
+                    content: '${vehicles.metro}-${metroController.metroSubList.isNotEmpty ? metroController.metroSubList.firstWhere((metroSub) => metroSub.id == int.parse(vehicles.metroType.toString()),).metroSubName ?? '' : ''}-${vehicles.metroNo}',
+
                   ),
                   rawText(
                     title: 'আসন',
@@ -189,7 +193,7 @@ class GariDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          sizeH10,
+          /*sizeH10,
           CustomCardWidget(
             onTap: null,
             radius: 0,
@@ -206,7 +210,7 @@ class GariDetailsPage extends StatelessWidget {
                Image.network(Api.getImageURL(vehicles.vehicleFrontPic),height: 70,width: 70,fit: BoxFit.fill,),
               ],
             ),
-          ),
+          ),*/
           sizeH10,
           CustomCardWidget(
             onTap: null,
@@ -234,7 +238,7 @@ class GariDetailsPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),)
     );
   }
 

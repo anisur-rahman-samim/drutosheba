@@ -28,6 +28,7 @@ class Api{
   static const tripDetails = "$baseUrl/partner/trip-details";
   static const tripConfirmList = "$baseUrl/partner/trip-confirm-list"; // done
   static const tripCompletedList = "$baseUrl/partner/trip-completed-list"; // done
+  static const allTripList = "$baseUrl/partner/all-trips-list"; // done
 
   ///Driver
   static const driverManage = "$baseUrl/partner/driver-manage";//done

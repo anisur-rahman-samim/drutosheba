@@ -1,9 +1,11 @@
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/controller/dashboard_controller.dart';
+import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../configs/appColors.dart';
 import '../../widgets/date_picker/date_picker_now.dart';
@@ -17,6 +19,9 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final DashBoardController dashBoardController = Get.put(DashBoardController());
+  var monthF = "03";
+  var yearF = "2024";
+
 
   @override
   void initState() {
@@ -47,12 +52,21 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               child: InkWell(
                 onTap: () {
-                  Get.dialog(Dialog(
-                    child: Container(
-                        width: Get.width,
-                        height: Get.height / 6,
-                        child: MonthYearPicker()),
-                  ));
+                  showMonthPicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                  ).then((date) {
+                    if (date != null) {
+                      setState(() {
+                        DateTime dateTime = date;
+                        int month = dateTime.month;
+                        int year = dateTime.year;
+                        monthF = month.toString();
+                        yearF = year.toString();
+                        dashBoardController.dashboardDetails(month: month.toString(), year: year.toString());
+                      });
+                    }
+                  });
                 },
                 borderRadius: BorderRadius.circular(20),
                 child: Padding(
@@ -98,7 +112,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     sizeW10,
                     KText(
-                      text: '${DateTime.now().month} ${DateTime.now().year}',
+                      text: '$monthF $yearF',
                       fontSize: 12,
                       color: black54,
                     ),
@@ -110,7 +124,8 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
 
-      body: Obx(() => dashBoardController.isLoading.value == true? CustomLoader(color: black, size: 30) : ListView(
+      body: Obx(() => dashBoardController.isLoading.value == true? CustomLoader(color: black, size: 30) :
+      /*ListView(
         physics: NeverScrollableScrollPhysics(),
         children: [
           sizeH20,
@@ -163,7 +178,137 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
         ],
-      ),)
+      ),*/
+      Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: GridView(
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10.0,
+            mainAxisSpacing: 10.0,
+            mainAxisExtent: 80
+          ),
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("মোট বিড",style: h1.copyWith(color: black,fontSize: 18),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.car_rental_sharp),
+                      Text(dashBoardController.dashboardData.value.totalBids.toString())
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("মোট অপেক্ষমান বিড",style: h1.copyWith(color: black,fontSize: 18),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.balance),
+                      Text(dashBoardController.dashboardData.value.totalWaitingBid.toString())
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("মোট সম্পন্ন ট্রিপ",style: h1.copyWith(color: black,fontSize: 18),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.where_to_vote),
+                      Text(dashBoardController.dashboardData.value.totalCompleteTrip.toString())
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("মোট আয়",style: h1.copyWith(color: black,fontSize: 18),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.credit_card),
+                      Text('${dashBoardController.dashboardData.value.earning.toString()} BDT')
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("মোট গাড়ি",style: h1.copyWith(color: black,fontSize: 18),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Ionicons.car),
+                      Text(dashBoardController.dashboardData.value.totalCar.toString())
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("মোট ড্রাইভার",style: h1.copyWith(color: black,fontSize: 18),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Ionicons.person),
+                      Text(dashBoardController.dashboardData.value.totalDriver.toString())
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      ),
     );
   }
 

@@ -22,7 +22,7 @@ class _BuyCreditState extends State<BuyCredit> {
   final CreditController creditDataController = Get.put(CreditController());
   @override
   void initState() {
-    creditDataController.getCredit();
+  //  creditDataController.getCredit();
     creditDataController.getCreditHistory();
     super.initState();
   }

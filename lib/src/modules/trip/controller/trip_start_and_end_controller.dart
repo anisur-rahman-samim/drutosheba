@@ -40,7 +40,7 @@ class TripStartEndController extends GetxController{
 
 
         }else{
-          kSnackBar(message: responseBody['message'], bgColor: Colors.red);
+          kSnackBar(message: "Trip Start Unsuccessfully", bgColor: Colors.red);
         }
 
         isLoading(false);

@@ -1,31 +1,29 @@
-
 import 'package:druto_seba_driver/src/components/trip/trip_time_count.dart';
+import 'package:druto_seba_driver/src/configs/appColors.dart';
+import 'package:druto_seba_driver/src/configs/appUtils.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/all_trips_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
-import 'package:druto_seba_driver/src/modules/trip/controller/trip_request_countdown.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/map_page_view.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
-import 'package:druto_seba_driver/src/services/text_styles.dart';
+import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
+import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
+import 'package:druto_seba_driver/src/widgets/dottedDivider/dotDivider.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
+import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+class AllTripScreen extends StatefulWidget {
+   AllTripScreen({super.key});
 
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../widgets/button/outlineButton.dart';
-import '../../widgets/card/customCardWidget.dart';
-import '../../widgets/dottedDivider/dotDivider.dart';
-import '../../widgets/text/kText.dart';
-
-class OpekhomanBidComponent extends StatefulWidget {
   @override
-  State<OpekhomanBidComponent> createState() => _OpekhomanBidComponentState();
+  State<AllTripScreen> createState() => _AllTripScreenState();
 }
 
-class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
-  final WaitingTripController waitingTripController = Get.put(WaitingTripController());
+class _AllTripScreenState extends State<AllTripScreen> {
+  final AllTripController allTripController = Get.put(AllTripController());
 
   final DistanceTimeController distanceTimeController = Get.put(DistanceTimeController());
 
@@ -35,7 +33,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
   @override
   void initState() {
     countdownsController.onInit();
-    waitingTripController.waitingTripRequest();
+    allTripController.getAllTrip();
     super.initState();
   }
 
@@ -45,31 +43,31 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
     return Scaffold(
       body: Padding(
           padding: paddingH10,
-          child: Obx(() => waitingTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : waitingTripController.waitingTripList.isEmpty? NoDataView() : RefreshIndicator(
+          child: Obx(() => allTripController.isLoading.value == true? CustomLoader(color: black, size: 30) : allTripController.allTripList.isEmpty? NoDataView() : RefreshIndicator(
             onRefresh: ()async{
-              await waitingTripController.waitingTripRequest();
+              await allTripController.getAllTrip();
             },
             child: ListView.builder(
                 shrinkWrap: true,
                 primary: false,
-               // physics: BouncingScrollPhysics(),
-                itemCount: waitingTripController.waitingTripList.length,
+                // physics: BouncingScrollPhysics(),
+                itemCount: allTripController.allTripList.length,
                 itemBuilder: ((context, index) {
-                  String pickUpCoordinates = waitingTripController.waitingTripList[index].getTripDetails!.map.toString();
+                 /* String pickUpCoordinates = allTripController.allTripList[index].map.toString();
                   List<String> pickUpParts = pickUpCoordinates.split(' ');
 
                   double upLat = double.parse(pickUpParts[0]);
                   double upLng = double.parse(pickUpParts[1]);
 
-                  String downCoordinates = waitingTripController.waitingTripList[index].getTripDetails!.dropoffMap.toString();
+                  String downCoordinates = allTripController.allTripList[index].dropoffMap.toString();
                   List<String> downUpParts = downCoordinates.split(' ');
 
                   double downLat = double.parse(downUpParts[0]);
                   double downLng = double.parse(downUpParts[1]);
-                  print("${ waitingTripController.waitingTripList[index].getTripDetails!.map.toString()} ${ waitingTripController.waitingTripList[index].getTripDetails!.dropoffMap.toString()}");
+                  print("${ allTripController.allTripList[index].map.toString()} ${ allTripController.allTripList[index].dropoffMap.toString()}");
 
-                  distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);
-               //   var itemT = countdownsController.countdownItems[index];
+                  distanceTimeController.calculateDistanceAndDuration(upLat, upLng, downLat, downLng);*/
+                  //   var itemT = countdownsController.countdownItems[index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: 10),
                     child: CustomCardWidget(
@@ -86,7 +84,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                   color: black54,
                                 ),
                                 KText(
-                                  text: waitingTripController.waitingTripList[index].getTripDetails?.trackingId.toString(),
+                                  text: allTripController.allTripList[index].trackingId.toString(),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                 ),
@@ -104,7 +102,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                           vertical: 5,
                                         ),
                                         child: KText(
-                                          text: waitingTripController.waitingTripList[index].getBrand?.name,
+                                          text: allTripController.allTripList[index].vehicle?.name,
                                           fontSize: 14,
                                           color: white,
                                         ),
@@ -112,7 +110,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                     ),
                                     SizedBox(height: 3),
                                     KText(
-                                      text: '${waitingTripController.waitingTripList[index].getBrand?.capacity} Seats',
+                                      text: '${allTripController.allTripList[index].vehicle?.capacity} Seats',
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -132,7 +130,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                   SizedBox(
                                     width: 60,
                                     child: Image.network(
-                                      Api.getImageURL(waitingTripController.waitingTripList[index].getBrand?.image),
+                                      Api.getImageURL(allTripController.allTripList[index].vehicle?.image),
                                       height: 60,
                                       width: 60,
                                     ),
@@ -176,7 +174,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                           Container(
                                             width: Get.width / 3.5,
                                             child: KText(
-                                              text: waitingTripController.waitingTripList[index].getTripDetails?.pickupLocation,
+                                              text: allTripController.allTripList[index].pickupLocation,
                                               fontSize: 14,
                                               maxLines: 2,
                                               color: black54,
@@ -200,7 +198,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                             // color: primaryColor,
                                             child: KText(
                                               text:
-                                              waitingTripController.waitingTripList[index].getTripDetails?.dropoffLocation,
+                                              allTripController.allTripList[index].dropoffLocation,
                                               fontSize: 14,
                                               maxLines: 2,
                                               color: black54,
@@ -220,12 +218,12 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                             sizeH10,
                             rawText(
                                 title: 'যাত্রার সময়',
-                                content: waitingTripController.waitingTripList[index].getTripDetails?.datetime
+                                content: allTripController.allTripList[index].datetime
                             ),
                             sizeH5,
-                            waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 0?  SizedBox() : rawText(
+                            allTripController.allTripList[index].roundTrip == 0?  SizedBox() : rawText(
                               title: 'ফিরতি তারিখ',
-                              content: waitingTripController.waitingTripList[index].getTripDetails?.roundDatetime,
+                              content: allTripController.allTripList[index].roundDatetime,
                             ),
                             sizeH5,
                             Row(
@@ -233,14 +231,14 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                               children: [
                                 rawText(
                                   title: 'রাউন্ড ট্রিপ',
-                                  content: waitingTripController.waitingTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
+                                  content: allTripController.allTripList[index].roundTrip == 1? 'হ্যাঁ': "না",
                                 ),
                                 sizeH5,
-                                sizeH5,
+                               /* sizeH5,
                                 rawText(
                                   title: 'এয়ার কন্ডিশন',
                                   content: waitingTripController.waitingTripList[index].getvehicle?.aircondition == "yes"?'হ্যাঁ': "না",
-                                ),
+                                ),*/
                               ],
                             ),
                             sizeH5,
@@ -248,9 +246,9 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
 
-                             //   Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[4]}m',style: h2.copyWith(color: black),),)),
-                             //   sizeW10,
-                              //  Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[6]}s',style: h2.copyWith(color: black),),)),
+                                //   Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[4]}m',style: h2.copyWith(color: black),),)),
+                                //   sizeW10,
+                                //  Center(child: Obx(() => Text('${itemT.formatCountdown(itemT.countdown.value).split(' ')[6]}s',style: h2.copyWith(color: black),),)),
                                 outlineButton(
                                   buttonName: 'ম্যাপ দেখুন',
                                   textColor: black,
@@ -260,7 +258,7 @@ class _OpekhomanBidComponentState extends State<OpekhomanBidComponent> {
                                   width: 120,
                                   fontSize: 14,
                                   onTap: () {
-                                    Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
+                                //    Get.to(() => MapWithDirections(pickUpLat: upLat, pickUpLng: upLng, dropUpLat: downLat, dropUpLng: downLng,),transition: Transition.circularReveal);
                                   },
                                 ),
                                 outlineButton(

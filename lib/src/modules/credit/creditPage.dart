@@ -58,7 +58,7 @@ class _CreditPageState extends State<CreditPage> {
                   radius: 10,
                   width: Get.width,
                   height: Get.height / 6,
-                  color: Colors.indigo,
+                  color: Colors.black,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,

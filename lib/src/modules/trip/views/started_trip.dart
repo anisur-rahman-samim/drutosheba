@@ -1,35 +1,35 @@
 
 import 'package:druto_seba_driver/src/components/trip/trip_vivoroni_details.dart';
+import 'package:druto_seba_driver/src/configs/appColors.dart';
+import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
 import 'package:druto_seba_driver/src/modules/driver/controller/driver_controller.dart';
+import 'package:druto_seba_driver/src/modules/trip/controller/confirmed_trip_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/distance_time_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
+import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
+import 'package:druto_seba_driver/src/widgets/card/customCardWidget.dart';
+import 'package:druto_seba_driver/src/widgets/dottedDivider/dotDivider.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
+import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../configs/appColors.dart';
-import '../../configs/appUtils.dart';
-import '../../modules/trip/controller/confirm_trip_controller.dart';
-import '../../modules/trip/controller/confirmed_trip_controller.dart';
-import '../../widgets/button/outlineButton.dart';
-import '../../widgets/card/customCardWidget.dart';
-import '../../widgets/dottedDivider/dotDivider.dart';
-import '../../widgets/text/kText.dart';
 
-class TripVivoroniComponent extends StatefulWidget {
+
+class StartedTripView extends StatefulWidget {
   @override
-  State<TripVivoroniComponent> createState() => _TripVivoroniComponentState();
+  State<StartedTripView> createState() => _StartedTripViewState();
 }
 
-class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
+class _StartedTripViewState extends State<StartedTripView> {
   final ConfirmedTripController confirmTripController = Get.put(ConfirmedTripController());
 
   final VehiclesController vehiclesController = Get.put(VehiclesController());
@@ -54,23 +54,23 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
         padding: EdgeInsets.only(bottom: 60),
         child: Padding(
             padding: paddingH10,
-            child: Obx(() => confirmTripController.isLoading.value == true? CustomLoader(color: black, size: 30): confirmTripController.confirmTripList.isEmpty? Center(child: NoDataView()) : RefreshIndicator(
+            child: Obx(() => confirmTripController.isLoading.value == true? CustomLoader(color: black, size: 30): confirmTripController.startTripList.isEmpty? Center(child: NoDataView()) : RefreshIndicator(
               onRefresh: ()async{
                 await   confirmTripController.getConfirmedTrip();
-                 vehiclesController.getVehicles();
+                vehiclesController.getVehicles();
               },
               child: ListView.builder(
                   shrinkWrap: true,
                   primary: false,
-                  itemCount: confirmTripController.confirmTripList.length,
+                  itemCount: confirmTripController.startTripList.length,
                   itemBuilder: ((context, index) {
-                    String pickUpCoordinates =  confirmTripController.confirmTripList[index].getTripDetails!.map.toString();
+                    String pickUpCoordinates =  confirmTripController.startTripList[index].getTripDetails!.map.toString();
                     List<String> pickUpParts = pickUpCoordinates.split(' ');
 
                     double upLat = double.parse(pickUpParts[0]);
                     double upLng = double.parse(pickUpParts[1]);
 
-                    String downCoordinates =  confirmTripController.confirmTripList[index].getTripDetails!.dropoffMap.toString();
+                    String downCoordinates =  confirmTripController.startTripList[index].getTripDetails!.dropoffMap.toString();
                     List<String> downUpParts = downCoordinates.split(' ');
 
                     double downLat = double.parse(downUpParts[0]);
@@ -81,7 +81,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                       padding: EdgeInsets.only(bottom: 10),
                       child: InkWell(
                         onTap: (){
-                          Get.to(() => TripVivoroniDetails(confirmedTrips: confirmTripController.confirmTripList[index]));
+                          Get.to(() => TripVivoroniDetails(confirmedTrips: confirmTripController.startTripList[index]));
                         },
                         child: CustomCardWidget(
                           color: white,
@@ -90,7 +90,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                             padding: paddingH20V10,
                             child: Column(
                               children: [
-                              /*  confirmTripController.confirmTripList[index].tripStarted == 1 && confirmTripController.confirmTripList[index].status == 0?
+                                confirmTripController.startTripList[index].tripStarted == 1 && confirmTripController.startTripList[index].status == 0?
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Row(
@@ -103,7 +103,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                       Text("Running Trip",style: h2.copyWith(fontSize: 14),)
                                     ],
                                   ),
-                                ):SizedBox.shrink(),*/
+                                ):SizedBox.shrink(),
                                 Row(
                                   children: [
                                     KText(
@@ -112,7 +112,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                       fontSize: 12,
                                     ),
                                     KText(
-                                      text: '${confirmTripController.confirmTripList[index].trackingId}',
+                                      text: '${confirmTripController.startTripList[index].trackingId}',
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,
                                     ),
@@ -128,7 +128,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                           vertical: 5,
                                         ),
                                         child: KText(
-                                          text: confirmTripController.confirmTripList[index].getVehicleBrand?.name,
+                                          text: confirmTripController.startTripList[index].getVehicleBrand?.name,
                                           fontSize: 14,
                                           color: white,
                                         ),
@@ -159,7 +159,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                               child: Image.network(
                                                 Api.getImageURL(
                                                     confirmTripController
-                                                        .confirmTripList[index]
+                                                        .startTripList[index]
                                                         .getCar
                                                         ?.vehicleDrivingFront),
                                                 width: 30,
@@ -171,7 +171,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                           sizeW5,
                                           KText(
                                             text:
-                                            '${confirmTripController.confirmTripList[index].getCar?.brandName}',
+                                            '${confirmTripController.startTripList[index].getCar?.brandName}',
                                             fontSize: 13,
                                             color: black,
                                             textAlign: TextAlign.center,
@@ -220,7 +220,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                               Container(
                                                 width: Get.width / 2.2,
                                                 child: KText(
-                                                  text: confirmTripController.confirmTripList[index].getTripDetails?.pickupLocation,
+                                                  text: confirmTripController.startTripList[index].getTripDetails?.pickupLocation,
                                                   fontSize: 14,
                                                   maxLines: 2,
                                                   color: black54,
@@ -245,7 +245,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                                 // color: primaryColor,
                                                 child: KText(
                                                   text:
-                                                  confirmTripController.confirmTripList[index].getTripDetails?.dropoffLocation,
+                                                  confirmTripController.startTripList[index].getTripDetails?.dropoffLocation,
                                                   fontSize: 14,
                                                   maxLines: 2,
                                                   color: black54,
@@ -265,17 +265,17 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                 sizeH10,
                                 rawText(
                                   title: 'যাত্রার সময়',
-                                  content: confirmTripController.confirmTripList[index].getTripDetails?.datetime,
+                                  content: confirmTripController.startTripList[index].getTripDetails?.datetime,
                                 ),
                                 sizeH5,
-                                confirmTripController.confirmTripList[index].getTripDetails?.roundTrip == 1?  rawText(
+                                confirmTripController.startTripList[index].getTripDetails?.roundTrip == 1?  rawText(
                                   title: 'ফিরতি তারিখ',
-                                  content: confirmTripController.confirmTripList[index].getTripDetails?.roundDatetime,
+                                  content: confirmTripController.startTripList[index].getTripDetails?.roundDatetime,
                                 ): SizedBox.shrink(),
                                 sizeH5,
                                 rawText(
                                   title: 'রাউন্ড ট্রিপ',
-                                  content: confirmTripController.confirmTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
+                                  content: confirmTripController.startTripList[index].getTripDetails?.roundTrip == 1? 'হ্যাঁ': "না",
                                 ),
                                 /*sizeH5,
                                 rawText(
@@ -285,20 +285,20 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                 sizeH5,
                                 rawText(
                                   title: 'এয়ার কন্ডিশন',
-                                  content: vehiclesController.vehiclesList[int.parse(confirmTripController.confirmTripList[index].vehicleId.toString())].aircondition == "yes"? 'হ্যাঁ': "না",
+                                  content: vehiclesController.vehiclesList[int.parse(confirmTripController.startTripList[index].vehicleId.toString())].aircondition == "yes"? 'হ্যাঁ': "না",
                                 ),
                                 sizeH5,
                                 Row(
                                   children: [
                                     KText(
-                                      text: '${vehiclesController.vehiclesList[int.parse(confirmTripController.confirmTripList[index].vehicleId.toString())].metro}-'
-                                          '${vehiclesController.vehiclesList[int.parse(confirmTripController.confirmTripList[index].vehicleId.toString())].metroType}-'
-                                          '${vehiclesController.vehiclesList[int.parse(confirmTripController.confirmTripList[index].vehicleId.toString())].metroNo}',
+                                      text: '${vehiclesController.vehiclesList[int.parse(confirmTripController.startTripList[index].vehicleId.toString())].metro}-'
+                                          '${vehiclesController.vehiclesList[int.parse(confirmTripController.startTripList[index].vehicleId.toString())].metroType}-'
+                                          '${vehiclesController.vehiclesList[int.parse(confirmTripController.startTripList[index].vehicleId.toString())].metroNo}',
                                       fontSize: 14,
                                     ),
                                     Spacer(),
                                     KText(
-                                      text: 'রেন্টাল ভাড়া ৳ ${confirmTripController.confirmTripList[index].amount}',
+                                      text: 'রেন্টাল ভাড়া ৳ ${confirmTripController.startTripList[index].amount}',
                                       fontSize: 14,
                                     ),
                                   ],
@@ -308,7 +308,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     outlineButton(
-                                      buttonName: 'CONFIRMED',
+                                      buttonName: confirmTripController.startTripList[index].status == 1? "COMPLETED" :"TRIP START",
                                       textColor: white,
                                       backgroundColor: HexColor('#842a8f'),
                                       outlineColor: HexColor('#842a8f'),
@@ -319,9 +319,9 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                       onTap: () {},
                                     ),
 
-                                    confirmTripController.confirmTripList[index].assignedDriverId != null ?   Text("Driver: ${confirmTripController.confirmTripList[index].getDriver!.name.toString()}",style: h4,):   Row(
+                                    confirmTripController.startTripList[index].assignedDriverId != null ?   Text("Driver: ${confirmTripController.startTripList[index].getDriver!.name.toString()}",style: h4,):   Row(
                                       children: [
-                                        Text(confirmTripController.confirmTripList[index].getDriver?.name != null? confirmTripController.confirmTripList[index].getDriver!.name.toString():"",style: h4,),
+                                        Text(confirmTripController.startTripList[index].getDriver?.name != null? confirmTripController.startTripList[index].getDriver!.name.toString():"",style: h4,),
                                         sizeW10,
                                         InkWell(
                                           onTap: (){
@@ -356,7 +356,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                                                     item.name.toString();
                                                                 selectedDriverId.value =
                                                                     item.id.toString();
-                                                                driverController.driverAssign(driverId: item.id.toString(), tripId: confirmTripController.confirmTripList[index].getTripDetails?.id.toString());
+                                                                driverController.driverAssign(driverId: item.id.toString(), tripId: confirmTripController.startTripList[index].getTripDetails?.id.toString());
                                                                 Navigator.pop(context);
                                                                 setState(() {
 

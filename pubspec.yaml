@@ -37,6 +37,8 @@ dependencies:
   get_storage: ^2.1.1
   cached_network_image: ^3.3.1
   lottie: ^3.0.0
+  month_picker_dialog: ^2.11.1
+  share_plus: ^7.2.2
 
   #network
   http: ^0.13.6
