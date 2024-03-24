@@ -1,4 +1,4 @@
-package com.rental.partner
+package com.quicktechit.rentalpartner
 
 import io.flutter.embedding.android.FlutterActivity
 

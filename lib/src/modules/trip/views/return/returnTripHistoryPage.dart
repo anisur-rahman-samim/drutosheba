@@ -171,14 +171,14 @@ class ReturnTripHistoryPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   KText(
-                                    text: 'Axio-2010',
+                                    text: item.getvehicle?.name,
                                     fontWeight: FontWeight.w600,
                                   ),
-                                  KText(
-                                    text: 'Dhaka-Metro-H-20-1605',
+                                 /* KText(
+                                    text: '${item.getpar}-H-20-1605',
                                     fontSize: 14,
                                     color: grey,
-                                  ),
+                                  ),*/
                                 ],
                               ),
                               Spacer(),

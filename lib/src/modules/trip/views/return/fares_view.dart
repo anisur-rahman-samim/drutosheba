@@ -116,7 +116,7 @@ final FareTripController fareTripController = Get.put(FareTripController());
                         sizeH5,*/
                         Row(
                           children: [
-                            CircleAvatar(
+                            /*CircleAvatar(
                               backgroundColor: primaryColor,
                               radius: 15,
                               child: Icon(
@@ -124,22 +124,9 @@ final FareTripController fareTripController = Get.put(FareTripController());
                                 color: white,
                                 size: 17,
                               ),
-                            ),
+                            ),*/
                             sizeW10,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                KText(
-                                  text: 'Axio-2010',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                KText(
-                                  text: 'Dhaka-Metro-H-20-1605',
-                                  fontSize: 14,
-                                  color: grey,
-                                ),
-                              ],
-                            ),
+
                             Spacer(),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,

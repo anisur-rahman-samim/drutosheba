@@ -32,8 +32,9 @@ class _AllTripsViewState extends State<AllTripsView> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       // title: Text('All Trips',style: h2.copyWith(color: white),),
-       // centerTitle: true,
+        title: Text('All Trips',style: h2.copyWith(color: white),),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
         bottom: TabBar(
           controller: _tabController,
           labelColor: white,

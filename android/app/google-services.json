@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "826145358020",
+    "project_id": "rantal-9d9a7",
+    "storage_bucket": "rantal-9d9a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826145358020:android:88672ffc5310d8b18a8991",
+        "android_client_info": {
+          "package_name": "com.quicktechit.rentalpartner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx_IYps3bJZmHdt_W5JnlojFxGAm9Gry4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

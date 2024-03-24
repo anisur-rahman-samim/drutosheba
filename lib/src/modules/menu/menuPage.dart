@@ -4,6 +4,7 @@ import 'package:druto_seba_driver/src/modules/drawerPage/view/trams_and_conditio
 import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/services/local_storage.dart';
+import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -139,28 +140,40 @@ class _MenuPageState extends State<MenuPage> {
             radius: 0,
             child: Column(
               children: [
-                _listTile(
+               /* _listTile(
                   onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
                   leadingIcon: Icons.credit_card,
                   title: 'ক্রেডিট',
+                ),*/
+                ListTile(
+                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/payment.png",scale: 25,),
+                  title: Text('ক্রেডিট',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
+                ListTile(
+                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/sport-car.png",scale: 16,),
+                  title: Text('গাড়ি',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                _listTile(
-                  onTap: () => Get.to(() => GariListPage(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.local_taxi,
-                  title: 'গাড়ি',
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
-                  onTap: () => Get.to(() => DriverPage(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.person,
-                  title: 'ড্রাইভার',
+                ListTile(
+                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/driver.png",scale: 16,),
+                  title: Text('ড্রাইভার',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
               ],
             ),

@@ -92,8 +92,7 @@ class DateAndTimeState extends State<DateAndTime> {
                         KText(
                           text: selectedDate == null
                               ? 'selectDate'
-                              : DateFormat('h:mm a').format(DateTime(
-                              2024, 1, 1, selectedDate.hour, selectedDate.minute)).toString(),
+                              : '${selectedDate.day}-${selectedDate.month}-${selectedDate.year}',
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
@@ -128,7 +127,8 @@ class DateAndTimeState extends State<DateAndTime> {
                         KText(
                           text: selectedTime == null
                               ? 'selectTime'
-                              : '${selectedTime.hour}:${selectedTime.minute}',
+                              : DateFormat('h:mm a').format(DateTime(
+                              2024, 1, 1, selectedTime.hour, selectedTime.minute)).toString(),
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),

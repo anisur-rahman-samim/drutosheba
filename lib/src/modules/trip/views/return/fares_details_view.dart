@@ -150,7 +150,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                 sizeH5,*/
                 Row(
                   children: [
-                    CircleAvatar(
+                   /* CircleAvatar(
                       backgroundColor: primaryColor,
                       radius: 15,
                       child: Icon(
@@ -173,7 +173,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                           color: grey,
                         ),
                       ],
-                    ),
+                    ),*/
                     Spacer(),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
