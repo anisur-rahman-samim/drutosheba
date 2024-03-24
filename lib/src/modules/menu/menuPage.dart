@@ -249,8 +249,8 @@ class _MenuPageState extends State<MenuPage> {
                     ListTile(
                       onTap: () {
                         Get.defaultDialog(
-                            title: "Logout",
-                            middleText: "You want to logout",
+                            title: "লগ আউট",
+                            middleText: "আপনি লগআউট করতে চান?",
                             onCancel: () => Get.back(),
                             onConfirm: ()async{
                               await LocalStorage.removeData(key: AppTexts.token);
@@ -267,6 +267,7 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                     ),
 
+                    sizeH40,
                     sizeH40,
                   ],
                 ),

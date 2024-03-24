@@ -1,20 +1,26 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/dummyData/rentalData.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/fual_controller.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/gari_image_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_brand_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_controller.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_save_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/views/addNewgari1Page.dart';
 import 'package:druto_seba_driver/src/modules/allGari/views/updateNewgari1Page.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/dropDownForm.dart';
 import 'package:druto_seba_driver/src/widgets/formField/requiredForm.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:druto_seba_driver/src/modules/allGari/model/vehicles_brand_model.dart';
 import '../../../widgets/bottomSheet/customBottomSheet.dart';
@@ -47,6 +53,21 @@ class _UpdateNewGariPageState extends State<UpdateNewGariPage> {
   final TextEditingController modelController = TextEditingController();
   final TextEditingController modelYearController = TextEditingController();
   final TextEditingController colorController = TextEditingController();
+  final VehiclesSaveController vehiclesSaveController = Get.put(VehiclesSaveController());
+
+  var carFrontImage;
+  var carBackImage;
+  var numberPlatImage;
+  var regPapersImage;
+  var rootPermitImage;
+  var fitnessPapersImage;
+  var texTokenImage;
+  var insuranceImage;
+  var drivingLicenceFront;
+  var drivingLicenceBack;
+
+  final GariImageController addGariController = Get.put(GariImageController());
+
 
   var selectedCar = RxString('');
   var selectedCarId = RxString('');
@@ -88,149 +109,8 @@ class _UpdateNewGariPageState extends State<UpdateNewGariPage> {
           text: 'গাড়ি আপডেট করুন',
           fontSize: 18,
         ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(100),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 10,
-                      color: grey.shade100,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          isCarInfo = true;
-                        });
-                      },
-                      borderRadius: BorderRadius.circular(5),
-                      child: Padding(
-                        padding: paddingH10V10,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Ionicons.car,
-                              color: isCarInfo != true ? black54 : primaryColor,
-                              size: 20,
-                            ),
-                            sizeW5,
-                            KText(
-                              text: 'গাড়ির বিস্তারিত',
-                              fontSize: 14,
-                              color: black54,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: isNextButton == false
-                          ? null
-                          : () {
-                              setState(() {
-                                if (isNextButton == true) {
-                                  isCarInfo = false;
-                                }
-                              });
-                            },
-                      borderRadius: BorderRadius.circular(5),
-                      child: Padding(
-                        padding: paddingH10V10,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Ionicons.camera,
-                              color: isCarInfo == true ? black54 : primaryColor,
-                              size: 20,
-                            ),
-                            sizeW5,
-                            KText(
-                              text: 'গাড়ির ছবি',
-                              fontSize: 14,
-                              color: black54,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 3,
-                      color: isCarInfo != true ? grey.shade100 : primaryColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 3,
-                      color: isCarInfo == true ? grey.shade100 : primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-              sizeH10,
-              Padding(
-                padding: paddingH20,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: HexColor('#fef4e1'),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Padding(
-                    padding: paddingH10V10,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.info,
-                          size: 18,
-                        ),
-                        sizeW10,
-                        KText(
-                          text: 'গ্রাহক এসকল তথ্য দেখতে পাবে',
-                          fontSize: 12,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
       ),
-      body: isNextButton == true && isCarInfo == false
-          ? UpdateNewGari1Page(
-        carName: selectedCarId.value,
-        fualName: fualName,
-        brandName: brandNameController.text,
-        metroName: selectedMetro.value,
-        subMetroName: selectedMetroSubId.value,
-        metroNumber: carNoController.text,
-        modelName: modelController.text,
-        modelYear: modelYearController.text,
-        colorName: colorController.text,
-        airCondition: airCondition,
-        vehicles: widget.vehicles,
-      )
-          : ListView(
+      body: ListView(
               children: [
                 sizeH10,
                 Padding(
@@ -715,7 +595,366 @@ class _UpdateNewGariPageState extends State<UpdateNewGariPage> {
                     ],
                   ),
                 ),
-                sizeH20,
+                Padding(
+                  padding: paddingH20,
+                  child: Column(
+                    children: [
+                      sizeH20,
+
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            carFrontImage = imagePath;
+                          });
+                        },
+                        titleText: 'গাড়ির সামনের ছবি',
+                        imageData: carFrontImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleFrontPic)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(carFrontImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      selectedCar.value == 'Truck' ? sizeW10 : sizeH20,
+                      selectedCar.value == 'Truck'
+                          ? sizeW10
+                          : _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            carBackImage = imagePath;
+                          });
+                        },
+                        titleText: 'গাড়ির ভিতরে ছবি',
+                        imageData: carBackImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleBackPic)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(carBackImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH20,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            numberPlatImage = imagePath;
+                          });
+                        },
+                        titleText: 'নম্বর প্লেট সহ গাড়ির পিছনের ছবি',
+                        imageData: numberPlatImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehiclePlateNo)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(numberPlatImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH20,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            regPapersImage = imagePath;
+                          });
+                        },
+                        titleText: 'রেজিস্ট্রেশন পেপার ছবি',
+                        imageData: regPapersImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleRegPic)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(regPapersImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH10,
+                      Divider(),
+                      sizeH10,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            rootPermitImage = imagePath;
+                          });
+                        },
+                        titleText: 'বাস, ট্রাক রুট পারমিটের কাগজ',
+                        rigthSideText: ' (অপশনাল)',
+                        textSize: 12,
+                        imageData: rootPermitImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleRootPic)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(rootPermitImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH20,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            fitnessPapersImage = imagePath;
+                          });
+                        },
+                        titleText: 'ফিটনেস পেপার ছবি',
+                        rigthSideText: ' (অপশনাল)',
+                        textSize: 12,
+                        imageData: fitnessPapersImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleFitnessPic)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(fitnessPapersImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH20,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            texTokenImage = imagePath;
+                          });
+                        },
+                        titleText: 'ট্যাক্স টোকেন পেপার ছবি',
+                        rigthSideText: ' (অপশনাল)',
+                        textSize: 12,
+                        imageData: texTokenImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleTaxPic)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(texTokenImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH20,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            insuranceImage = imagePath;
+                          });
+                        },
+                        titleText: 'ইন্সুরেন্স পেপার ছবি',
+                        rigthSideText: ' (অপশনাল)',
+                        textSize: 12,
+                        imageData: insuranceImage == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleInsurancePic)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(insuranceImage),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // sizeH10,
+                      // Divider(),
+                      sizeH20,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            drivingLicenceFront = imagePath;
+                          });
+                        },
+                        titleText: 'ড্রাইভিং লাইসেন্স সামনের ছবি',
+                        imageData: drivingLicenceFront == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleDrivingFront)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(drivingLicenceFront),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH20,
+                      _addImage(
+                        onTap: ()async{
+                          String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                          setState(() {
+                            drivingLicenceBack = imagePath;
+                          });
+                        },
+                        titleText: 'ড্রাইভিং লাইসেন্স পিছনের ছবি',
+                        imageData: drivingLicenceBack == null?  Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  Api.getImageURL(widget.vehicles!.vehicleDrivingBack)
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ):  Container(
+                          decoration: BoxDecoration(
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(drivingLicenceBack),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      sizeH40,
+                      vehiclesSaveController.isLoading.value == true? primaryButton(
+                          child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+                      ): primaryButton(
+                        height: 45,
+                        buttonName: 'গাড়ির তথ্য আপডেট করুন',
+                        fontSize: 14,
+                        onTap: () {
+                          vehiclesSaveController.vehiclesUpdate(
+                              brand: selectedCarId.value,
+                              metro: selectedMetro.value,
+                              metroType: selectedMetroSubId.value,
+                              metroNo: carNoController.text,
+                              model: modelController.text,
+                              modelYear: modelYearController.text,
+                              vehicleColor: colorController.text,
+                              aircondition: airCondition,
+                              fuel_type: fualName,
+                              brand_name: brandNameController.text,
+
+
+
+                              vehicle_front_pic: carFrontImage == null? null: carFrontImage,
+                              vehicle_back_pic: carBackImage == null? null: carBackImage,
+                              vehicle_reg_pic: regPapersImage == null? null: regPapersImage,
+                              vehicle_plate_no: numberPlatImage == null? null: numberPlatImage,
+                              vehicle_root_pic: rootPermitImage  == null? null: rootPermitImage,
+                              vehicle_fitness_pic: fitnessPapersImage   == null? null: fitnessPapersImage,
+                              vehicle_tax_pic: texTokenImage   == null? null: texTokenImage,
+                              vehicle_insurance_pic: insuranceImage  == null? null: insuranceImage,
+                              vehicle_driving_front: drivingLicenceFront  == null? null: drivingLicenceFront,
+                              vehicle_driving_back: drivingLicenceBack == null? null: drivingLicenceBack,
+                              carId: widget.vehicles!.id.toString()
+                          );
+                        },
+                      ),
+                      sizeH30,
+                    ],
+                  ),
+                ),
+              /*  sizeH20,
                 Padding(
                   padding: paddingH20,
                   child: primaryButton(
@@ -730,14 +969,44 @@ class _UpdateNewGariPageState extends State<UpdateNewGariPage> {
 
                     },
                   ),
-                ),
+                ),*/
                 sizeH30,
               ],
             ),
     );
   }
 
-  Widget roundedRectBorderWidget({void Function()? onTap}) {
+  Widget _addImage({
+    required String? titleText,
+    void Function()? onTap,
+    String? rigthSideText,
+    double? textSize,
+    required Widget imageData,
+  }) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            KText(
+              text: titleText,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+            KText(
+              text: rigthSideText ?? ' *',
+              fontSize: textSize ?? 16,
+              color: primaryColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ],
+        ),
+        sizeH10,
+        roundedRectBorderWidget(onTap: onTap, imageData: imageData ),
+      ],
+    );
+  }
+
+  Widget roundedRectBorderWidget({void Function()? onTap, required Widget imageData}) {
     return GestureDetector(
       onTap: onTap,
       child: DottedBorder(
@@ -751,13 +1020,9 @@ class _UpdateNewGariPageState extends State<UpdateNewGariPage> {
             Radius.circular(10),
           ),
           child: Container(
-            height: 100,
-            width: Get.width,
-            child: Icon(
-              Icons.add_a_photo_outlined,
-              size: 30,
-              color: grey.shade400,
-            ),
+              height: 100,
+              width: Get.width,
+              child: imageData
           ),
         ),
       ),

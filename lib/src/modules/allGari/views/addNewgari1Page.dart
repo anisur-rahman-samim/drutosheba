@@ -1,3 +1,4 @@
+/*
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -415,3 +416,4 @@ class _AddNewGari1PageState extends State<AddNewGari1Page> {
     );
   }
 }
+*/
