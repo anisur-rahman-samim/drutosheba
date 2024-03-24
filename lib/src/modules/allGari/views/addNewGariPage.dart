@@ -1,18 +1,24 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/dummyData/rentalData.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/fual_controller.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/gari_image_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_brand_controller.dart';
+import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_save_controller.dart';
 import 'package:druto_seba_driver/src/modules/allGari/views/addNewgari1Page.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/dropDownForm.dart';
 import 'package:druto_seba_driver/src/widgets/formField/requiredForm.dart';
+import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/text/kText.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:druto_seba_driver/src/modules/allGari/model/vehicles_brand_model.dart';
 import '../../../widgets/bottomSheet/customBottomSheet.dart';
@@ -35,6 +41,23 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
 
   String airCondition = 'এসি';
   String selectedNidOrLicense = 'এনআইডি';
+  final VehiclesSaveController vehiclesSaveController = Get.put(VehiclesSaveController());
+
+
+  var carFrontImage;
+  var carBackImage;
+  var numberPlatImage;
+  var regPapersImage;
+  var rootPermitImage;
+  var fitnessPapersImage;
+  var texTokenImage;
+  var insuranceImage;
+  var drivingLicenceFront;
+  var drivingLicenceBack;
+
+  final GariImageController addGariController = Get.put(GariImageController());
+
+  var selectedCar = RxString('');
 
   final TextEditingController carNoController = TextEditingController();
   final TextEditingController brandNameController = TextEditingController();
@@ -42,7 +65,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
   final TextEditingController modelYearController = TextEditingController();
   final TextEditingController colorController = TextEditingController();
 
-  var selectedCar = RxString('');
+  //var selectedCar = RxString('');
   var selectedCarId = RxString('');
   var selectedMetro = RxString('');
   var selectedMetroSubId = RxString('');
@@ -72,7 +95,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
           text: 'নতুন গাড়ি যুক্ত করুন',
           fontSize: 18,
         ),
-        bottom: PreferredSize(
+        /*bottom: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: Column(
             children: [
@@ -198,33 +221,188 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
               )
             ],
           ),
-        ),
+        ),*/
       ),
-      body: isNextButton == true && isCarInfo == false
-          ? AddNewGari1Page(
-        carName: selectedCarId.value,
-        fualName: fualName,
-        brandName: brandNameController.text,
-        metroName: selectedMetro.value,
-        subMetroName: selectedMetroSubId.value,
-        metroNumber: carNoController.text,
-        modelName: modelController.text,
-        modelYear: modelYearController.text,
-        colorName: colorController.text,
-        airCondition: airCondition,
-      )
-          : ListView(
+      body: Obx(() => ListView(
+        children: [
+          sizeH10,
+          Padding(
+            padding: paddingH20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sizeH10,
-                Padding(
-                  padding: paddingH20,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
 
-                      Obx(
-                        () => dropDownForm(
-                          onTap: () => customBottomSheet(
+                Obx(
+                      () => dropDownForm(
+                    onTap: () => customBottomSheet(
+                      context: context,
+                      height: Get.height / 1.4,
+                      child: ListView(
+                        shrinkWrap: true,
+                        primary: false,
+                        children: [
+                          Center(
+                            child: KText(
+                              text: 'গাড়ি নির্বাচন করুন',
+                              fontSize: 18,
+                            ),
+                          ),
+                          Divider(),
+                          sizeH10,
+                          Container(
+                            height: Get.height / 1.7,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                primary: false,
+                                itemCount: vehiclesBrandController.vehiclesBrandList.length,
+                                itemBuilder: (c, i) {
+                                  final item = vehiclesBrandController.vehiclesBrandList[i];
+                                  return InkWell(
+                                    borderRadius:
+                                    BorderRadius.circular(5),
+                                    onTap: () {
+                                      setState(() {
+                                        selectedCar.value =
+                                            item.name.toString();
+                                        selectedCarId.value =
+                                            item.id.toString();
+                                        selectedCarCapacity =
+                                            item.capacity.toString();
+                                        selectedCarImage =
+                                            item.image.toString();
+                                        Get.back();
+                                      });
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          /* Image.asset(
+                                                  Api.getImageURL(item.image.toString(),),
+                                                  width: 50,
+                                                  // width: Get.width / 6,
+                                                ),*/
+                                          sizeW20,
+                                          SizedBox(
+                                            width: Get.width / 1.5,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                KText(
+                                                  text: item.name,
+                                                  fontSize: 14,
+                                                  fontWeight:
+                                                  FontWeight.bold,
+                                                ),
+                                                SizedBox(width: 3),
+                                                KText(
+                                                  text: item.capacity,
+                                                  fontSize: 12,
+                                                  color: black45,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          CircleAvatar(
+                                            radius: 10,
+                                            backgroundColor:
+                                            selectedCar.value == item.name
+                                                ? primaryColor
+                                                : grey,
+                                            child: CircleAvatar(
+                                              backgroundColor:
+                                              selectedCar.value ==
+                                                  item.name
+                                                  ? primaryColor
+                                                  : white,
+                                              radius: 9,
+                                              child: selectedCar.value ==
+                                                  item.name
+                                                  ? Icon(
+                                                Icons.done,
+                                                size: 15,
+                                                color: white,
+                                              )
+                                                  : null,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ],
+                      ),
+                    ),
+                    title: '',
+                    hintText: selectedCar.value.isNotEmpty
+                        ? selectedCar.value
+                        : 'গাড়ির ধরণ',
+                    requiredText: '*',
+                  ),
+                ),
+                sizeH10,
+                Obx(
+                      () => SizedBox(
+                    height: 45,
+                    child: DropdownButtonFormField<FualList>(
+                      value: fualController.fualList.isNotEmpty
+                          ? fualController.fualList[0]
+                          : null,
+                      items: fualController.fualList.map((fuallist) {
+                        return DropdownMenuItem<FualList>(
+                          value: fuallist,
+                          child: Text(
+                            fuallist.name!,
+                            style: TextStyle(
+                              color: black54,
+                              fontSize: 14,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (FualList? newValue) {
+                        setState(() {
+                          fualName = newValue!.name!;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 14),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: grey.shade200)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: grey.shade200)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: grey.shade200)),
+                      ),
+                    ),
+                  ),
+                ),
+                requiredForm(
+                  controller: brandNameController,
+                  title: 'ব্র্যান্ড এর নাম',
+                  hintText: 'ব্র্যান্ড এর নাম',
+                  requiredText: '*',
+                ),
+                sizeH10,
+                Row(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: dropDownForm(
+                        onTap: () {
+                          customBottomSheet(
                             context: context,
                             height: Get.height / 1.4,
                             child: ListView(
@@ -233,7 +411,7 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                               children: [
                                 Center(
                                   child: KText(
-                                    text: 'গাড়ি নির্বাচন করুন',
+                                    text: 'মেট্রো নির্বাচন করুন',
                                     fontSize: 18,
                                   ),
                                 ),
@@ -244,22 +422,16 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       primary: false,
-                                      itemCount: vehiclesBrandController.vehiclesBrandList.length,
+                                      itemCount: metroController.metroList.length,
                                       itemBuilder: (c, i) {
-                                        final item = vehiclesBrandController.vehiclesBrandList[i];
+                                        final item = metroController.metroList[i];
                                         return InkWell(
                                           borderRadius:
-                                              BorderRadius.circular(5),
+                                          BorderRadius.circular(5),
                                           onTap: () {
                                             setState(() {
-                                              selectedCar.value =
-                                                  item.name.toString();
-                                              selectedCarId.value =
-                                                  item.id.toString();
-                                              selectedCarCapacity =
-                                                  item.capacity.toString();
-                                              selectedCarImage =
-                                                  item.image.toString();
+                                              selectedMetro.value =
+                                                  item.metroName.toString();
                                               Get.back();
                                             });
                                           },
@@ -267,61 +439,37 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                             padding: EdgeInsets.all(10),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                               children: [
-                                               /* Image.asset(
-                                                  Api.getImageURL(item.image.toString(),),
-                                                  width: 50,
-                                                  // width: Get.width / 6,
-                                                ),*/
-                                                sizeW20,
-                                                SizedBox(
-                                                  width: Get.width / 1.5,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      KText(
-                                                        text: item.name,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                      SizedBox(width: 3),
-                                                      KText(
-                                                        text: item.capacity,
-                                                        fontSize: 12,
-                                                        color: black45,
-                                                      ),
-                                                    ],
-                                                  ),
+                                                KText(
+                                                  text: item.metroName,
+                                                  fontSize: 14,
+                                                  fontWeight:
+                                                  FontWeight.bold,
                                                 ),
                                                 Spacer(),
                                                 CircleAvatar(
                                                   radius: 10,
                                                   backgroundColor:
-                                                      selectedCar.value == item.name
-                                                          ? primaryColor
-                                                          : grey,
+                                                  selectedMetro.value == item.metroName
+                                                      ? primaryColor
+                                                      : grey,
                                                   child: CircleAvatar(
                                                     backgroundColor:
-                                                        selectedCar.value ==
-                                                                item.name
-                                                            ? primaryColor
-                                                            : white,
+                                                    selectedMetro.value ==
+                                                        item.metroName
+                                                        ? primaryColor
+                                                        : white,
                                                     radius: 9,
-                                                    child: selectedCar.value ==
-                                                            item.name
+                                                    child: selectedMetro.value ==
+                                                        item.metroName
                                                         ? Icon(
-                                                            Icons.done,
-                                                            size: 15,
-                                                            color: white,
-                                                          )
+                                                      Icons.done,
+                                                      size: 15,
+                                                      color: white,
+                                                    )
                                                         : null,
                                                   ),
                                                 ),
@@ -333,375 +481,543 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
                                 ),
                               ],
                             ),
-                          ),
-                          title: '',
-                          hintText: selectedCar.value.isNotEmpty
-                              ? selectedCar.value
-                              : 'গাড়ির ধরণ',
-                          requiredText: '*',
-                        ),
+                          );
+                        },
+                        title: '',
+                        hintText: selectedMetro.value.isNotEmpty
+                            ? selectedMetro.value
+                            : 'ঢাকা মেট্রো',
+                        requiredText: '',
                       ),
-                      sizeH10,
-                      Obx(
-                            () => SizedBox(
-                          height: 45,
-                          child: DropdownButtonFormField<FualList>(
-                            value: fualController.fualList.isNotEmpty
-                                ? fualController.fualList[0]
-                                : null,
-                            items: fualController.fualList.map((fuallist) {
-                              return DropdownMenuItem<FualList>(
-                                value: fuallist,
-                                child: Text(
-                                  fuallist.name!,
-                                  style: TextStyle(
-                                    color: black54,
-                                    fontSize: 14,
-                                  ),
+                    ),
+                    sizeW5,
+                    dropDownForm(
+                      width: 65,
+                      onTap: () {
+                        customBottomSheet(
+                          context: context,
+                          height: Get.height / 1.4,
+                          child: ListView(
+                            shrinkWrap: true,
+                            primary: false,
+                            children: [
+                              Center(
+                                child: KText(
+                                  text: 'মেট্রো নির্বাচন করুন',
+                                  fontSize: 18,
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (FualList? newValue) {
-                              setState(() {
-                                fualName = newValue!.name!;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 14),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1, color: grey.shade200)),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1, color: grey.shade200)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1, color: grey.shade200)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      requiredForm(
-                        controller: brandNameController,
-                        title: 'ব্র্যান্ড এর নাম',
-                        hintText: 'ব্র্যান্ড এর নাম',
-                        requiredText: '*',
-                      ),
-                      sizeH10,
-                      Row(
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: dropDownForm(
-                              onTap: () {
-                                customBottomSheet(
-                                  context: context,
-                                  height: Get.height / 1.4,
-                                  child: ListView(
+                              ),
+                              Divider(),
+                              sizeH10,
+                              Container(
+                                height: Get.height / 1.7,
+                                child: ListView.builder(
                                     shrinkWrap: true,
                                     primary: false,
-                                    children: [
-                                      Center(
-                                        child: KText(
-                                          text: 'মেট্রো নির্বাচন করুন',
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      Divider(),
-                                      sizeH10,
-                                      Container(
-                                        height: Get.height / 1.7,
-                                        child: ListView.builder(
-                                            shrinkWrap: true,
-                                            primary: false,
-                                            itemCount: metroController.metroList.length,
-                                            itemBuilder: (c, i) {
-                                              final item = metroController.metroList[i];
-                                              return InkWell(
-                                                borderRadius:
-                                                BorderRadius.circular(5),
-                                                onTap: () {
-                                                  setState(() {
-                                                    selectedMetro.value =
-                                                        item.metroName.toString();
-                                                    Get.back();
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(10),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: [
-                                                      KText(
-                                                        text: item.metroName,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                      ),
-                                                      Spacer(),
-                                                      CircleAvatar(
-                                                        radius: 10,
-                                                        backgroundColor:
-                                                        selectedMetro.value == item.metroName
-                                                            ? primaryColor
-                                                            : grey,
-                                                        child: CircleAvatar(
-                                                          backgroundColor:
-                                                          selectedMetro.value ==
-                                                              item.metroName
-                                                              ? primaryColor
-                                                              : white,
-                                                          radius: 9,
-                                                          child: selectedMetro.value ==
-                                                              item.metroName
-                                                              ? Icon(
-                                                            Icons.done,
-                                                            size: 15,
-                                                            color: white,
-                                                          )
-                                                              : null,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            }),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              title: '',
-                              hintText: selectedMetro.value.isNotEmpty
-                                  ? selectedMetro.value
-                                  : 'ঢাকা মেট্রো',
-                              requiredText: '',
-                            ),
-                          ),
-                          sizeW5,
-                          dropDownForm(
-                            width: 65,
-                            onTap: () {
-                              customBottomSheet(
-                                context: context,
-                                height: Get.height / 1.4,
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  children: [
-                                    Center(
-                                      child: KText(
-                                        text: 'মেট্রো নির্বাচন করুন',
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    Divider(),
-                                    sizeH10,
-                                    Container(
-                                      height: Get.height / 1.7,
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          primary: false,
-                                          itemCount: metroController.metroSubList.length,
-                                          itemBuilder: (c, i) {
-                                            final item = metroController.metroSubList[i];
-                                            return InkWell(
-                                              borderRadius:
-                                              BorderRadius.circular(5),
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedMetroSubId.value =
-                                                      item.id.toString();
-                                                  selectedMetroSub.value =
-                                                      item.metroSubName.toString();
-                                                  Get.back();
-                                                });
-                                              },
-                                              child: Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    KText(
-                                                      text: item.metroSubName,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                    ),
-                                                    Spacer(),
-                                                    CircleAvatar(
-                                                      radius: 10,
-                                                      backgroundColor:
-                                                      selectedMetroSub.value == item.metroSubName
-                                                          ? primaryColor
-                                                          : grey,
-                                                      child: CircleAvatar(
-                                                        backgroundColor:
-                                                        selectedMetroSub.value ==
-                                                            item.metroSubName
-                                                            ? primaryColor
-                                                            : white,
-                                                        radius: 9,
-                                                        child: selectedMetroSub.value ==
-                                                            item.metroSubName
-                                                            ? Icon(
-                                                          Icons.done,
-                                                          size: 15,
-                                                          color: white,
-                                                        )
-                                                            : null,
-                                                      ),
-                                                    ),
-                                                  ],
+                                    itemCount: metroController.metroSubList.length,
+                                    itemBuilder: (c, i) {
+                                      final item = metroController.metroSubList[i];
+                                      return InkWell(
+                                        borderRadius:
+                                        BorderRadius.circular(5),
+                                        onTap: () {
+                                          setState(() {
+                                            selectedMetroSubId.value =
+                                                item.id.toString();
+                                            selectedMetroSub.value =
+                                                item.metroSubName.toString();
+                                            Get.back();
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
+                                              KText(
+                                                text: item.metroSubName,
+                                                fontSize: 14,
+                                                fontWeight:
+                                                FontWeight.bold,
+                                              ),
+                                              Spacer(),
+                                              CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor:
+                                                selectedMetroSub.value == item.metroSubName
+                                                    ? primaryColor
+                                                    : grey,
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                  selectedMetroSub.value ==
+                                                      item.metroSubName
+                                                      ? primaryColor
+                                                      : white,
+                                                  radius: 9,
+                                                  child: selectedMetroSub.value ==
+                                                      item.metroSubName
+                                                      ? Icon(
+                                                    Icons.done,
+                                                    size: 15,
+                                                    color: white,
+                                                  )
+                                                      : null,
                                                 ),
                                               ),
-                                            );
-                                          }),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            title: '',
-                            hintText: selectedMetroSub.value.isNotEmpty
-                                ? selectedMetroSub.value
-                                :  'ব',
-                            requiredText: '',
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                            ],
                           ),
-                          sizeW5,
-                          requiredForm(
-                            controller: carNoController,
-                            onChanged: (_) {},
-                            // contentPaddingHide: true,
-                            width: 90,
-                            title: '',
-                            hintText: 'xx-xxxx',
-                            requiredText: '',
-                          ),
-                        ],
-                      ),
-                      sizeH10,
-                      Row(
-                        children: [
-                          Expanded(
-                            child: requiredForm(
-                              controller: modelController,
-                              title: 'মডেলের নাম',
-                              hintText: 'মডেল',
-                              requiredText: '*',
-                            ),
-                          ),
-                          sizeW20,
-                          Expanded(
-                            child: requiredForm(
-                              controller: modelYearController,
-                              title: 'মডেল এর বছর',
-                              hintText: 'মডেল এর বছর',
-                              requiredText: '*',
-                            ),
-                          ),
-                        ],
-                      ),
-                      sizeH10,
-                      requiredForm(
-                        controller: colorController,
-                        title: 'গাড়ির রং',
-                        hintText: 'গাড়ির রং',
+                        );
+                      },
+                      title: '',
+                      hintText: selectedMetroSub.value.isNotEmpty
+                          ? selectedMetroSub.value
+                          :  'ব',
+                      requiredText: '',
+                    ),
+                    sizeW5,
+                    requiredForm(
+                      controller: carNoController,
+                      onChanged: (_) {},
+                      // contentPaddingHide: true,
+                      width: 90,
+                      title: '',
+                      hintText: 'xx-xxxx',
+                      requiredText: '',
+                    ),
+                  ],
+                ),
+                sizeH10,
+                Row(
+                  children: [
+                    Expanded(
+                      child: requiredForm(
+                        controller: modelController,
+                        title: 'মডেলের নাম',
+                        hintText: 'মডেল',
                         requiredText: '*',
                       ),
-                      sizeH20,
-                    ],
+                    ),
+                    sizeW20,
+                    Expanded(
+                      child: requiredForm(
+                        controller: modelYearController,
+                        title: 'মডেল এর বছর',
+                        hintText: 'মডেল এর বছর',
+                        requiredText: '*',
+                      ),
+                    ),
+                  ],
+                ),
+                sizeH10,
+                requiredForm(
+                  controller: colorController,
+                  title: 'গাড়ির রং',
+                  hintText: 'গাড়ির রং',
+                  requiredText: '*',
+                ),
+                sizeH20,
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              selectedCar.value == 'Truck' ? sizeW10 : sizeH10,
+              selectedCar.value == 'Truck'
+                  ? sizeW10
+                  : Column(
+                children: [
+                  Container(
+                    height: 5,
+                    color: grey.shade100,
+                  ),
+                  sizeH10,
+                  Padding(
+                    padding: paddingH20,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: KText(
+                            text: 'এয়ার কন্ডিশন',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        sizeW10,
+                        Expanded(
+                          child: primaryButton(
+                            buttonName: 'এসি',
+                            fontSize: 12,
+                            onTap: () {
+                              setState(() {
+                                airCondition = 'এসি';
+                              });
+                            },
+                            textColor: airCondition == 'এসি'
+                                ? white
+                                : primaryColor,
+                            height: 40,
+                            color: airCondition == 'এসি'
+                                ? primaryColor
+                                : white,
+                            borderColor: airCondition == 'এসি'
+                                ? white
+                                : grey,
+                          ),
+                        ),
+                        sizeW10,
+                        Expanded(
+                          child: primaryButton(
+                            buttonName: 'নন-এসি',
+                            fontSize: 12,
+                            textColor: airCondition == 'নন-এসি'
+                                ? white
+                                : primaryColor,
+                            onTap: () {
+                              setState(() {
+                                airCondition = 'নন-এসি';
+                              });
+                            },
+                            height: 40,
+                            color: airCondition == 'নন-এসি'
+                                ? primaryColor
+                                : white,
+                            borderColor: airCondition == 'নন-এসি'
+                                ? white
+                                : grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  sizeH10,
+                  Container(
+                    height: 5,
+                    color: grey.shade100,
+                  ),
+                ],
+              ),
+              selectedCar.value == 'Truck' ? sizeW10 : sizeH20,
+            ],
+          ),
+          sizeH20,
+          Padding(
+            padding: paddingH20,
+            child: Column(
+              children: [
+                sizeH20,
+
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      carFrontImage = imagePath;
+                    });
+                  },
+                  titleText: 'গাড়ির সামনের ছবি',
+                  imageData: carFrontImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(carFrontImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-                Obx(
-                  () => Column(
-                    children: [
-                      selectedCar.value == 'Truck' ? sizeW10 : sizeH10,
-                      selectedCar.value == 'Truck'
-                          ? sizeW10
-                          : Column(
-                              children: [
-                                Container(
-                                  height: 5,
-                                  color: grey.shade100,
-                                ),
-                                sizeH10,
-                                Padding(
-                                  padding: paddingH20,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: KText(
-                                          text: 'এয়ার কন্ডিশন',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      sizeW10,
-                                      Expanded(
-                                        child: primaryButton(
-                                          buttonName: 'এসি',
-                                          fontSize: 12,
-                                          onTap: () {
-                                            setState(() {
-                                              airCondition = 'এসি';
-                                            });
-                                          },
-                                          textColor: airCondition == 'এসি'
-                                              ? white
-                                              : primaryColor,
-                                          height: 40,
-                                          color: airCondition == 'এসি'
-                                              ? primaryColor
-                                              : white,
-                                          borderColor: airCondition == 'এসি'
-                                              ? white
-                                              : grey,
-                                        ),
-                                      ),
-                                      sizeW10,
-                                      Expanded(
-                                        child: primaryButton(
-                                          buttonName: 'নন-এসি',
-                                          fontSize: 12,
-                                          textColor: airCondition == 'নন-এসি'
-                                              ? white
-                                              : primaryColor,
-                                          onTap: () {
-                                            setState(() {
-                                              airCondition = 'নন-এসি';
-                                            });
-                                          },
-                                          height: 40,
-                                          color: airCondition == 'নন-এসি'
-                                              ? primaryColor
-                                              : white,
-                                          borderColor: airCondition == 'নন-এসি'
-                                              ? white
-                                              : grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                sizeH10,
-                                Container(
-                                  height: 5,
-                                  color: grey.shade100,
-                                ),
-                              ],
-                            ),
-                      selectedCar.value == 'Truck' ? sizeW10 : sizeH20,
-                    ],
+                selectedCar.value == 'Truck' ? sizeW10 : sizeH20,
+                selectedCar.value == 'Truck'
+                    ? sizeW10
+                    : _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      carBackImage = imagePath;
+                    });
+                  },
+                  titleText: 'গাড়ির ভিতরে ছবি',
+                  imageData: carBackImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(carBackImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
                 sizeH20,
-                Padding(
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      numberPlatImage = imagePath;
+                    });
+                  },
+                  titleText: 'নম্বর প্লেট সহ গাড়ির পিছনের ছবি',
+                  imageData: numberPlatImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(numberPlatImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                sizeH20,
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      regPapersImage = imagePath;
+                    });
+                  },
+                  titleText: 'রেজিস্ট্রেশন পেপার ছবি',
+                  imageData: regPapersImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(regPapersImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                sizeH10,
+                Divider(),
+                sizeH10,
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      rootPermitImage = imagePath;
+                    });
+                  },
+                  titleText: 'বাস, ট্রাক রুট পারমিটের কাগজ',
+                  rigthSideText: ' (অপশনাল)',
+                  textSize: 12,
+                  imageData: rootPermitImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(rootPermitImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                sizeH20,
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      fitnessPapersImage = imagePath;
+                    });
+                  },
+                  titleText: 'ফিটনেস পেপার ছবি',
+                  rigthSideText: ' (অপশনাল)',
+                  textSize: 12,
+                  imageData: fitnessPapersImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(fitnessPapersImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                sizeH20,
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      texTokenImage = imagePath;
+                    });
+                  },
+                  titleText: 'ট্যাক্স টোকেন পেপার ছবি',
+                  rigthSideText: ' (অপশনাল)',
+                  textSize: 12,
+                  imageData: texTokenImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(texTokenImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                sizeH20,
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      insuranceImage = imagePath;
+                    });
+                  },
+                  titleText: 'ইন্সুরেন্স পেপার ছবি',
+                  rigthSideText: ' (অপশনাল)',
+                  textSize: 12,
+                  imageData: insuranceImage == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(insuranceImage),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                // sizeH10,
+                // Divider(),
+                sizeH20,
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      drivingLicenceFront = imagePath;
+                    });
+                  },
+                  titleText: 'ড্রাইভিং লাইসেন্স সামনের ছবি',
+                  imageData: drivingLicenceFront == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(drivingLicenceFront),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                sizeH20,
+                _addImage(
+                  onTap: ()async{
+                    String? imagePath = await addGariController.captureImage(ImageSource.gallery);
+                    setState(() {
+                      drivingLicenceBack = imagePath;
+                    });
+                  },
+                  titleText: 'ড্রাইভিং লাইসেন্স পিছনের ছবি',
+                  imageData: drivingLicenceBack == null?  Icon(
+                    Icons.add_a_photo_outlined,
+                    size: 30,
+                    color: grey.shade400,
+                  ):  Container(
+                    decoration: BoxDecoration(
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(drivingLicenceBack),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                sizeH40,
+                vehiclesSaveController.isLoading.value == true? primaryButton(
+                    child: CustomLoader(color: white,size: 30,), buttonName: '', onTap: () {  }
+                ): primaryButton(
+                  height: 45,
+                  buttonName: 'গাড়ির তথ্য সেভ করুন',
+                  fontSize: 14,
+                  onTap: () {
+                    vehiclesSaveController.vehiclesAdd(
+                        brand: selectedCarId.value,
+                        metro: selectedMetro.value,
+                        metroType: selectedMetroSubId.value,
+                        metroNo: carNoController.text,
+                        model:  modelController.text,
+                        modelYear: modelYearController.text,
+                        vehicleColor: colorController.text,
+                        aircondition: airCondition,
+                        fuel_type: fualName,
+                        brand_name: brandNameController.text,
+
+
+                        vehicle_front_pic: carFrontImage,
+                        vehicle_back_pic: carBackImage,
+                        vehicle_reg_pic: regPapersImage,
+                        vehicle_plate_no: numberPlatImage,
+                        vehicle_root_pic: rootPermitImage,
+                        vehicle_fitness_pic: fitnessPapersImage,
+                        vehicle_tax_pic: texTokenImage,
+                        vehicle_insurance_pic: insuranceImage,
+                        vehicle_driving_front: drivingLicenceFront,
+                        vehicle_driving_back: drivingLicenceBack
+                    );
+                  },
+                ),
+                sizeH30,
+              ],
+            ),
+          ),
+///////////////
+          /*Padding(
                   padding: paddingH20,
                   child: primaryButton(
                     height: 45,
@@ -715,14 +1031,36 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
 
                     },
                   ),
-                ),
-                sizeH30,
-              ],
-            ),
+                ),*/
+          sizeH30,
+
+        ],
+      ),)
     );
   }
-
-  Widget roundedRectBorderWidget({void Function()? onTap}) {
+  Widget roundedRectBorderWidget({void Function()? onTap, required Widget imageData}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: DottedBorder(
+        borderType: BorderType.RRect,
+        color: grey.shade300,
+        dashPattern: [5, 3],
+        radius: Radius.circular(10),
+        // padding: EdgeInsets.all(12),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+          child: Container(
+              height: 100,
+              width: Get.width,
+              child: imageData
+          ),
+        ),
+      ),
+    );
+  }
+ /* Widget roundedRectBorderWidget({void Function()? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: DottedBorder(
@@ -747,5 +1085,36 @@ class _AddNewGariPageState extends State<AddNewGariPage> {
         ),
       ),
     );
+  }*/
+  Widget _addImage({
+    required String? titleText,
+    void Function()? onTap,
+    String? rigthSideText,
+    double? textSize,
+    required Widget imageData,
+  }) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            KText(
+              text: titleText,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+            KText(
+              text: rigthSideText ?? ' *',
+              fontSize: textSize ?? 16,
+              color: primaryColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ],
+        ),
+        sizeH10,
+        roundedRectBorderWidget(onTap: onTap, imageData: imageData ),
+      ],
+    );
   }
+
+
 }
