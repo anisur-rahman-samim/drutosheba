@@ -53,98 +53,256 @@ class _MenuPageState extends State<MenuPage> {
 
     return Scaffold(
       backgroundColor: grey.shade200,
-      body: Obx(() => ListView(
-        children: [
-          CustomCardWidget(
-            radius: 0,
-            elevation: .5,
-            onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
-            child: Column(
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  clipBehavior: Clip.none,
-                  children: [
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundImage: NetworkImage(
-                        Api.getImageURL(profileController.profileModel.value.data?.image),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: -5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: grey.shade200,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 3,
-                          ),
-                          child: Row(
-                            children: [
-                              KText(
-                                text: '${reviewsController.reviewsModel.value.data?.averageStar} ',
-                                fontSize: 12,
-                              ),
-                              Icon(
-                                Icons.star,
-                                size: 9,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                sizeW10,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        KText(
-                          text: profileController.profileModel.value.data?.name,
-                          color: black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 22,
-                        ),
-                        KText(
-                          text: profileController.profileModel.value.data?.phone,
-                          color: black54,
-                          fontSize: 16,
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20,
-                      color: black.withOpacity(.5),
-                    ),
-                  ],
-                ),
-              ],
+    body: CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          expandedHeight: 200.0,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text(profileController.profileModel.value.data!.name.toString(),style: h4.copyWith(color: white),),
+            background: Image.network(
+             Api.getImageURL(profileController.profileModel.value.data?.image),
+              fit: BoxFit.cover,
             ),
           ),
-          sizeH20,
-          CustomCardWidget(
+          floating: true,
+          pinned: true,
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              CustomCardWidget(
+                elevation: .5,
+                radius: 0,
+                child: Column(
+                  children: [
+
+                    ListTile(
+                      onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/payment.png",scale: 25,),
+                      title: Text('ক্রেডিট',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () => Get.to(() => GariListPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/sport-car.png",scale: 16,),
+                      title: Text('গাড়ি',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () => Get.to(() => DriverPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/driver.png",scale: 20,),
+                      title: Text('ড্রাইভার',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              sizeH20,
+              CustomCardWidget(
+                elevation: .5,
+                radius: 0,
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/user.png",scale: 20,),
+                      title: Text('প্রোফাইল',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () => Get.to(() => DashboardPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/dashboard.png",scale: 25,),
+                      title: Text('ড্যাশবোর্ড',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () => Get.to(() => LeaderBoardPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/ranking.png",scale: 25,),
+                      title: Text('লিডারবোর্ড',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+
+                    ListTile(
+                      onTap: () => Get.to(() => PenaltyView(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/documents.png",scale: 25,),
+                      title: Text('জরিমানা',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+              sizeH20,
+              CustomCardWidget(
+                elevation: .5,
+                radius: 0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KText(
+                      text: 'অন্যান্য',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ListTile(
+                      onTap: () => Get.to(() => NotificationsPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/notification.png",scale: 25,),
+                      title: Text('নোটিফিকেশন',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () => Get.to(() => OfferPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/gift.png",scale: 25,),
+                      title: Text('অফার',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () => Get.to(() => SettingsPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/settings.png",scale: 25,),
+                      title: Text('সেটিংস',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+              sizeH20,
+              CustomCardWidget(
+                elevation: .5,
+                radius: 0,
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: () => Get.to(() => HelpPage(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/help.png",scale: 25,),
+                      title: Text('সাহায্য',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+
+                    ListTile(
+                      onTap: () => Get.to(() => TramsAndCondition(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/min.png",scale: 25,),
+                      title: Text('ট্রামস এন্ড কন্ডিশন',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+
+                    ListTile(
+                      onTap: () => Get.to(() => PrivacyPolicy(),transition: Transition.circularReveal),
+                      leading: Image.asset("assets/menu/insurance.png",scale: 25,),
+                      title: Text('প্রাইভেসি পলিসি',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+
+                    ListTile(
+                      onTap: () {
+                        Get.defaultDialog(
+                            title: "Logout",
+                            middleText: "You want to logout",
+                            onCancel: () => Get.back(),
+                            onConfirm: ()async{
+                              await LocalStorage.removeData(key: AppTexts.token);
+                              Get.to(() => LoginPage(),transition: Transition.circularReveal);
+                            }
+                        );
+                      },
+                      leading: Image.asset("assets/menu/logout.png",scale: 20,),
+                      title: Text('লগ আউট',style: h1.copyWith(fontSize: 16),),
+                      trailing: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: black,
+                        child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                      ),
+                    ),
+
+                    sizeH40,
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+        ),
+      ],
+    ),
+    /*  body: Obx(() => ListView(
+        children: [
+          SizedBox(
+            height: 500,
+            child:   Container(
+             // height: Get.height / 3,
+              width: Get.width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: primaryColor
+              ),
+              child: Row(
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    children: [
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage(
+                           CustomCardWidget(
             elevation: .5,
             radius: 0,
             child: Column(
               children: [
-               /* _listTile(
-                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.credit_card,
-                  title: 'ক্রেডিট',
-                ),*/
+
                 ListTile(
                   onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
                   leading: Image.asset("assets/menu/payment.png",scale: 25,),
@@ -156,7 +314,7 @@ class _MenuPageState extends State<MenuPage> {
                   ),
                 ),
                 ListTile(
-                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
+                  onTap: () => Get.to(() => GariListPage(),transition: Transition.circularReveal),
                   leading: Image.asset("assets/menu/sport-car.png",scale: 16,),
                   title: Text('গাড়ি',style: h1.copyWith(fontSize: 16),),
                   trailing: CircleAvatar(
@@ -166,8 +324,8 @@ class _MenuPageState extends State<MenuPage> {
                   ),
                 ),
                 ListTile(
-                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
-                  leading: Image.asset("assets/menu/driver.png",scale: 16,),
+                  onTap: () => Get.to(() => DriverPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/driver.png",scale: 20,),
                   title: Text('ড্রাইভার',style: h1.copyWith(fontSize: 16),),
                   trailing: CircleAvatar(
                     radius: 14,
@@ -184,41 +342,48 @@ class _MenuPageState extends State<MenuPage> {
             radius: 0,
             child: Column(
               children: [
-                _listTile(
+                ListTile(
                   onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.person_outline,
-                  title: 'প্রোফাইল',
+                  leading: Image.asset("assets/menu/user.png",scale: 20,),
+                  title: Text('প্রোফাইল',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
+                ListTile(
                   onTap: () => Get.to(() => DashboardPage(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.dashboard_outlined,
-                  title: 'ড্যাশবোর্ড',
+                  leading: Image.asset("assets/menu/dashboard.png",scale: 25,),
+                  title: Text('ড্যাশবোর্ড',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
+                ListTile(
                   onTap: () => Get.to(() => LeaderBoardPage(),transition: Transition.circularReveal),
-                  leadingIcon: Ionicons.ribbon_outline,
-                  title: 'লিডারবোর্ড',
+                  leading: Image.asset("assets/menu/ranking.png",scale: 25,),
+                  title: Text('লিডারবোর্ড',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
+
+                ListTile(
+                  onTap: () => Get.to(() => PenaltyView(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/documents.png",scale: 25,),
+                  title: Text('জরিমানা',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                sizeH10,
-                _listTile(
-                  onTap: () {
-                    Get.to(() => PenaltyView(),transition: Transition.circularReveal);
-                  },
-                  leadingIcon: Ionicons.document_text_outline,
-                  title: 'জরিমানা',
-                ),
+
               ],
             ),
           ),
@@ -235,37 +400,206 @@ class _MenuPageState extends State<MenuPage> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
-                _listTile(
+                ListTile(
                   onTap: () => Get.to(() => NotificationsPage(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.notifications_outlined,
-                  title: 'নোটিফিকেশন',
+                  leading: Image.asset("assets/menu/notification.png",scale: 25,),
+                  title: Text('নোটিফিকেশন',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
+                ListTile(
                   onTap: () => Get.to(() => OfferPage(),transition: Transition.circularReveal),
-                  leadingIcon: Ionicons.gift_outline,
-                  title: 'অফার',
+                  leading: Image.asset("assets/menu/gift.png",scale: 25,),
+                  title: Text('অফার',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
-                  onTap: () {},
-                  leadingIcon: Icons.share_outlined,
-                  title: 'রেফার',
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
+                ListTile(
                   onTap: () => Get.to(() => SettingsPage(),transition: Transition.circularReveal),
-                  leadingIcon: Ionicons.settings_outline,
-                  title: 'সেটিংস',
+                  leading: Image.asset("assets/menu/settings.png",scale: 25,),
+                  title: Text('সেটিংস',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+          sizeH20,
+          CustomCardWidget(
+            elevation: .5,
+            radius: 0,
+            child: Column(
+              children: [
+                ListTile(
+                  onTap: () => Get.to(() => HelpPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/help.png",scale: 25,),
+                  title: Text('সাহায্য',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+                ListTile(
+                  onTap: () => Get.to(() => TramsAndCondition(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/min.png",scale: 25,),
+                  title: Text('ট্রামস এন্ড কন্ডিশন',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+                ListTile(
+                  onTap: () => Get.to(() => PrivacyPolicy(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/insurance.png",scale: 25,),
+                  title: Text('প্রাইভেসি পলিসি',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+                ListTile(
+                  onTap: () {
+                    Get.defaultDialog(
+                      title: "Logout",
+                      middleText: "You want to logout",
+                      onCancel: () => Get.back(),
+                      onConfirm: ()async{
+                        await LocalStorage.removeData(key: AppTexts.token);
+                        Get.to(() => LoginPage(),transition: Transition.circularReveal);
+                      }
+                    );
+                  },
+                  leading: Image.asset("assets/menu/logout.png",scale: 20,),
+                  title: Text('লগ আউট',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+                sizeH40,
+              ],
+            ),
+          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: -5,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: grey.shade200,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 3,
+                            ),
+                            child: Row(
+                              children: [
+                                KText(
+                                  text: '${reviewsController.reviewsModel.value.data?.averageStar} ',
+                                  fontSize: 12,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  size: 9,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  sizeW10,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          KText(
+                            text: profileController.profileModel.value.data?.name,
+                            color: black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 22,
+                          ),
+                          KText(
+                            text: profileController.profileModel.value.data?.phone,
+                            color: black54,
+                            fontSize: 16,
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                        color: black.withOpacity(.5),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          sizeH20,
+          CustomCardWidget(
+            elevation: .5,
+            radius: 0,
+            child: Column(
+              children: [
+
+                ListTile(
+                  onTap: () => Get.to(() => CreditPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/payment.png",scale: 25,),
+                  title: Text('ক্রেডিট',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+                ListTile(
+                  onTap: () => Get.to(() => GariListPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/sport-car.png",scale: 16,),
+                  title: Text('গাড়ি',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+                ListTile(
+                  onTap: () => Get.to(() => DriverPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/driver.png",scale: 20,),
+                  title: Text('ড্রাইভার',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
               ],
             ),
@@ -276,52 +610,164 @@ class _MenuPageState extends State<MenuPage> {
             radius: 0,
             child: Column(
               children: [
-                _listTile(
+                ListTile(
+                  onTap: () => Get.to(() => ProfilePage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/user.png",scale: 20,),
+                  title: Text('প্রোফাইল',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+                ListTile(
+                  onTap: () => Get.to(() => DashboardPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/dashboard.png",scale: 25,),
+                  title: Text('ড্যাশবোর্ড',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+                ListTile(
+                  onTap: () => Get.to(() => LeaderBoardPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/ranking.png",scale: 25,),
+                  title: Text('লিডারবোর্ড',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+                ListTile(
+                  onTap: () => Get.to(() => PenaltyView(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/documents.png",scale: 25,),
+                  title: Text('জরিমানা',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+          sizeH20,
+          CustomCardWidget(
+            elevation: .5,
+            radius: 0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                KText(
+                  text: 'অন্যান্য',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                ListTile(
+                  onTap: () => Get.to(() => NotificationsPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/notification.png",scale: 25,),
+                  title: Text('নোটিফিকেশন',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+                ListTile(
+                  onTap: () => Get.to(() => OfferPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/gift.png",scale: 25,),
+                  title: Text('অফার',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+                ListTile(
+                  onTap: () => Get.to(() => SettingsPage(),transition: Transition.circularReveal),
+                  leading: Image.asset("assets/menu/settings.png",scale: 25,),
+                  title: Text('সেটিংস',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+          sizeH20,
+          CustomCardWidget(
+            elevation: .5,
+            radius: 0,
+            child: Column(
+              children: [
+                ListTile(
                   onTap: () => Get.to(() => HelpPage(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.help_outline,
-                  title: 'সাহায্য',
-                  textColor: blue,
+                  leading: Image.asset("assets/menu/help.png",scale: 25,),
+                  title: Text('সাহায্য',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
+
+                ListTile(
                   onTap: () => Get.to(() => TramsAndCondition(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.contact_page_outlined,
-                  title: 'ট্রামস এন্ড কন্ডিশন',
-                  textColor: primaryColor,
+                  leading: Image.asset("assets/menu/min.png",scale: 25,),
+                  title: Text('ট্রামস এন্ড কন্ডিশন',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
+
+                ListTile(
                   onTap: () => Get.to(() => PrivacyPolicy(),transition: Transition.circularReveal),
-                  leadingIcon: Icons.policy,
-                  title: 'প্রাইভেসি পলিসি ',
-                  textColor: primaryColor,
+                  leading: Image.asset("assets/menu/insurance.png",scale: 25,),
+                  title: Text('প্রাইভেসি পলিসি',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 45),
-                  child: Divider(),
-                ),
-                _listTile(
-                  onTap: () async {
-                   await LocalStorage.removeData(key: AppTexts.token);
-                    Get.to(() => LoginPage(),transition: Transition.circularReveal);
+
+                ListTile(
+                  onTap: () {
+                    Get.defaultDialog(
+                      title: "Logout",
+                      middleText: "You want to logout",
+                      onCancel: () => Get.back(),
+                      onConfirm: ()async{
+                        await LocalStorage.removeData(key: AppTexts.token);
+                        Get.to(() => LoginPage(),transition: Transition.circularReveal);
+                      }
+                    );
                   },
-                  leadingIcon: Icons.logout,
-                  title: 'লগ আউট',
-                  textColor: primaryColor,
+                  leading: Image.asset("assets/menu/logout.png",scale: 20,),
+                  title: Text('লগ আউট',style: h1.copyWith(fontSize: 16),),
+                  trailing: CircleAvatar(
+                    radius: 14,
+                    backgroundColor: black,
+                    child: Icon(Icons.arrow_forward_ios,size: 16,color: white,),
+                  ),
                 ),
-                sizeH40,
+
                 sizeH40,
               ],
             ),
           ),
         ],
-      )),
+      )),*/
     );
   }
 

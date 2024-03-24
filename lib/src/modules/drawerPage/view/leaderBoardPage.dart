@@ -133,6 +133,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
                 name: leaderboardController.leaderboardList[index].getpartner?.name,
                 tk: '৳${leaderboardController.leaderboardList[index].totalSum}',
                 index: index,
+                image: leaderboardController.leaderboardList[index].getpartner?.image
               );
             }
         ),)
@@ -189,6 +190,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
     required name,
     required tk,
     required index,
+    required image,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12,vertical: 6),
@@ -226,6 +228,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
                               CircleAvatar(
                                 radius: 20,
                                 backgroundColor: black,
+                                child: ClipOval(child: Image.network(Api.getImageURL(image),fit: BoxFit.cover,),),
                               ),
                             ],
                           ),

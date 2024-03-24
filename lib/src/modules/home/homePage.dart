@@ -1,6 +1,7 @@
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
+import 'package:druto_seba_driver/src/modules/auth/controller/reviews_controller.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/controller/leaderboard_controller.dart';
 import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
@@ -25,6 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ProfileController profileController = Get.put(ProfileController());
   final CreditController creditDataController = Get.put(CreditController());
+  final ReviewsController reviewsController = Get.put(ReviewsController());
   final isShowCreadit = RxBool(false);
   bool _isAnimation = false;
   bool _isBalanceShown = false;
