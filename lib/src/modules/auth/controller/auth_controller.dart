@@ -21,12 +21,14 @@ class AuthController extends GetxController {
   Future login({
     required String phone,
     required String password,
+    required String deviceToken,
   }) async {
     try {
       isLoading(true);
       var map = <String, dynamic>{};
       map['phone'] = phone;
       map['password'] = password;
+      map['device_token'] = deviceToken;
       dynamic responseBody = await BaseClient.handleResponse(
         await BaseClient.postRequest(
           api: Api.login,

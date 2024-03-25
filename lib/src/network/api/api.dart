@@ -71,5 +71,6 @@ class Api{
   static const offer = "$baseUrl/partner/offer";
   static const help = "$baseUrl/partner/help";
   static const passwordChange = "$baseUrl/partner/password-change";
+  static const banner = "$baseUrl/partner/sliders";
 
 }

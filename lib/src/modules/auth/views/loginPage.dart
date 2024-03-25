@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
 import 'package:druto_seba_driver/src/modules/auth/controller/auth_controller.dart';
 import 'package:druto_seba_driver/src/modules/dashboard/dashboard.dart';
+import 'package:druto_seba_driver/src/services/local_storage.dart';
 import 'package:druto_seba_driver/src/widgets/button/outlineButton.dart';
 import 'package:druto_seba_driver/src/widgets/button/primaryButton.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
@@ -99,8 +102,10 @@ class LoginPage extends StatelessWidget {
                         onTap: () {
                           authController.login(
                               phone: phoneController.text,
-                              password: passwordController.text
+                              password: passwordController.text,
+                              deviceToken: LocalStorage.getData(key: "fcm")
                           );
+                          print("Save FCM" + LocalStorage.getData(key: "fcm").toString());
                         }
                     ),
                     sizeH20,

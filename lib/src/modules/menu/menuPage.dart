@@ -57,11 +57,19 @@ class _MenuPageState extends State<MenuPage> {
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
+          backgroundColor: primaryColor,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(profileController.profileModel.value.data!.name.toString(),style: h4.copyWith(color: white),),
-            background: Image.network(
-             Api.getImageURL(profileController.profileModel.value.data?.image),
-              fit: BoxFit.cover,
+            background: Container(
+              height: 300,
+              width: 400,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle
+              ),
+              child: Image.network(
+               Api.getImageURL(profileController.profileModel.value.data?.image),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           floating: true,

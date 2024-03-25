@@ -16,6 +16,13 @@ class HelpPage extends StatefulWidget {
 
 class _HelpPageState extends State<HelpPage> {
   final HelpController helpController = Get.put(HelpController());
+// String url = 'https://kohqaf.quicktechsoftware.xyz/more-info/terms-&-conditions';
+  //final Uri _url = Uri.parse(url);
+  Future<void> _launchUrl({required String url}) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch ${Uri.parse(url)}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +122,7 @@ class _HelpPageState extends State<HelpPage> {
           sizeH5,
           GestureDetector(
             onTap: (){
-             // launchYouTube(helpController.rental_video_link.toString()); Uri(scheme: 'https', host: 'www.cylog.org', path: 'headers/');
-              _launchInBrowserView(Uri(host: helpController.rental_video_link.toString(),path: 'headers/'));
+              _launchUrl(url: helpController.rental_video_link.toString());
             },
             child: CustomCardWidget(
               elevation: .2,
@@ -151,11 +157,8 @@ class _HelpPageState extends State<HelpPage> {
           sizeH5,
           GestureDetector(
             onTap: (){
-             // _launchInBrowserView(Uri(host: helpController.return_video_link.toString()));
+              _launchUrl(url: helpController.return_video_link.toString());
 
-              setState(() {
-                _launchInBrowserView(Uri(host: helpController.return_video_link.toString(),path: 'headers/'));
-              });
             },
             child: CustomCardWidget(
               elevation: .2,

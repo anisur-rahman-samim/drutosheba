@@ -1,8 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/configs/appUtils.dart';
 import 'package:druto_seba_driver/src/configs/app_images.dart';
 import 'package:druto_seba_driver/src/modules/auth/controller/reviews_controller.dart';
 import 'package:druto_seba_driver/src/modules/drawerPage/controller/leaderboard_controller.dart';
+import 'package:druto_seba_driver/src/modules/home/controller/banner_controller.dart';
 import 'package:druto_seba_driver/src/modules/userAccount/controller/profile_controller.dart';
 import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/widgets/cached_network_image/cached_network_image.dart';
@@ -27,6 +29,8 @@ class _HomePageState extends State<HomePage> {
   final ProfileController profileController = Get.put(ProfileController());
   final CreditController creditDataController = Get.put(CreditController());
   final ReviewsController reviewsController = Get.put(ReviewsController());
+  final BannerController bannerController = Get.put(BannerController());
+
   final isShowCreadit = RxBool(false);
   bool _isAnimation = false;
   bool _isBalanceShown = false;
@@ -181,16 +185,50 @@ class _HomePageState extends State<HomePage> {
                       height: 280,
                     ),
                   ),
+
                 ],
               ),
             ),
-            sizeH10,
-            ClipRRect(
+            sizeH20,
+           /* ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
                 AppImages.banner,
               ),
-            ),
+            ),*/
+           Obx(() =>  CarouselSlider(
+             options: CarouselOptions(
+               height: 200.0,
+               aspectRatio: 16 / 9,
+               autoPlay: true,
+               autoPlayInterval: Duration(seconds: 3),
+               autoPlayAnimationDuration: Duration(milliseconds: 800),
+               autoPlayCurve: Curves.fastOutSlowIn,
+               pauseAutoPlayOnTouch: true,
+               enlargeCenterPage: true,
+               onPageChanged: (index, reason) {
+                 // Handle page change
+               },
+               scrollDirection: Axis.horizontal,
+             ),
+             items: bannerController.imageList.map((String imageUrl) {
+               return Builder(
+                 builder: (BuildContext context) {
+                   return Container(
+                     width: MediaQuery.of(context).size.width,
+                     margin: EdgeInsets.symmetric(horizontal: 5.0),
+                     decoration: BoxDecoration(
+                       color: Colors.grey,
+                     ),
+                     child: Image.network(
+                      Api.getImageURL( imageUrl),
+                       fit: BoxFit.cover,
+                     ),
+                   );
+                 },
+               );
+             }).toList(),
+           ),),
             sizeH10,
             /*Row(
               children: [

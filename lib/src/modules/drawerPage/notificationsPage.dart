@@ -1,3 +1,4 @@
+import 'package:druto_seba_driver/src/services/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +19,9 @@ class NotificationsPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => NotificationPage());
+            },
             icon: Icon(
               Icons.delete,
             ),
