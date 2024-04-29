@@ -36,27 +36,64 @@ class _CreditPageState extends State<CreditPage> {
           fontSize: 20,
           color: white,
         ),
-        actions: [
+        /*actions: [
           InkWell(
               onTap: (){
                 Get.to(() => BuyCredit());
               },
               child: Text("ক্রেডিট কিনুন",style: h2.copyWith(color: white),)),
           sizeW20
-        ],
+        ],*/
       ),
       body: Obx(() => creditDataController.isLoading.value == true? CustomLoader(color: black, size: 30) : Padding(
         padding: paddingH10V10,
         child: ListView(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                CustomCardWidget(
+                  onTap: (){
+                    Get.to(() => BuyCredit());
+                  },
+                  width: Get.width / 2.2,
+                  height: Get.height / 6,
+                  radius: 10,
+                  color: Colors.deepOrange,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: white,
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.deepOrange,
+                            ),
+                          ),
+                          sizeW10,
+                          KText(
+                            text:  "ক্রেডিট \nকিনুন",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: white,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
 
+
+
+                    ],
+                  ),
+                ),
+                sizeH10,
                 CustomCardWidget(
                   radius: 10,
-                  width: Get.width,
+                  width: Get.width / 2.2,
                   height: Get.height / 6,
                   color: Colors.black,
                   child: Column(
@@ -74,10 +111,11 @@ class _CreditPageState extends State<CreditPage> {
                           ),
                           sizeW10,
                           KText(
-                            text: "${creditDataController.credit.value.data?.currentCredit.toString()} ক্রেডিট",
+                            text: "${creditDataController.credit.value.data?.currentCredit.toString()} \nক্রেডিট",
                             fontWeight: FontWeight.bold,
-                            fontSize: 30,
+                            fontSize: 20,
                             color: white,
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -92,9 +130,61 @@ class _CreditPageState extends State<CreditPage> {
                     ],
                   ),
                 ),
+
+
+
+
+
+              ],
+            ),
+            sizeH10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+
+                CustomCardWidget(
+                  radius: 10,
+                  width: Get.width / 2.2,
+                  height: Get.height / 6,
+                  color: Colors.black,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: white,
+                            child: Icon(
+                              Icons.credit_card,
+                              color: Colors.indigo,
+                            ),
+                          ),
+                          sizeW10,
+                          KText(
+                            text: "${creditDataController.credit.value.data?.currentBalance} \nক্রেডিট",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: white,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+
+                      KText(
+                        text: 'মোট ক্রেডিট',
+                        fontSize: 14,
+                        color: white,
+                        fontWeight: FontWeight.w600,
+                      ),
+
+                    ],
+                  ),
+                ),
                 sizeH10,
                 CustomCardWidget(
-                  width: Get.width,
+                  width: Get.width / 2.2,
                   height: Get.height / 6,
                   radius: 10,
                   color: Colors.deepOrange,
@@ -113,10 +203,11 @@ class _CreditPageState extends State<CreditPage> {
                          ),
                          sizeW10,
                          KText(
-                           text:  "${creditDataController.credit.value.data?.currentBonus.toString()} ক্রেডিট",
+                           text:  "${creditDataController.credit.value.data?.currentBonus.toString()} \nক্রেডিট",
                            fontWeight: FontWeight.bold,
-                           fontSize: 30,
+                           fontSize: 20,
                            color: white,
+                           textAlign: TextAlign.center,
                          ),
                        ],
                      ),
@@ -131,29 +222,7 @@ class _CreditPageState extends State<CreditPage> {
                     ],
                   ),
                 ),
-                sizeH10,
-                CustomCardWidget(
-                  radius: 10,
-                  elevation: .2,
-                  borderColor: Colors.black12,
-                  color: Colors.black.withOpacity(.2),
-                  child: Row(
-                    children: [
-                      KText(
-                        text: 'মোট ক্রেডিট',
-                        fontSize: 14,
-                        color: black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      Spacer(),
-                      KText(
-                        text: creditDataController.credit.value.data?.currentBalance.toString(),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
-                    ],
-                  ),
-                ),
+
 
 
               ],

@@ -3,6 +3,7 @@ import 'package:bottom_picker/resources/arrays.dart';
 import 'package:druto_seba_driver/src/configs/appColors.dart';
 import 'package:druto_seba_driver/src/modules/allGari/controller/vehicles_brand_controller.dart';
 import 'package:druto_seba_driver/src/modules/auth/controller/profile_create_controller.dart';
+import 'package:druto_seba_driver/src/modules/driver/controller/driver_controller.dart';
 import 'package:druto_seba_driver/src/modules/trip/views/return/return_trip_location_select.dart';
 import 'package:druto_seba_driver/src/widgets/formField/customFormField.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
@@ -31,6 +32,7 @@ class _ReturnTripPageState extends State<ReturnTripPage> {
       Get.put(ReturnTripController());
 final ProfileCreateController profileCreateController = Get.put(ProfileCreateController());
   final LocationController locationController = Get.put(LocationController());
+  final DriverController driverController = Get.put(DriverController());
 
   final VehiclesBrandController vehiclesBrandController =
       Get.put(VehiclesBrandController());
@@ -38,7 +40,11 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
   final TextEditingController amountController = TextEditingController();
 
   var selectedCar = RxString('');
+  var selectedModelCar = RxString('');
+  var selectedDriver = RxString('');
   var selectedCarId = RxString('');
+  var selectedDriverId = RxString('');
+  var selectedCarModelId = RxString('');
   var selectedDivision = RxString('');
   var selectedDivisionId = RxString('');
   var selectedDropDivision = RxString('');
@@ -347,6 +353,7 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                         borderRadius: BorderRadius.circular(5),
                                         onTap: () {
                                           setState(() {
+
                                             selectedCar.value =
                                                 item.name.toString();
                                             selectedCarId.value =
@@ -356,6 +363,7 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                                             selectedCarImage =
                                                 item.image.toString();
                                             print(selectedCar.value);
+                                            vehiclesBrandController.getVehiclesByBrandId(id: item.id.toString());
                                             Get.back();
                                           });
                                         },
@@ -431,8 +439,238 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                           ),
                         );
                       },
-                      title: selectedCar.value == ''? 'গাড়ি সিলেক্ট করুন': selectedCar.value,
+                      title: selectedCar.value == ''? 'ব্র্যান্ড সিলেক্ট করুন': selectedCar.value,
                       icon: Icons.local_taxi_outlined,
+                    ),
+                    Divider(),
+                    _button(
+                      onTap: () {
+                        customBottomSheet(
+                          context: context,
+                          height: Get.height / 1.4,
+                          child: ListView(
+                            shrinkWrap: true,
+                            primary: false,
+                            children: [
+                              Center(
+                                child: KText(
+                                  text: 'ব্র্যান্ড সিলেক্ট করুন',
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Divider(),
+                              sizeH10,
+                              Container(
+                                height: Get.height / 1.7,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemCount: vehiclesBrandController
+                                        .vehiclesByBrandList.length,
+                                    itemBuilder: (c, i) {
+                                      final item = vehiclesBrandController
+                                          .vehiclesByBrandList[i];
+                                      return InkWell(
+                                        borderRadius: BorderRadius.circular(5),
+                                        onTap: () {
+                                          setState(() {
+                                            selectedModelCar.value =
+                                                item.model.toString();
+                                            selectedCarModelId.value =
+                                                item.id.toString();
+                                            print(selectedModelCar.value);
+                                            Get.back();
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
+                                              /* Image.asset(
+                                                  Api.getImageURL(item.image.toString(),),
+                                                  width: 50,
+                                                  // width: Get.width / 6,
+                                                ),*/
+                                              sizeW20,
+                                              SizedBox(
+                                                width: Get.width / 1.5,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    KText(
+                                                      text: item.model,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
+                                                   /* SizedBox(width: 3),
+                                                    KText(
+                                                      text: item.capacity,
+                                                      fontSize: 12,
+                                                      color: black45,
+                                                    ),*/
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor:
+                                                selectedModelCar.value ==
+                                                    item.model
+                                                    ? primaryColor
+                                                    : grey,
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                  selectedModelCar.value ==
+                                                      item.model
+                                                      ? primaryColor
+                                                      : white,
+                                                  radius: 9,
+                                                  child: selectedModelCar.value ==
+                                                      item.model
+                                                      ? Icon(
+                                                    Icons.done,
+                                                    size: 15,
+                                                    color: white,
+                                                  )
+                                                      : null,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      title: selectedModelCar.value == ''? 'গাড়ি সিলেক্ট করুন': selectedModelCar.value,
+                      icon: Icons.local_taxi_outlined,
+                    ),
+                    Divider(),
+                    _button(
+                      onTap: () {
+                        customBottomSheet(
+                          context: context,
+                          height: Get.height / 1.4,
+                          child: ListView(
+                            shrinkWrap: true,
+                            primary: false,
+                            children: [
+                              Center(
+                                child: KText(
+                                  text: 'ব্র্যান্ড সিলেক্ট করুন',
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Divider(),
+                              sizeH10,
+                              Container(
+                                height: Get.height / 1.7,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemCount: driverController
+                                        .approvedDriverList.length,
+                                    itemBuilder: (c, i) {
+                                      final item = driverController
+                                          .approvedDriverList[i];
+                                      return InkWell(
+                                        borderRadius: BorderRadius.circular(5),
+                                        onTap: () {
+                                          setState(() {
+                                            selectedDriver.value =
+                                                item.name.toString();
+                                            selectedDriverId.value =
+                                                item.id.toString();
+                                            print(selectedDriver.value);
+                                            Get.back();
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
+                                              /* Image.asset(
+                                                  Api.getImageURL(item.image.toString(),),
+                                                  width: 50,
+                                                  // width: Get.width / 6,
+                                                ),*/
+                                              sizeW20,
+                                              SizedBox(
+                                                width: Get.width / 1.5,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    KText(
+                                                      text: item.name,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                    ),
+                                                    /* SizedBox(width: 3),
+                                                    KText(
+                                                      text: item.capacity,
+                                                      fontSize: 12,
+                                                      color: black45,
+                                                    ),*/
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor:
+                                                selectedDriver.value ==
+                                                    item.name
+                                                    ? primaryColor
+                                                    : grey,
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                  selectedDriver.value ==
+                                                      item.name
+                                                      ? primaryColor
+                                                      : white,
+                                                  radius: 9,
+                                                  child: selectedDriver.value ==
+                                                      item.name
+                                                      ? Icon(
+                                                    Icons.done,
+                                                    size: 15,
+                                                    color: white,
+                                                  )
+                                                      : null,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      title: selectedDriver.value == ''? 'ড্রাইভার সিলেক্ট করুন': selectedDriver.value,
+                      icon: Icons.drive_eta_rounded,
                     ),
                     Divider(),
                     _button(
@@ -675,7 +913,9 @@ final ProfileCreateController profileCreateController = Get.put(ProfileCreateCon
                             destination: locationController.dropLocation.value,
                             amount: amountController.text,
                             timedate: journeyTimeAndDate,
-                            vehicleId: selectedCarId.value
+                            vehicleId: selectedCarId.value,
+                            assigned_vehicle_id: selectedCarModelId.value,
+                            assigned_driver_id: selectedDriverId.value,
                         );
                         locationController.pickUpLocation.value = "পিকআপ";
                         locationController.dropLocation.value = "গন্তব্য";

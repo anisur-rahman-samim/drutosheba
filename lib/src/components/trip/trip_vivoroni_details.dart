@@ -17,6 +17,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../modules/auth/views/forgotOtpPage.dart';
+
 class TripVivoroniDetails extends StatelessWidget {
   final ConfirmedTrips confirmedTrips;
    TripVivoroniDetails({super.key, required this.confirmedTrips});
@@ -226,7 +228,7 @@ class TripVivoroniDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       outlineButton(
-                        buttonName: 'CONFIRMED',
+                        buttonName: confirmedTrips.status == 1? "COMPLETED" :"TRIP START",
                         textColor: white,
                         backgroundColor: HexColor('#842a8f'),
                         outlineColor: HexColor('#842a8f'),
@@ -292,7 +294,7 @@ class TripVivoroniDetails extends StatelessWidget {
                              color: primaryColor
                          ),
                          child: Center(
-                           child: tripStartEndController.isLoading.value == true? CustomLoader(color: white, size: 40) :  Text("START \nTRIP",style: h1.copyWith(color: white),textAlign: TextAlign.center,),
+                           child: tripStartEndController.isLoading.value == true? CustomLoader(color: white, size: 40) :  Text("LONG \nPRESS",style: h1.copyWith(color: white),textAlign: TextAlign.center,),
                          ),
                        ),
                      )
@@ -365,74 +367,5 @@ class TripVivoroniDetails extends StatelessWidget {
 
 }
 
-class OtpForm extends StatefulWidget {
-  final controller;
 
-  const OtpForm({super.key, required this.controller});
-  @override
-  _OtpFormState createState() => _OtpFormState();
-
-  @override
-  String toStringShort() => 'Rounded Filled';
-}
-
-class _OtpFormState extends State<OtpForm> {
-
-  final focusNode = FocusNode();
-
-  @override
-  void dispose() {
-    widget.controller.dispose();
-    focusNode.dispose();
-    super.dispose();
-  }
-
-  bool showError = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final length = 4;
-    const errorColor = Color.fromRGBO(255, 234, 238, 1);
-    const fillColor = Color.fromARGB(255, 240, 240, 240);
-    final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 60,
-      textStyle: GoogleFonts.poppins(
-        fontSize: 22,
-        color: Color.fromRGBO(30, 60, 87, 1),
-      ),
-      decoration: BoxDecoration(
-        color: fillColor,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.transparent),
-      ),
-    );
-
-    return SizedBox(
-      height: 68,
-      child: Pinput(
-        length: length,
-        controller: widget.controller,
-        focusNode: focusNode,
-        defaultPinTheme: defaultPinTheme,
-        onCompleted: (pin) {
-          setState(() => showError = pin != '5555');
-        },
-        focusedPinTheme: defaultPinTheme.copyWith(
-          height: 68,
-          width: 65,
-          decoration: defaultPinTheme.decoration!.copyWith(
-            border: Border.all(color: primaryColor),
-          ),
-        ),
-        errorPinTheme: defaultPinTheme.copyWith(
-          decoration: BoxDecoration(
-            color: errorColor,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
-    );
-  }
-}
 

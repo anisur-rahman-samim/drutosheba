@@ -1,4 +1,4 @@
 class AppTexts{
   static const token = "token";
-  static const googleMapKey = 'AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g';
+  static const googleMapKey = 'AIzaSyDhzY2k-tIrpnoBut75TTDJTuE1kURA_fU';
 }

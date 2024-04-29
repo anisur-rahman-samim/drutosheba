@@ -319,8 +319,8 @@ class _StartedTripViewState extends State<StartedTripView> {
                                       onTap: () {},
                                     ),
 
-                                    confirmTripController.startTripList[index].assignedDriverId != null ?   Text("Driver: ${confirmTripController.startTripList[index].getDriver!.name.toString()}",style: h4,):   Row(
-                                      children: [
+                                  //  confirmTripController.startTripList[index].assignedDriverId != null ?   Text("Driver: ${confirmTripController.startTripList[index].getDriver!.name.toString()}",style: h4,):   Row(
+                                    /*  children: [
                                         Text(confirmTripController.startTripList[index].getDriver?.name != null? confirmTripController.startTripList[index].getDriver!.name.toString():"",style: h4,),
                                         sizeW10,
                                         InkWell(
@@ -371,11 +371,11 @@ class _StartedTripViewState extends State<StartedTripView> {
                                                                 crossAxisAlignment:
                                                                 CrossAxisAlignment.center,
                                                                 children: [
-                                                                  /* Image.asset(
+                                                                  *//* Image.asset(
                                                       Api.getImageURL(item.image.toString(),),
                                                       width: 50,
                                                       // width: Get.width / 6,
-                                                    ),*/
+                                                    ),*//*
                                                                   sizeW20,
                                                                   SizedBox(
                                                                     width: Get.width / 1.5,
@@ -392,11 +392,11 @@ class _StartedTripViewState extends State<StartedTripView> {
                                                                           FontWeight.bold,
                                                                         ),
                                                                         SizedBox(width: 3),
-                                                                        /* KText(
+                                                                        *//* KText(
                                                 text: item.capacity,
                                                 fontSize: 12,
                                                 color: black45,
-                                              ),*/
+                                              ),*//*
                                                                       ],
                                                                     ),
                                                                   ),
@@ -449,8 +449,8 @@ class _StartedTripViewState extends State<StartedTripView> {
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ],*/
+
                                   ],
                                 ),
                               ],

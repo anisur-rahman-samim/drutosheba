@@ -341,7 +341,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                                   Divider(),
                                                   sizeH10,
                                                   Container(
-                                                    height: Get.height / 1.7,
+                                                    height: Get.height / 2,
                                                     child: ListView.builder(
                                                         shrinkWrap: true,
                                                         primary: false,
@@ -357,10 +357,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                                                 selectedDriverId.value =
                                                                     item.id.toString();
                                                                 driverController.driverAssign(driverId: item.id.toString(), tripId: confirmTripController.confirmTripList[index].getTripDetails?.id.toString());
-                                                                Navigator.pop(context);
-                                                                setState(() {
 
-                                                                });
                                                               });
                                                             },
                                                             child: Padding(
@@ -401,7 +398,7 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                                                     ),
                                                                   ),
                                                                   Spacer(),
-                                                                  CircleAvatar(
+                                                                  Obx(() => CircleAvatar(
                                                                     radius: 10,
                                                                     backgroundColor:
                                                                     selectedDriver.value ==
@@ -424,13 +421,34 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                                                                       )
                                                                           : null,
                                                                     ),
-                                                                  ),
+                                                                  ),)
                                                                 ],
                                                               ),
                                                             ),
                                                           );
                                                         }),
                                                   ),
+                                                  Divider(),
+                                                  InkWell(
+                                                    onTap:(){
+                                                      confirmTripController.getConfirmedTrip();
+                                                      Navigator.pop(context);
+                                                      /*setState(() {
+
+                                                      });*/
+                                                    },
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: 60,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(20),
+                                                        color: primaryColor,
+                                                      ),
+                                                      child: Center(
+                                                        child: Text("Done",style: h2.copyWith(color: Colors.white),),
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             );

@@ -24,7 +24,7 @@ class LocationController extends GetxController{
   Future<void> fetchPickSuggestions(String input) async {
     isLoading(true);
     final String baseUrl =
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&components=country:BD&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g&sessiontoken=1234567890";
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&components=country:BD&key=AIzaSyDhzY2k-tIrpnoBut75TTDJTuE1kURA_fU&sessiontoken=1234567890";
 
     final response = await http.get(Uri.parse(baseUrl));
 
@@ -49,7 +49,7 @@ class LocationController extends GetxController{
   Future<void> fetchDropSuggestions(String input) async {
     isLoadingDrop(true);
     final String baseUrl =
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&components=country:BD&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g&sessiontoken=1234567890";
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&components=country:BD&key=AIzaSyDhzY2k-tIrpnoBut75TTDJTuE1kURA_fU&sessiontoken=1234567890";
 
     final response = await http.get(Uri.parse(baseUrl));
 
@@ -76,7 +76,7 @@ class LocationController extends GetxController{
 
     final String placeId = suggestion.placeId;
     final String detailsUrl =
-        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry,address_components&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g";
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry,address_components&key=AIzaSyDhzY2k-tIrpnoBut75TTDJTuE1kURA_fU";
 
     final response = await http.get(Uri.parse(detailsUrl));
     isLoading(true);
@@ -114,7 +114,7 @@ class LocationController extends GetxController{
 
     final String placeId = suggestion.placeId;
     final String detailsUrl =
-        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry,address_components&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g";
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry,address_components&key=AIzaSyDhzY2k-tIrpnoBut75TTDJTuE1kURA_fU";
 
     final response = await http.get(Uri.parse(detailsUrl));
     isLoading(true);

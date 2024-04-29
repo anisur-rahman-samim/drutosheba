@@ -54,6 +54,50 @@ class TripStartEndController extends GetxController{
     }
   }
 
+  ///Return Trip Start
+  Future returnTripStart({
+    required String tripId,
+    required String otp,
+
+
+  }) async {
+    try {
+      isLoading(true);
+
+      var map = <String, dynamic>{};
+      map['trip_id'] = tripId;
+      map['otp'] = otp;
+
+
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.returnTripStarted,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          confirmTripController.getConfirmedTrip();
+          kSnackBar(message: "Trip Start Successfully", bgColor: Colors.green);
+          Get.to(() => DashboardView(),transition: Transition.circularReveal);
+
+
+        }else{
+          kSnackBar(message: "Trip Start Unsuccessfully", bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
+
   ///Trip Complete
   Future completeTrip({
     required String tripId,
@@ -78,6 +122,89 @@ class TripStartEndController extends GetxController{
         if(responseBody['status'] == "success"){
           confirmTripController.getConfirmedTrip();
           kSnackBar(message: "Trip Completed Successfully", bgColor: Colors.green);
+          Get.to(() => DashboardView(),transition: Transition.circularReveal);
+
+
+        }else{
+          kSnackBar(message: responseBody['message'], bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  ///return Trip Complete
+  Future returnCompleteTrip({
+    required String tripId,
+
+
+  }) async {
+    try {
+      isLoading(true);
+
+      var map = <String, dynamic>{};
+      map['trip_id'] = tripId;
+
+
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.returnTripCompleted,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          confirmTripController.getConfirmedTrip();
+          kSnackBar(message: "Trip Completed Successfully", bgColor: Colors.green);
+          Get.to(() => DashboardView(),transition: Transition.circularReveal);
+
+
+        }else{
+          kSnackBar(message: responseBody['message'], bgColor: Colors.red);
+        }
+
+        isLoading(false);
+      } else {
+        throw 'Failed!';
+      }
+    } catch (e) {
+      kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
+  ///return Trip Cancel
+  Future returnCancelTrip({
+    required String tripId,
+
+
+  }) async {
+    try {
+      isLoading(true);
+
+      var map = <String, dynamic>{};
+      map['trip_id'] = tripId;
+
+
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.postRequest(
+          api: Api.returnTripCancelled,
+          body: map,
+        ),
+      );
+
+      if (responseBody != null) {
+        if(responseBody['status'] == "success"){
+          confirmTripController.getConfirmedTrip();
+          kSnackBar(message: "Trip Cancelled Successfully", bgColor: Colors.green);
           Get.to(() => DashboardView(),transition: Transition.circularReveal);
 
 

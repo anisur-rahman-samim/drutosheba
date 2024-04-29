@@ -35,7 +35,7 @@ class Api{
   static const driverAdd = "$baseUrl/partner/driver-add"; // done
   static const driverUpdate = "$baseUrl/partner/driver-update";
   static const driverDelete = "$baseUrl/partner/driver-delete"; // done
-  static const driverAssaign = "$baseUrl/partner/assign"; // working
+  static const driverAssaign = "$baseUrl/partner/assign"; // done
 
   ///Penalty and Balance
   static const credit = "$baseUrl/partner/credit"; // done
@@ -50,15 +50,20 @@ class Api{
   ///Return Trip
   static const returnTripSubmit = "$baseUrl/partner/return-trip-submit"; //done
   static const returnTripBids = "$baseUrl/partner/return-trip-bids"; // done
+  static const returnTripBidsDetails = "$baseUrl/partner/return-trip-bid"; // done
   static const returnTripList = "$baseUrl/partner/return-trip-lists"; // done
   static const returnTripConfirm = "$baseUrl/partner/return-trip-confirm"; // done
+  static const returnTripStarted = "$baseUrl/partner/return-trip-started"; //
+  static const returnTripCancelled = "$baseUrl/partner/return-trip-cancelled"; //
+  static const returnTripCompleted = "$baseUrl/partner/return-trip-completed"; //
 
   ///Vehicle
   static const vehicles = "$baseUrl/partner/vehicles"; // done
+  static  vehiclesByBrand(id) => "$baseUrl/partner/brand-vehicle?brand=$id"; // done
   static const vehicleManage = "$baseUrl/partner/vehicle-manage"; // done
   static const fuelTypes = "$baseUrl/partner/fueltypes"; // done
   static const vehicleAdd = "$baseUrl/partner/vehicle-add"; //done
-  static const returnTripCompleted = "$baseUrl/partner/return-trip-completed"; // done
+  //static const returnTripCompleted = "$baseUrl/partner/return-trip-completed"; // done
   static const metroList = "$baseUrl/partner/metro-list"; // done
   static const metroSubList = "$baseUrl/partner/metro-sub-list"; // done
   static const vehicleDelete = "$baseUrl/partner/vehicle-delete"; // done
@@ -72,5 +77,7 @@ class Api{
   static const help = "$baseUrl/partner/help";
   static const passwordChange = "$baseUrl/partner/password-change";
   static const banner = "$baseUrl/partner/sliders";
+  static const notification = "$baseUrl/partner/notification";
+  static const notificationDelete = "$baseUrl/partner/notifcation/delete-all";
 
 }

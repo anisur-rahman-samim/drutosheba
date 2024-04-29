@@ -1,10 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:druto_seba_driver/src/components/trip/opekhomanBidComponent.dart';
 import 'package:druto_seba_driver/src/components/trip/tripVivoroniComponent.dart';
 import 'package:druto_seba_driver/src/components/trip/trip_time_count.dart';
 import 'package:druto_seba_driver/src/modules/trip/controller/waiting_bid_trip_controller.dart';
+import 'package:druto_seba_driver/src/services/notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:get/get.dart';
+import 'package:vibration/vibration.dart';
 
 import '../home/homePage.dart';
 import '../trip/tripHistoryPage.dart';
@@ -22,7 +28,6 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState
     extends State<DashboardView> {
-
   int _selectedItemPosition = 0;
 
 

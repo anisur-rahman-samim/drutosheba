@@ -13,7 +13,7 @@ class _AddressAutocompleteState extends State<AddressAutocomplete> {
 
   Future<void> _fetchSuggestions(String input) async {
     final String baseUrl =
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&components=country:BD&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g&sessiontoken=1234567890";
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&components=country:BD&key=AIzaSyDhzY2k-tIrpnoBut75TTDJTuE1kURA_fU&sessiontoken=1234567890";
 
     final response = await http.get(Uri.parse(baseUrl));
 
@@ -37,7 +37,7 @@ class _AddressAutocompleteState extends State<AddressAutocomplete> {
   void _selectAddress(Suggestion suggestion) async {
     final String placeId = suggestion.placeId;
     final String detailsUrl =
-        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry,address_components&key=AIzaSyAWzHqWnafr5A4-JbGV4B5kpKgP55TXu4g";
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry,address_components&key=AIzaSyDhzY2k-tIrpnoBut75TTDJTuE1kURA_fU";
 
     final response = await http.get(Uri.parse(detailsUrl));
 

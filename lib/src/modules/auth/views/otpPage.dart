@@ -176,7 +176,8 @@ class _OtpPageState extends State<OtpPage> {
 class OtpForm extends StatefulWidget {
   final controller;
 
-  const OtpForm({super.key, required this.controller});
+
+  const OtpForm({super.key, required this.controller,});
   @override
   _OtpFormState createState() => _OtpFormState();
 
@@ -222,7 +223,7 @@ class _OtpFormState extends State<OtpForm> {
         androidSmsAutofillMethod:
         AndroidSmsAutofillMethod.smsUserConsentApi,
         listenForMultipleSmsOnAndroid: true,
-        length: length,
+        length: int.parse(length.toString()),
         controller: widget.controller,
         focusNode: focusNode,
         defaultPinTheme: defaultPinTheme,

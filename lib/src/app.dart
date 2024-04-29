@@ -11,6 +11,7 @@ import 'modules/welcome/views/welcome_views.dart';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       localizationsDelegates: [

@@ -53,6 +53,8 @@ class ReturnTripController extends GetxController{
   Future returnTripRequest({
     required String pickupDivision,
     required String dropoffDivision,
+    required String assigned_vehicle_id,
+    required String assigned_driver_id,
     required String location,
     required String destination,
     required String amount,
@@ -67,6 +69,8 @@ class ReturnTripController extends GetxController{
       map['pickup_division'] = pickupDivision;
       map['dropoff_division'] = dropoffDivision;
       map['location'] = location;
+      map['assigned_vehicle_id'] = assigned_vehicle_id;
+      map['assigned_driver_id'] = assigned_driver_id;
       map['destination'] = destination;
       map['amount'] = amount;
       map['timedate'] = timedate;

@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
             ),*/
            Obx(() =>  CarouselSlider(
              options: CarouselOptions(
-               height: 200.0,
+               height: 150.0,
                aspectRatio: 16 / 9,
                autoPlay: true,
                autoPlayInterval: Duration(seconds: 3),
@@ -218,11 +218,16 @@ class _HomePageState extends State<HomePage> {
                      width: MediaQuery.of(context).size.width,
                      margin: EdgeInsets.symmetric(horizontal: 5.0),
                      decoration: BoxDecoration(
-                       color: Colors.grey,
+                       
+                       color: Colors.white,
+                       borderRadius: BorderRadius.circular(10)
                      ),
-                     child: Image.network(
-                      Api.getImageURL( imageUrl),
-                       fit: BoxFit.cover,
+                     child: ClipRRect(
+                         borderRadius: BorderRadius.circular(10),
+                       child: Image.network(
+                        Api.getImageURL( imageUrl),
+                         fit: BoxFit.cover,
+                       ),
                      ),
                    );
                  },

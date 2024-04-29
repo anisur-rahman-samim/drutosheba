@@ -10,12 +10,14 @@ import '../../../../configs/appColors.dart';
 import '../../../../configs/appUtils.dart';
 import '../../../../widgets/card/customCardWidget.dart';
 import '../../../../widgets/text/kText.dart';
+import '../../controller/fare_bid_details_controller.dart';
 import 'fares_details_view.dart';
 
 class FaresView extends StatelessWidget {
   final String tripId;
    FaresView({super.key, required this.tripId});
 final FareTripController fareTripController = Get.put(FareTripController());
+final FareBidDetailsController fareBidDetailsController = Get.put(FareBidDetailsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,7 +150,9 @@ final FareTripController fareTripController = Get.put(FareTripController());
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: CustomCardWidget(
-                            onTap: () => Get.to(() => FaresDetailsView(fareTrip: item, dateTimeData: tripDateTime,tripId:tripId),transition: Transition.circularReveal),
+                            onTap: () {
+                              fareBidDetailsController.getFareBidDetails(tripId: tripId, bidId: item.id.toString(), date: tripDateTime);
+                            },
                             radius: 30,
                             color: greyBackgroundColor,
                             isPaddingHide: true,

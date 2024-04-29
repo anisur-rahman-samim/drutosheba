@@ -3,10 +3,14 @@ import 'package:druto_seba_driver/src/network/api/api.dart';
 import 'package:druto_seba_driver/src/network/base_client/base_client.dart';
 import 'package:get/get.dart';
 
+import '../model/vehicles_by_id.dart';
+
 class VehiclesBrandController extends GetxController{
   var isLoading = false.obs;
   var vehiclesBrand = VehiclesBrandModel(data: []).obs;
+  var vehiclesByBrand = VehicleByIdModel(data: []).obs;
   var vehiclesBrandList = <Datum>[].obs;
+  var vehiclesByBrandList = <VehicleCar>[].obs;
 
   @override
   void onInit() {
@@ -25,6 +29,29 @@ class VehiclesBrandController extends GetxController{
         vehiclesBrandList.clear();
         vehiclesBrand.value = VehiclesBrandModel.fromJson(responseBody);
         vehiclesBrandList.addAll(vehiclesBrand.value.data);
+        isLoading(false);
+
+      } else {
+        throw 'Unable to load data!';
+      }
+    } catch (e) {
+      print(e);
+      //  kSnackBar(message: e.toString(), bgColor: Colors.red);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  void getVehiclesByBrandId({required id}) async {
+    try {
+      isLoading(true);
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.getRequest(api: Api.vehiclesByBrand(id)),
+      );
+      if (responseBody != null) {
+        vehiclesByBrandList.clear();
+        vehiclesByBrand.value = VehicleByIdModel.fromJson(responseBody);
+        vehiclesByBrandList.addAll(vehiclesByBrand.value.data);
         isLoading(false);
 
       } else {

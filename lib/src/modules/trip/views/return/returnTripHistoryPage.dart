@@ -81,33 +81,59 @@ class ReturnTripHistoryPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                child: CustomCardWidget(
-                                  onTap: () {
-                                    fareTripController.fareTripRequest(tripId: item.id.toString());
-                                  },
-                                  radius: 30,
-                                  color: greyBackgroundColor,
-                                  isPaddingHide: true,
-                                  child: Row(
-                                    children: [
-                                      sizeW10,
-                                      Icon(
-                                        Icons.monetization_on,
-                                        size: 20,
-                                        color: black,
-                                      ),
-                                      sizeW5,
-                                      KText(
-                                        text: 'ফেয়ার',
-                                        fontSize: 14,
-                                      ),
-                                      sizeW10,
-                                    ],
-                                  ),
-                                ),
-                              ),
+                             Column(
+                               children: [
+                                 Padding(
+                                   padding: EdgeInsets.symmetric(vertical: 10),
+                                   child: CustomCardWidget(
+                                     onTap: () {
+                                       fareTripController.fareTripRequest(tripId: item.id.toString());
+                                     },
+                                     radius: 30,
+                                     color: greyBackgroundColor,
+                                     isPaddingHide: true,
+                                     child: Row(
+                                       children: [
+                                         sizeW10,
+                                         Icon(
+                                           Icons.monetization_on,
+                                           size: 20,
+                                           color: black,
+                                         ),
+                                         sizeW5,
+                                         KText(
+                                           text: 'ফেয়ার',
+                                           fontSize: 14,
+                                         ),
+                                         sizeW10,
+                                       ],
+                                     ),
+                                   ),
+                                 ),
+                               //  SizedBox(height: 5,),
+                                Padding(
+                                   padding: EdgeInsets.symmetric(vertical: 10),
+                                   child: CustomCardWidget(
+                                     /*onTap: () {
+                                       fareTripController.fareTripRequest(tripId: item.id.toString());
+                                     },*/
+                                     radius: 30,
+                                     color: greyBackgroundColor,
+                                     isPaddingHide: true,
+                                     child:  item.status == 1 && item.biding == 0? KText(
+                                       text: 'Confirmed',
+                                       fontSize: 14,
+                                     ): item.status == 0 && item.biding == 0? KText(
+                                       text: 'Cancelled',
+                                       fontSize: 14,
+                                     ) : item.status == 0 && item.biding == 1? KText(
+                                       text: 'On Going/Hold',
+                                       fontSize: 14,
+                                     ): Text(""),
+                                   ),
+                                 ),
+                               ],
+                             )
                             ],
                           ),
                           Row(

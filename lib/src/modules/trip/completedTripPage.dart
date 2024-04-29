@@ -489,7 +489,7 @@ class _CompletedTripPageState extends State<CompletedTripPage> {
                                   child: InkWell(
                                       onTap: () {
                                         _speak(
-                                            "পিকআপ লোকেশন,${item.getTripDetails?..pickupLocation},ড্রপ লোকেশন, ${item.getTripDetails?.dropoffLocation}");
+                                            "পিকআপ লোকেশন,${item.getTripDetails?.pickupLocation},ড্রপ লোকেশন, ${item.getTripDetails?.dropoffLocation}");
                                       },
                                       child: Icon(
                                         Icons.volume_up_outlined,

@@ -1,6 +1,7 @@
 import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:vibration/vibration.dart';
 
 class NotificationPage extends StatelessWidget {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -18,6 +19,10 @@ class NotificationPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
+            Vibration.vibrate(
+              pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
+              intensities: [0, 128, 0, 255, 0, 64, 0, 255],
+            );
             await _showNotification();
           },
           child: Text('Show Notification'),
