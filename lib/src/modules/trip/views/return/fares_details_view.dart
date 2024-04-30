@@ -154,10 +154,7 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                       sizeH5,
                       /*Divider(),
                   sizeH5,
-                  rawText(
-                    title: 'যাওয়া-আসা',
-                    content: 'হাঁ',
-                  ),
+
                   sizeH5,
                   Divider(),
                   sizeH5,
@@ -331,6 +328,30 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                           ),
                         ],
                       ),
+                      sizeH10,
+                      fareBidDetailsController.fireBidDetails.value.data?.status == 1
+                          ?   Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text("কাস্টমার ইনফরমেশন:",style: h2,),
+                         sizeH5,
+                         rawText(
+                           title: 'নাম: ',
+                           content: '${fareBidDetailsController.fireBidDetails.value.data?.customer?.name}',
+                         ),
+                         sizeH5,
+                         rawText(
+                           title: 'মোবাইল নম্বর: ',
+                           content: '${fareBidDetailsController.fireBidDetails.value.data?.customer?.phone}',
+                         ),
+                         sizeH5,
+                         rawText(
+                           title: 'ইমেইল: ',
+                           content: '${fareBidDetailsController.fireBidDetails.value.data?.customer?.email}',
+                         ),
+                       ],
+                     ): SizedBox.shrink(),
+
                       SizedBox(
                         height: 20,
                       ),
@@ -495,7 +516,15 @@ class _FaresDetailsViewState extends State<FaresDetailsView> {
                                     ),
                   
                       SizedBox(height: 20,),
-                      InkWell(
+                     fareBidDetailsController
+                          .fireBidDetails.value.data?.status ==
+                          1 && fareBidDetailsController.fireBidDetails.value.data
+                          ?.isConfirm ==
+                          1 &&
+                          fareBidDetailsController
+                              .fireBidDetails.value.data?.otp ==
+                              1
+                          ? SizedBox() : InkWell(
                         onTap: (){
                           tripStartEndController.returnCancelTrip(tripId: widget.tripId.toString());
                         },

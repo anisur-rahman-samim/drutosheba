@@ -33,6 +33,7 @@ class Data {
     required this.updatedAt,
     required this.otp,
     required this.isConfirm,
+    required this.customer,
   });
 
   final int? id;
@@ -50,6 +51,7 @@ class Data {
   final DateTime? updatedAt;
   final int? otp;
   final int? isConfirm;
+  final Customer? customer;
 
   factory Data.fromJson(Map<String, dynamic> json){
     return Data(
@@ -68,6 +70,67 @@ class Data {
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
       otp: json["otp"],
       isConfirm: json["is_confirm"],
+      customer: json["customer"] == null ? null : Customer.fromJson(json["customer"]),
+    );
+  }
+
+}
+
+class Customer {
+  Customer({
+    required this.id,
+    required this.name,
+    required this.phone,
+    required this.email,
+    required this.birthday,
+    required this.gender,
+    required this.district,
+    required this.address,
+    required this.image,
+    required this.verify,
+    required this.expireAt,
+    required this.forgotCode,
+    required this.status,
+    required this.deviceToken,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final int? id;
+  final String? name;
+  final String? phone;
+  final String? email;
+  final String? birthday;
+  final String? gender;
+  final dynamic district;
+  final String? address;
+  final dynamic image;
+  final String? verify;
+  final DateTime? expireAt;
+  final dynamic forgotCode;
+  final int? status;
+  final dynamic deviceToken;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  factory Customer.fromJson(Map<String, dynamic> json){
+    return Customer(
+      id: json["id"],
+      name: json["name"],
+      phone: json["phone"],
+      email: json["email"],
+      birthday: json["birthday"],
+      gender: json["gender"],
+      district: json["district"],
+      address: json["address"],
+      image: json["image"],
+      verify: json["verify"],
+      expireAt: DateTime.tryParse(json["expire_at"] ?? ""),
+      forgotCode: json["forgot_code"],
+      status: json["status"],
+      deviceToken: json["device_token"],
+      createdAt: DateTime.tryParse(json["created_at"] ?? ""),
+      updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
     );
   }
 
