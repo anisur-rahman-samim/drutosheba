@@ -9,6 +9,7 @@ import 'package:druto_seba_driver/src/services/text_styles.dart';
 import 'package:druto_seba_driver/src/widgets/bottomSheet/customBottomSheet.dart';
 import 'package:druto_seba_driver/src/widgets/loader/custom_loader.dart';
 import 'package:druto_seba_driver/src/widgets/loader/no_data.dart';
+import 'package:druto_seba_driver/src/widgets/snack_bar/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -81,7 +82,11 @@ class _TripVivoroniComponentState extends State<TripVivoroniComponent> {
                       padding: EdgeInsets.only(bottom: 10),
                       child: InkWell(
                         onTap: (){
-                          Get.to(() => TripVivoroniDetails(confirmedTrips: confirmTripController.confirmTripList[index]));
+                          if(confirmTripController.confirmTripList[index].assignedDriverId == null ){
+                            kSnackBar(message: "Please Select Driver", bgColor: Colors.red);
+                          }else{
+                            Get.to(() => TripVivoroniDetails(confirmedTrips: confirmTripController.confirmTripList[index]));
+                          }
                         },
                         child: CustomCardWidget(
                           color: white,
